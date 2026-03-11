@@ -1,5 +1,7 @@
 from models.ubs import Ubs
 from models.address import Address
+from models.email import Email
+from models.telefone import Telefone
 from models.pessoa import Pessoa
 
 addr1 = Address("63041-050", "Ceara", "Juazeiro", "triangulo", "Clotilde Noroes Mota", 235)
@@ -8,12 +10,18 @@ ubs1 = Ubs("Triangulo", addr1)
 
 ubs1.details_Ubs()
 
-pessoa = Pessoa(11665401389, 'Alana', 1)
+pessoa = Pessoa(12345678900, 'Alana', 1)
 
-pessoa.adicionar_email('alanaclara@gmail.com')
-pessoa.adicionar_email('alana.silva@gmail.com')
+email1 = Email("alanaclara@gmail.com", "cidadão", 12345678900)
+email2 = Email("alana.silva@gmail.com", "médico", 12345678900)
 
-pessoa.adicionar_telefone(11999999999)
-pessoa.adicionar_telefone(88999132393)
+pessoa.adicionar_email(email1)
+pessoa.adicionar_email(email2)
+
+telefone1 = Telefone(11999999999, "cidadão", 12345678900)
+telefone2 = Telefone(88922222222, "médico", 12345678900)
+
+pessoa.adicionar_telefone(telefone1)
+pessoa.adicionar_telefone(telefone2)
 
 pessoa.exibir()
