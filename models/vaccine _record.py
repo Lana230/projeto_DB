@@ -1,6 +1,6 @@
 # from citizen import Citizen (cidadao)
 #from nurse import Nurse (enfermeiro)
-from vaccine import Vaccine
+from models.vaccine import Vaccine
 
 class Vaccine_record:
     def __init__(self, Citizen, Vaccine, Nurse, Ubs, data):

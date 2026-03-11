@@ -1,4 +1,4 @@
-from address import Address
+from models.address import Address
 
 class Ubs:
     def __init__(self, name, address):

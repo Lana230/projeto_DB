@@ -1,7 +1,7 @@
 #importacion
 #from citizen import Citizen(cidadao)
 #from doctor import Doctor(medico)
-from ubs import Ubs
+from models.ubs import Ubs
 from datetime import date
 
 #class
