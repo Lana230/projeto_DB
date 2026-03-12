@@ -1,5 +1,10 @@
 from models.pessoa import Pessoa
 from models.address import Address
+from enum import Enum
+
+class Genero(Enum):
+  FEMININO = 'F'
+  MASCULINO = 'M'
 
 class Cidadao(Pessoa):
   def __init__(self, cpf, nome, id_ubs, sus, data_nascimento, genero, naturalidade, address):
@@ -10,3 +15,10 @@ class Cidadao(Pessoa):
     self.naturalidade = naturalidade
     self.address = address
 
+  def exibir(self):
+    super().exibir()
+    print(f"SUS: {self.sus}")
+    print(f"Data de Nascimento: {self.data_nascimento}")
+    print(f"Gênero: {self.genero}")
+    print(f"Naturalidade: {self.naturalidade}")
+    self.address.show_address()

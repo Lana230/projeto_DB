@@ -1,3 +1,10 @@
+from enum import Enum
+
+class Tipo(Enum):
+  CIDADAO = "Cidadão"
+  MEDICO = "Médico"
+  ENFERMEIRO = "Enfermeiro"
+
 class Email:
   def __init__(self, email, tipo, cpf_pessoa):
     self.email = email
