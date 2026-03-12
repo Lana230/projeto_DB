@@ -7,23 +7,26 @@ class Type_exam(Enum):
     EXAM_CARD = "Exames cardiológicos"
     EXAM_PREV = "Exames preventivos"
 
-def Exam_from_number(num):
-    mapping = {
-        1: Type_exam.EXAM_LAB,
-        2: Type_exam.EXAM_IMA,
-        3: Type_exam.EXAM_CARD,
-        4: Type_exam.EXAM_PREV
-    }
-    return mapping.get(num)
+class Status_exam(Enum):
+    REQUESTED = "Solicitado"
+    SCHEDULED = "Agendado"
+    IN_PROGRESS = "Em andamento"
+    DONE = "Realizado"
+    CANCELED = "Cancelado"
 
 class Exam:
-    def __init__(self, Appointment, name_exam, type_num , degree_urgency):
-        self.Appointment = Appointment
+    def __init__(self, appointment, name_exam, type_exam , degree_urgency, status_exam):
+        self.Appointment = appointment
         self.name_exam = name_exam
-        self.type = Exam_from_number(type_num)
+        self.type = type_exam
+        self.status = status_exam
         self.degree_urgency = degree_urgency
 
-
-
-
+    def details_exam(self):
+        print(f"Exame: {self.name_exam} || Tipo: {self.type.value}")
+        print("Grau de Urgencia: ", self.degree_urgency)
+        print("Estado: ", self.status.value)
+        if(self.status.value == Status_exam.SCHEDULED.value):
+            print("Data: ")
+    
 

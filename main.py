@@ -3,6 +3,7 @@ from models.address import Address
 from models.email import Email
 from models.telefone import Telefone
 from models.pessoa import Pessoa
+from models.exam import Type_exam, Exam
 
 addr1 = Address("63041-050", "Ceara", "Juazeiro", "triangulo", "Clotilde Noroes Mota", 235)
 
@@ -25,3 +26,6 @@ pessoa.adicionar_telefone(telefone1)
 pessoa.adicionar_telefone(telefone2)
 
 pessoa.exibir()
+
+print(Type_exam.EXAM_CARD.value)
+
