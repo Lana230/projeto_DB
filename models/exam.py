@@ -1,4 +1,3 @@
-from models.appointment import Appointment
 from enum import Enum
 
 class Type_exam(Enum):

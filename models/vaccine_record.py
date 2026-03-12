@@ -1,6 +1,6 @@
-from cidadao import Cidadao
+from models.cidadao import Cidadao
 #from nurse import Nurse (enfermeiro)
-from models.vaccine import Vaccine
+#from models.vaccine import Vaccine
 
 class Vaccine_record:
     def __init__(self, Cidadao, Vaccine, Nurse, Ubs, data):

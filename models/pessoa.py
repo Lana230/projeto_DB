@@ -10,21 +10,31 @@ class Pessoa:
     self.emails.append(email)
 
   def exibir_emails(self):
-    print("Emails")
+    print("--- Emails ---")
     for email in self.emails:
       print(f"Email: {email.email}")
+    print("----------------")
 
   def adicionar_telefone(self, telefone):
     self.telefones.append(telefone)
 
   def exibir_telefones(self):
-    print("Telefones")
+    print("--- Telefones ---")
     for telefone in self.telefones:
       print(f"Telefone:{telefone.numero}")
+    print("----------------")
 
   def exibir(self):
+    print("--- Pessoa: ---")
     print(f"Nome: {self.nome}")
     print(f"CPF: {self.cpf}")
+    print()
+    
     self.exibir_emails()
+    print()
+    
     self.exibir_telefones()
+    print()
+    
     print(f"ID da UBS: {self.id_ubs}")
+    print("----------------\n")
