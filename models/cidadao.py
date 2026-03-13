@@ -14,6 +14,10 @@ class Cidadao(Pessoa):
     self.genero = genero
     self.naturalidade = naturalidade
     self.address = address
+    #deve adicionar listas para exames ligados ao cidadao?
+    #suas consultas?
+    #seus agendamentos?
+    #e seus medicamentos?
 
   def exibir(self):
     super().exibir()

@@ -1,36 +1,49 @@
 #importacion
-from models.cidadao import Cidadao
-#from doctor import Doctor(medico)
-from models.exam import Exam
 from models.ubs import Ubs
+from models.cidadao import Cidadao
+from models.medico import Medico
+from models.exam import Exam
+from models.medication import Medication
 from datetime import date
 
 #class
 class Appointment:
-    def __init__(self, Cidadao, Doctor, Ubs, data, reason, conclusion):
-        self.cidadao = Cidadao
-        self.doctor = Doctor
+    def __init__(self, cidadao, medico, Ubs, data, reason, hypothesis):
+        self.citizen = cidadao
+        self.doctor = medico
         self.Ubs = Ubs
         self.data = data
-        self.reason = reason
-        self.conclusion = conclusion
-        self.exam = []
+        self.reason = reason #subjetivo
+        self.hypothesis = hypothesis #avaliacao
+        self.exam = [] #objetivo
+        self.medication = []
 
     def add_exam(self, exam):
         self.exam.append(exam)
-
-    def show_exams(self):
+    
+    def show_exams_names(self):
         for exam in self.exam:
-            exam.details_exam()
+            print(f"- {exam.name_exam} || {exam.type}")
+    
+    def add_medication(self, medication):
+        self.medication.append(medication)
 
-    def details_appoi(self):
-        print("\n--- Consulta ---")
+    def show_medication(self):
+        for medication in self.medication:
+            medication.details_medication()
+
+    def reg_appointment(self):
+        print("\n--- Informacoes Gerais ---")
         print("UBS: ", self.Ubs.name)
-        print(f"Paciente: {self.cidadao.nome} || Numero do Sus: {self.cidadao.sus}") #adicione aqui a ligacao com cidadao
-        print(f"Medico: {self.Doctor.name} || Numero do CRM: {self.Doctor.crm}") #adicione aqui a ligacao com medico
-        print("Data: ", self.data.strtime("%d/%m/%Y"))
+        print("Data: ", self.data.strftime("%d/%m/%Y"))
+        print("\n--- Dados do Paciente ---")
+        self.citizen.exibir()
+        print("\n--- Dados do Medico Responsavel ---")
+        print(f"Medico: {self.doctor.name} || Numero do CRM: {self.doctor.crm}")
         print("Motivo: ", self.reason)
-        print("Conclusao ", self.conclusion)
+        print("Conclusao ", self.hypothesis)
         print("\n--- Exames ---")
-        self.show_exams()
+        self.show_exams_names()
+        print("\n--- Medicamentos ---")
+        self.show_medication()
         print("----------------\n")
