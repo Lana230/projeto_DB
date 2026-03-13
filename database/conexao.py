@@ -3,13 +3,16 @@ import sqlite3
 
 caminho = "./database/banco.db"
 
-conexao = sqlite3.connect(caminho)
+def conection():
+    return sqlite3.connect(caminho)
 
-cursor = conexao.cursor()
+con = conection()
+
+cursor = con.cursor()
 
 cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 print(cursor.fetchall())
 
-conexao.commit()
+con.commit()
 
-conexao.close()
+con.close()

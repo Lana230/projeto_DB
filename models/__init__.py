@@ -15,3 +15,5 @@ from .telefone import Telefone
 from .ubs import Ubs
 from .vaccine_record import Vaccine_record
 from .vaccine import Vaccine
+from .medication import Medication
+from .hypothesis import Hypothesis
