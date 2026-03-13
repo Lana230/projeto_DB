@@ -21,7 +21,7 @@ class Pessoa:
   def exibir_telefones(self):
     print("--- Telefones ---")
     for telefone in self.telefones:
-      print(f"Telefone:{telefone.numero}")
+      print(f"Telefone:{telefone.num_telefone}")
     print("----------------")
 
   def exibir(self):

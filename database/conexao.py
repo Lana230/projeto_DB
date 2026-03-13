@@ -1,7 +1,7 @@
 #Testando conexão com o banco de dados
 import sqlite3
 
-caminho = "./database/banco.db"
+caminho = "./database/ubs_teste.db"
 
 def conection():
     return sqlite3.connect(caminho)

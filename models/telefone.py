@@ -1,6 +1,6 @@
 class Telefone:
-  def __init__(self, numero, tipo, cpf_pessoa):
-    self.numero = numero
+  def __init__(self, num_telefone, tipo, cpf_pessoa):
+    self.num_telefone = num_telefone
     self.tipo = tipo
     self.cpf_pessoa = cpf_pessoa
 
