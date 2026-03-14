@@ -1,3 +1,5 @@
+DROP TABLE anamnese;
+
 CREATE TABLE anamnese (
     id_anamnese INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
@@ -9,6 +11,8 @@ CREATE TABLE anamnese (
     FOREIGN KEY (num_sus) REFERENCES cidadao (num_sus),
     FOREIGN KEY (id_consulta) REFERENCES consulta (id_consulta)
 );
+
+DROP TABLE cidadao;
 
 CREATE TABLE cidadao (
     num_sus INTEGER PRIMARY KEY NOT NULL,
@@ -23,6 +27,8 @@ CREATE TABLE cidadao (
     UNIQUE (cpf_pessoa)
 );
 
+DROP TABLE consulta;
+
 CREATE TABLE consulta (
     id_consulta INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
@@ -36,6 +42,8 @@ CREATE TABLE consulta (
     FOREIGN KEY (crm) REFERENCES medico(crm),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
+
+DROP TABLE email;
 
 CREATE TABLE email (
     id_email INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -52,6 +60,8 @@ CREATE TABLE email (
     )
 );
 
+DROP TABLE endereco;
+
 CREATE TABLE endereco (
     id_endereco INTEGER PRIMARY KEY AUTOINCREMENT,
     rua TEXT NOT NULL,
@@ -64,6 +74,8 @@ CREATE TABLE endereco (
     UNIQUE (rua, numero, bairro, cidade, cep)
 );
 
+DROP TABLE enfermeiro;
+
 CREATE TABLE enfermeiro (
     cip TEXT PRIMARY KEY,
     cpf_pessoa TEXT NOT NULL,
@@ -71,6 +83,8 @@ CREATE TABLE enfermeiro (
     FOREIGN KEY (cpf_pessoa) REFERENCES pessoa(cpf_pessoa)
     UNIQUE (cpf_pessoa)
 );
+
+DROP TABLE exame;
 
 CREATE TABLE exame (
     id_exame INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -82,6 +96,8 @@ CREATE TABLE exame (
 
     FOREIGN KEY (id_consulta) REFERENCES consulta(id_consulta)
 );
+
+DROP TABLE fila;
 
 CREATE TABLE fila (
     id_fila INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -98,6 +114,8 @@ CREATE TABLE fila (
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
 
+DROP TABLE medico;
+
 CREATE TABLE medico (
     crm INTEGER PRIMARY KEY,
     especialidade TEXT NOT NULL,
@@ -107,6 +125,8 @@ CREATE TABLE medico (
     UNIQUE (cpf_pessoa)
 );
 
+DROP TABLE pessoa;
+
 CREATE TABLE pessoa (
     cpf_pessoa TEXT PRIMARY KEY CHECK (length(cpf_pessoa) = 11),
     nome TEXT NOT NULL,
@@ -114,6 +134,8 @@ CREATE TABLE pessoa (
 
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
+
+DROP TABLE reg_vacina;
 
 CREATE TABLE reg_vacina (
     id_reg_vacina INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -130,6 +152,8 @@ CREATE TABLE reg_vacina (
     UNIQUE (num_sus, data_vacina)
 );
 
+DROP TABLE telefone;
+
 CREATE TABLE telefone (
     id_tel INTEGER PRIMARY KEY AUTOINCREMENT,
     num_telefone TEXT NOT NULL,
@@ -145,6 +169,8 @@ CREATE TABLE telefone (
     )
 );
 
+DROP TABLE ubs;
+
 CREATE TABLE ubs (
     id_ubs INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
@@ -152,6 +178,8 @@ CREATE TABLE ubs (
 
     FOREIGN KEY (id_endereco) REFERENCES endereco(id_endereco)
 );
+
+DROP TABLE vacina;
 
 CREATE TABLE vacina (
     id_vacina INTEGER PRIMARY KEY AUTOINCREMENT,
