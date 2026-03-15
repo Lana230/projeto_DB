@@ -25,6 +25,9 @@ class Exam:
         self.type = type_exam
         self.status = status_exam
         self.degree_urgency = degree_urgency
+        
+    def add_id(self, id_exam):
+        self.id_exam = id_exam
 
     def add_data(self, data):
         self.data = data

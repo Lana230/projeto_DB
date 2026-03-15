@@ -1,14 +1,18 @@
 from models.cidadao import Cidadao
 from models.enfermeiro import Enfermeiro
 from models.vaccine import Vaccine
+from models.ubs import Ubs
 
 class Vaccine_record:
-    def __init__(self, cidadao, vaccine, enfermeiro, ubs, data):
+    def __init__(self, cidadao: Cidadao, vaccine: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
         self.citizen = cidadao 
         self.vaccine = vaccine
         self.nurse = enfermeiro
         self.ubs = ubs
         self.data = data
+        
+    def add_id(self, id_vaccine_record):
+        self.id_vaccine_record = id_vaccine_record
 
     def record(self):
         print("\n--- Registro de Vacina ---")

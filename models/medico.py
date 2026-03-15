@@ -1,8 +1,8 @@
-from models.pessoa import Pessoa
+from models.pessoa import *
 
 class Medico(Pessoa):
-    def __init__(self, cpf, nome, id_ubs, crm, especialidade):
-        super().__init__(cpf, nome, id_ubs)
+    def __init__(self, cpf, nome, ubs: Ubs, crm, especialidade):
+        super().__init__(cpf, nome, ubs)
         self.crm = crm
         self.especialidade = especialidade
     

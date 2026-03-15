@@ -7,8 +7,8 @@ from models.medication import Medication
 from models.hypothesis import Hypothesis
 from datetime import date
 
-from database.conexao import conection
-con = conection()
+from database.conexao import connection
+con = connection()
 cursor = con.cursor()
 
 #class
@@ -23,6 +23,9 @@ class Appointment:
         self.hypothesis = [] 
         self.exam = [] 
         self.medication = []
+    
+    def add_id(self, id_appointment):
+        self.id_appointment = id_appointment
 
     def add_hypothesis(self, hypothesis: Hypothesis):
         self.hypothesis.append(hypothesis)

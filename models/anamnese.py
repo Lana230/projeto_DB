@@ -1,7 +1,10 @@
+from models.cidadao import Cidadao
+from models.appointment import Appointment
+
 class Anamnese:
-    def __init__(self, sus, id_consulta, peso, altura, pressao_arterial):
-        self.sus = sus
-        self.id_consulta = id_consulta
+    def __init__(self, cidadao: Cidadao, appointment: Appointment, peso, altura, pressao_arterial):
+        self.cidadao = cidadao
+        self.appointment = appointment
         self.peso = peso
         self.altura = altura
         self.pressao_arterial = pressao_arterial

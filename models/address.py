@@ -6,6 +6,9 @@ class Address:
         self.neigh = neigh
         self.street = street
         self.number = number
+        
+    def add_id(self, id_address):
+        self.id_address = id_address
     
     def show_address(self):
         print("\n--- Endereço ---")

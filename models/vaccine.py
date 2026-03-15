@@ -5,6 +5,9 @@ class Vaccine:
         self.lote = lote
         self.prevents = prevents
         self.available_quan = available_quan
+    
+    def add_id(self, id_vaccine):
+        self.id_vaccine = id_vaccine
 
     def details_vaccine(self):
         print("Vacina: ", self.name)

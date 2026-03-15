@@ -1,4 +1,5 @@
 class Telefone:
+  #Depois vejo como corrijo cpf_pessoa para colocar o objeto
   def __init__(self, num_telefone, tipo, cpf_pessoa):
     self.num_telefone = num_telefone
     self.tipo = tipo
@@ -8,5 +9,5 @@ class Telefone:
     #para médico, cidadão ou enfermeiro
     #para indicar a que tipo de pessoa pertence
 
-  def adicionar_id_telefone(self, id_telefone):
+  def adicionar_id(self, id_telefone):
     self.id_telefone = id_telefone

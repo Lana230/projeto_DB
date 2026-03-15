@@ -1,10 +1,12 @@
+from models.ubs import Ubs
+
 class Pessoa:
-  def __init__(self, cpf, nome, id_ubs):
+  def __init__(self, cpf, nome, ubs: Ubs):
     self.cpf = cpf
     self.nome = nome
     self.emails = []
     self.telefones = []
-    self.id_ubs = id_ubs
+    self.ubs = ubs
 
   def adicionar_email(self, email):
     self.emails.append(email)
@@ -36,5 +38,5 @@ class Pessoa:
     self.exibir_telefones()
     print()
     
-    print(f"ID da UBS: {self.id_ubs}")
+    print(f"Nome da UBS: {self.ubs.name}")
     print("----------------\n")

@@ -6,6 +6,7 @@ class Tipo(Enum):
   ENFERMEIRO = "Enfermeiro"
 
 class Email:
+  #Depois vejo como corrijo cpf_pessoa para colocar o objeto
   def __init__(self, email, tipo, cpf_pessoa):
     self.email = email
     self.tipo = tipo
@@ -15,5 +16,5 @@ class Email:
     #para médico, cidadão ou enfermeiro
     #para indicar a que tipo de pessoa pertence
 
-  def adicionar_id_email(self, id_email):
+  def adicionar_id(self, id_email):
     self.id_email = id_email

@@ -7,7 +7,7 @@ ubs1 = Ubs("Triangulo", addr1)
 
 ubs1.details_Ubs()
 
-pessoa1 = Pessoa(12345678900, 'Alana', 1)
+pessoa1 = Pessoa(12345678900, 'Alana', ubs1)
 
 email1 = Email("alanaclara@gmail.com", Tipo.CIDADAO, 12345678900)
 email2 = Email("alana.silva@gmail.com", Tipo.MEDICO, 12345678900)
@@ -26,6 +26,7 @@ pessoa1.exibir()
 appointment1 = Appointment(pessoa1, None, ubs1, date.today(), "Consulta de rotina", "Paciente em bom estado de saúde")
 
 exam1 = Exam(appointment1, "Hemograma Completo", Type_exam.EXAM_LAB, "Baixa", Status_exam.SCHEDULED)
+exam1.add_data(date.today())
 exam1.details_exam()
 
 print(Type_exam.EXAM_CARD.value)

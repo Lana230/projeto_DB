@@ -3,16 +3,23 @@ import sqlite3
 
 caminho = "./database/ubs_teste.db"
 
-def conection():
+def connection():
     return sqlite3.connect(caminho)
 
-con = conection()
+def listar_tabelas():
+    #Cria a conexão com o banco de dados
+    con = connection()
 
-cursor = con.cursor()
+    #Cria um cursor para realizar comandos em SQL
+    cursor = con.cursor()
 
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-print(cursor.fetchall())
+    #Executa comandos em SQL
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
 
-con.commit()
+    #Obtém o resultado da consulta em um array
+    tabelas = cursor.fetchall()
 
-con.close()
+    #Encerra a conexão com o banco de dados
+    con.close()
+    
+    return tabelas
