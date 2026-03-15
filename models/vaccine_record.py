@@ -5,6 +5,7 @@ from models.ubs import Ubs
 
 class Vaccine_record:
     def __init__(self, cidadao: Cidadao, vaccine: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
+        self.id_vaccine_record = None
         self.citizen = cidadao 
         self.vaccine = vaccine
         self.nurse = enfermeiro

@@ -1,22 +1,30 @@
 from models.address import Address
 
 from database.conexao import connection
-
 con = connection()
 cursor = con.cursor()
 
 class Ubs:
     def __init__(self, name, address: Address):
+        self.id_ubs = None
         self.name = name
         self.address = address
-        
-    def add_id(self, id_ubs):
-        self.id_ubs = id_ubs
 
     def details_Ubs(self):
         print("\n--- UBS ---")
         print(f"Nome: {self.name}\n")
         self.address.show_address()
+
+    #SALVAR UBS DENTRO DO BANCO DE DADOS
+    def save_ubs_db(self):
+        cursor.execute(
+            "INSERT INTO ubs (nome, id_endereco) VALUE (?, ?)",
+            (self.name, self.address.id_address)
+        )
+
+        self.id_ubs = cursor.lastrowid
+
+    #JUNCAO DE UBS COM SEU ENDERECO
 
     #CONSULTAS DO BANCO DE DADOS
     def search_all():

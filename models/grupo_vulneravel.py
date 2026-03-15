@@ -1,3 +1,4 @@
+#adicionar enum do grupo
 class Grupo_vulneravel:
     def __init__(self, nome_grupo, peso_prioridade):
         self.nome_grupo = nome_grupo

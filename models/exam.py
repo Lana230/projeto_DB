@@ -1,4 +1,11 @@
+from .cidadao import Cidadao
+from .medico import Medico
+from .appointment import Appointment
 from enum import Enum
+
+from database.conexao import connection
+con = connection()
+cursor = con.cursor()
 
 class Type_exam(Enum):
     EXAM_LAB = "Exames laboratoriais"
@@ -19,15 +26,15 @@ class Type_degree(Enum):
     HIGH = "Alta"
 
 class Exam:
-    def __init__(self, appointment, name_exam, type_exam: Type_exam, degree_urgency: Type_degree, status_exam: Status_exam):
+    def __init__(self, appointment: Appointment, citizen: Cidadao, doctor: Medico, name_exam, type_exam: Type_exam, degree_urgency: Type_degree, status_exam: Status_exam):
+        self.id_exam = None
+        self.citizen = citizen
+        self.doctor = doctor
         self.Appointment = appointment
         self.name_exam = name_exam
         self.type = type_exam
         self.status = status_exam
         self.degree_urgency = degree_urgency
-        
-    def add_id(self, id_exam):
-        self.id_exam = id_exam
 
     def add_data(self, data):
         self.data = data
@@ -47,4 +54,11 @@ class Exam:
             print("Data coleta:", self.data.strftime("%d/%m/%Y"))
             print("Resultado: ", self.result)
     
+    #SALVAR EXAMES DENTRO DO BANCO DE DADOS
+    def save_exam_db(self, id_appointment):
+        cursor.execute(
+            "INSERT INTO exame (id_consulta, id_cidadao, id_medico, nome_exame, tipo_exame, grau_urgencia, status_exame) VALUE (?, ?, ?, ?, ?, ?, ?)",
+            (id_appointment, self.citizen.num_sus, self.doctor.crm, self.name_exam, self.type, self.degree_urgency, self.status)
+        )
 
+        self.id_exam = cursor.lastrowid
