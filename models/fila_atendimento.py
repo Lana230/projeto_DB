@@ -1,3 +1,5 @@
+from models.cidadao import Cidadao
+from models.ubs import Ubs
 from enum import Enum
 
 class Tipo_atendimento(Enum):
@@ -25,9 +27,9 @@ class StatusFila(Enum):
 
 class Fila_atendimento:
     
-    def __init__(self, sus, id_ubs, tipo_atendimento, data_solicitacao, posicao_atual, status, prioridade_calculada, motivo_prioridade):
-        self.sus = sus
-        self.id_ubs = id_ubs
+    def __init__(self, cidadao: Cidadao, ubs: Ubs, tipo_atendimento, data_solicitacao, posicao_atual, status, prioridade_calculada, motivo_prioridade):
+        self.cidadao = cidadao
+        self.ubs = ubs
         self.tipo_atendimento = tipo_atendimento
         self.data_solicitacao = data_solicitacao
         self.posicao_atual = posicao_atual

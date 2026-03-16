@@ -1,8 +1,8 @@
-from models.pessoa import Pessoa
+from models.pessoa import *
 
 class Enfermeiro(Pessoa):
-    def __init__(self, cpf, nome, id_ubs, cip):
-        super().__init__(cpf, nome, id_ubs)
+    def __init__(self, cpf, nome, ubs: Ubs, cip):
+        super().__init__(cpf, nome, ubs)
         self.cip = cip
     
     def exibir(self):

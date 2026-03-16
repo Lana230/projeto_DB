@@ -1,4 +1,4 @@
-from models.pessoa import Pessoa
+from models.pessoa import *
 from models.address import Address
 from enum import Enum
 
@@ -7,9 +7,9 @@ class Genero(Enum):
   MASCULINO = 'M'
 
 class Cidadao(Pessoa):
-  def __init__(self, cpf, nome, id_ubs, sus, data_nascimento, genero, naturalidade, address):
-    super().__init__(cpf, nome, id_ubs)
-    self.sus = sus
+  def __init__(self, cpf, nome, ubs: Ubs, num_sus, data_nascimento, genero, naturalidade, address: Address):
+    super().__init__(cpf, nome, ubs)
+    self.num_sus = num_sus
     self.data_nascimento = data_nascimento
     self.genero = genero
     self.naturalidade = naturalidade

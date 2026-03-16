@@ -1,5 +1,10 @@
+from database.conexao import connection
+con = connection()
+cursor = con.cursor()
+
 class Address:
     def __init__(self, cep, state, city, neigh, street, number):
+        self.id_address = None
         self.cep = cep
         self.state = state
         self.city = city
@@ -17,3 +22,10 @@ class Address:
         print("Número:", self.number)
         print("----------------\n")
 
+    def save_address_db(self):
+        cursor.execute(
+            "INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero) VALUE (?, ?, ?, ?, ?, ?)",
+            (self.cep, self.state, self.city, self.neigh, self.street, self.number)
+        )
+
+        self.id_address = cursor.lastrowid

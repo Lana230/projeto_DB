@@ -1,7 +1,4 @@
-from models.ubs import Ubs
-from models.medico import Medico
-from models.cidadao import Cidadao
-from models.appointment import Appointment
+from models import *
 from datetime import datetime
 
 from database.conexao import conection

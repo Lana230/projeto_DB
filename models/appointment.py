@@ -7,17 +7,18 @@ from models.medication import Medication
 from models.hypothesis import Hypothesis
 from datetime import date
 
-from database.conexao import conection
-con = conection()
+from database.conexao import connection
+con = connection()
 cursor = con.cursor()
 
 #class
 class Appointment:
-    def __init__(self, citizen: Cidadao, doctor: Medico, ubs: Ubs, data, reason, life_habits):
+    def __init__(self, citizen: Cidadao, doctor: Medico, ubs: Ubs, date, reason, life_habits):
+        self.id_appointment = None
         self.citizen = citizen
         self.doctor = doctor
         self.ubs = ubs
-        self.data = data
+        self.date = date
         self.reason = reason
         self.life_habits = life_habits
         self.hypothesis = [] 
@@ -45,6 +46,32 @@ class Appointment:
         for medication in self.medication:
             medication.details_medication()
 
+    def reg_appointment(self):
+        print("\n--- Informacoes Gerais ---")
+        print("UBS: ", self.ubs.name)
+        print("Data: ", self.data.strftime("%d/%m/%Y"))
+        print("\n--- Dados do Paciente ---")
+        self.citizen.exibir()
+        print("\n--- Dados do Medico Responsavel ---")
+        print(f"Medico: {self.doctor.name} || Numero do CRM: {self.doctor.crm}")
+        print("Motivo: ", self.reason)
+        print("Habitos de vida:", self.life_habits)
+        self.hypothesis.show_hypothesis_cid()
+        print("\n--- Exames ---")
+        self.show_exams_names()
+        print("\n--- Medicamentos ---")
+        self.show_medication()
+        print("----------------\n")
+
+    #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
+    def save_appoi_db(self):
+        cursor.execute(
+            "INSERT INTO consulta (num_sus, crm, motivo, habitos_de_vida, hipoteses, exam, medicamento) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (self.citizen.num_sus, self.doctor.crm, self.ubs.id_ubs, self.date, self.reason, self.life_habits)
+        )
+        
+        self.id_appointment = cursor.lastrowid
+
     #CONSULTAS DO BANDO DE DADOS
     def search_all(self):
         cursor.execute(
@@ -69,21 +96,3 @@ class Appointment:
         )
 
         return cursor.fetchall()
-
-
-    def reg_appointment(self):
-        print("\n--- Informacoes Gerais ---")
-        print("UBS: ", self.ubs.name)
-        print("Data: ", self.data.strftime("%d/%m/%Y"))
-        print("\n--- Dados do Paciente ---")
-        self.citizen.exibir()
-        print("\n--- Dados do Medico Responsavel ---")
-        print(f"Medico: {self.doctor.name} || Numero do CRM: {self.doctor.crm}")
-        print("Motivo: ", self.reason)
-        print("Habitos de vida:", self.life_habits)
-        self.hypothesis.show_hypothesis_cid()
-        print("\n--- Exames ---")
-        self.show_exams_names()
-        print("\n--- Medicamentos ---")
-        self.show_medication()
-        print("----------------\n")
