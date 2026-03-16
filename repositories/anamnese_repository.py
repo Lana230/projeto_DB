@@ -3,7 +3,7 @@ from models import *
 from database.conexao import connection
 
 class AnamneseRepository():
-    def salvar_anamnese(self, anamnese):
+    def salvar_anamnese(self, anamnese: Anamnese):
         con = connection()
         cursor = con.cursor()
         
@@ -15,6 +15,8 @@ class AnamneseRepository():
         
         con.commit()
         con.close()
+        
+        return anamnese
 
     def buscar_todos(self):
         con = connection()
@@ -51,3 +53,9 @@ class AnamneseRepository():
         cursor.execute(
             "SELECT * FROM anamnese WHERE id_anamnese = ?", (id_anamnese)
         )
+        
+        anamnese = cursor.fetchall()
+        
+        con.close()
+        
+        return anamnese
