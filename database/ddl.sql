@@ -11,7 +11,7 @@ CREATE TABLE anamnese (
 );
 
 CREATE TABLE cidadao (
-    num_sus INTEGER PRIMARY KEY NOT NULL,
+    num_sus INTEGER PRIMARY KEY NOT NULL ,
     data_nascimento TEXT NOT NULL,
     genero TEXT CHECK (genero = 'F' OR genero = 'M'),
     naturalidade TEXT,
@@ -22,6 +22,9 @@ CREATE TABLE cidadao (
     FOREIGN KEY (cpf_pessoa) REFERENCES pessoa(cpf_pessoa),
     UNIQUE (cpf_pessoa)
 );
+-- criar tababela responsavel para guardar os dados do responsável legal do cidadão, caso seja menor de idade ou incapaz
+--ALTER TABLE cidadao
+--ADD ESTADO_CIVIL TEXT NOT NULL OK EM PESSOA 
 
 CREATE TABLE consulta (
     id_consulta INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -83,19 +86,43 @@ CREATE TABLE exame (
     FOREIGN KEY (id_consulta) REFERENCES consulta(id_consulta)
 );
 
-CREATE TABLE fila (
+CREATE TABLE fila(
     id_fila INTEGER PRIMARY KEY AUTOINCREMENT,
-    num_sus INTEGER NOT NULL,
+    data_fila TEXT NOT NULL,
     id_ubs INTEGER NOT NULL,
     tipo_atendimento TEXT NOT NULL,
+    quantidade_maxima INTEGER NOT NULL,
+    crm INTEGER ,
+    id_vacina INTEGER ,
+    FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
+    FOREIGN KEY (crm) REFERENCES medico(crm),
+    FOREIGN KEY (id_vacina) REFERENCES vacina(id_vacina),
+    CHECK (
+        (crm IS NOT NULL AND id_vacina IS NULL) OR
+        (id_vacina IS NULL AND crm IS NOT NULL)
+    )
+
+);
+
+CREATE TABLE agendamento(
+    id_agendamento INTEGER PRIMARY KEY AUTOINCREMENT,
+    num_sus INTEGER NOT NULL,
     data_solicitacao TEXT,
-    posicao_atual INTEGER NOT NULL,
-    status INTEGER DEFAULT 0,
-    prioridade_calculada NUMERIC DEFAULT 0,
+    status TEXT DEFAULT 'PENDENTE',
+    hora_agendamento TEXT, 
+    posicao atual INTEGER,
+    prioridade_calculada INTEGER DEFAULT 0,
     motivo_prioridade TEXT,
 
-    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus),
-    FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
+    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus)  
+);
+
+CREATE TABLE fila_agendamento(
+    id_fila INTEGER NOT NULL,
+    id_agendamento INTEGER NOT NULL,
+    PRIMARY KEY (id_fila, id_agendamento),
+     FOREIGN KEY (id_fila) REFERENCES fila(id_fila),
+     FOREIGN KEY (id_agendamento) REFERENCES agendamento(id_agendamento)
 );
 
 CREATE TABLE medico (
@@ -107,11 +134,11 @@ CREATE TABLE medico (
     UNIQUE (cpf_pessoa)
 );
 
-CREATE TABLE pessoa (
-    cpf_pessoa TEXT PRIMARY KEY CHECK (length(cpf_pessoa) = 11),
-    nome TEXT NOT NULL,
+CREATE TABLE pessoa(
+    cpf_pessoa INTEGER PRIMARY KEY NOT NULL CHECK(length(cpf_pessoa) = 11),
+    nome_pessoa TEXT NOT NULL,
     id_ubs INTEGER NOT NULL,
-
+    estado_civil TEXT NOT NULL,
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
 
@@ -159,6 +186,24 @@ CREATE TABLE vacina (
     previne TEXT NOT NULL,
     quantidade_disponivel NUMERIC DEFAULT 0,
     id_ubs INTEGER REFERENCES ubs(id_ubs),
+    lote TEXT NOT NULL,
 
+    UNIQUE(tipo, id_ubs),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
+);
+
+
+CREATE TABLE grupo_vulneravel(
+    id_grupo INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome_grupo TEXT NOT NULL, 
+	peso_prioridade
+);
+
+CREATE TABLE cidadao_grupo(
+    num_sus INTEGER NOT NULL,
+    id_grupo INTEGER NOT NULL,
+    PRIMARY KEY (num_sus, id_grupo),
+
+    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus),
+    FOREIGN KEY (id_grupo) REFERENCES grupo_vulneravel(id_grupo)
 );
