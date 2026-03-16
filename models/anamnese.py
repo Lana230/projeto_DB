@@ -9,5 +9,10 @@ class Anamnese:
         self.altura = altura
         self.pressao_arterial = pressao_arterial
         
-    def adicionar_id(self, id_anamnese):
-        self.id_anamnese = id_anamnese
+    def exibir(self):
+        print("--- Anamnese ---")
+        print(f"Nome do paciente: {self.cidadao.nome}")
+        print(f"Peso: {self.peso}")
+        print(f"Altura: {self.altura}")
+        print(f"Pressão arterial: {self.pressao_arterial}")
+        print("-----------------\n")

@@ -1,9 +1,10 @@
+from models.email import *
+
 class Telefone:
-  #Depois vejo como corrijo cpf_pessoa para colocar o objeto
-  def __init__(self, num_telefone, tipo, cpf_pessoa):
+  def __init__(self, num_telefone, tipo, pessoa: Pessoa):
     self.num_telefone = num_telefone
     self.tipo = tipo
-    self.cpf_pessoa = cpf_pessoa
+    self.pessoa = pessoa
 
     #alteração no tipo de valor esperado no atributo tipo
     #para médico, cidadão ou enfermeiro

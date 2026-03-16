@@ -1,16 +1,17 @@
+from models.pessoa import Pessoa
 from enum import Enum
 
 class Tipo(Enum):
   CIDADAO = "Cidadão"
   MEDICO = "Médico"
   ENFERMEIRO = "Enfermeiro"
+  UBS = "Ubs"
 
 class Email:
-  #Depois vejo como corrijo cpf_pessoa para colocar o objeto
-  def __init__(self, email, tipo, cpf_pessoa):
+  def __init__(self, email, tipo, pessoa: Pessoa):
     self.email = email
     self.tipo = tipo
-    self.cpf_pessoa = cpf_pessoa
+    self.pessoa = pessoa
 
     #alteração no tipo de valor esperado no atributo tipo
     #para médico, cidadão ou enfermeiro
