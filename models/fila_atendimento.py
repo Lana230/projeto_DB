@@ -1,8 +1,12 @@
 from models.medico import Medico
 from models.vaccine import Vaccine
-from models.agendamento import Agendamento
 from models.ubs import Ubs
 from enum import Enum
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from models.agendamento import Agendamento
 
 class Tipo_atendimento(Enum):
     CONSULTA = "Consulta"
@@ -20,6 +24,6 @@ class Fila_atendimento:
         self.vacina = vacina
         self.agendamentos = []
     
-    def adicionar_agendamento(self, agendamento: Agendamento):
+    def adicionar_agendamento(self, agendamento: "Agendamento"):
         self.agendamentos.append(agendamento)
     
