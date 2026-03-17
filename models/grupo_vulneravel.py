@@ -1,7 +1,7 @@
 from enum import Enum
 
 class NomeGrupo(Enum):
-    RECEM_NASCIDOS = "Récem nascidos"
+    RECEM_NASCIDOS = "Recém-nascidos"
     CRIANCA = "Crianças"
     GESTANTE = "Gestantes"
     PUERPERA = "Puérperas"
@@ -21,9 +21,10 @@ class NomeGrupo(Enum):
 
 class Grupo_vulneravel:
     
-    def __init__(self, nome_grupo, peso_prioridade):
+    def __init__(self, nome_grupo, peso_prioridade, descricao):
         self.nome_grupo = nome_grupo
         self.peso_prioridade = peso_prioridade
+        self.descricao = descricao
         
     def adicionar_id(self, id_grupo_vulneravel):
         self.id_grupo_vulneravel = id_grupo_vulneravel
