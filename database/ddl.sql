@@ -9,7 +9,9 @@ CREATE TABLE agendamento(
     posicao_atual INTEGER,
     prioridade_calculada INTEGER DEFAULT 0,
     motivo_prioridade TEXT,
-    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus)
+    id_fila INTEGER,
+    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus),
+    FOREIGN KEY (id_fila) REFERENCES fila(id_fila)
 );
 
 DROP TABLE anamnese;
@@ -70,6 +72,7 @@ DROP TABLE dependente;
 CREATE TABLE dependente(
     id_responsavel INTEGER NOT NULL,
     id_dependente INTEGER NOT NULL,
+    parentesco TEXT; 
     PRIMARY KEY(id_responsavel,id_dependente),
     FOREIGN KEY (id_responsavel) REFERENCES pessoa(id_pessoa),
     FOREIGN KEY (id_dependente) REFERENCES pessoa(id_pessoa)
@@ -155,17 +158,6 @@ CREATE TABLE fila (
         (id_vacina IS NOT NULL AND crm IS NULL)
     )
 
-);
-
-
-DROP TABLE fila_agendamento;
-
-CREATE TABLE fila_agendamento(
-    id_fila INTEGER NOT NULL,
-    id_agendamento INTEGER NOT NULL,
-    PRIMARY KEY (id_fila, id_agendamento),
-    FOREIGN KEY (id_fila) REFERENCES fila(id_fila),
-    FOREIGN KEY (id_agendamento) REFERENCES agendamento(id_agendamento)
 );
 
 DROP TABLE grupo_vulneravel;
