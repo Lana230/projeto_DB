@@ -1,5 +1,4 @@
 DELETE FROM vacina;
-ALTER TABLE vacina;
 
 INSERT INTO vacina(tipo,previne)
 VALUES
@@ -22,7 +21,6 @@ VALUES
 ('dTpa', 'Difteria, tétano e coqueluche');
 
 DELETE FROM grupo_vulneravel;
-ALTER TABLE grupo_vulneravel;
 
 INSERT INTO grupo_vulneravel (nome_grupo, peso_prioridade, descricao) 
 VALUES
@@ -45,7 +43,6 @@ VALUES
 ('Recem-Nascidos',5,'Bebês desde o nascimento até aproximadamente 28 dias de vida.');
 
 DELETE FROM vacina_grupo;
-ALTER TABLE vacina_grupo;
 
 INSERT INTO vacina_grupo (id_vacina, id_grupo) VALUES
 (1,17), 
@@ -73,7 +70,6 @@ INSERT INTO vacina_grupo (id_vacina, id_grupo) VALUES
 (17,3);
 
 DELETE FROM endereco;
-ALTER TABLE endereco;
 
 INSERT INTO endereco (rua, bairro, numero, cidade, estado, cep) VALUES
 ('Rua das Flores','Centro','12','Barbalha','CE','63180000'),
@@ -108,7 +104,6 @@ INSERT INTO endereco (rua, bairro, numero, cidade, estado, cep) VALUES
 ('Rua Tristão Gonçalves','Pimenta','320','Crato','CE','63105000');
 
 DELETE FROM ubs;
-ALTER TABLE ubs;
 
 INSERT INTO ubs (id_ubs, nome, id_endereco) VALUES
 (1234567,'ubs Romeirao',3),
@@ -118,7 +113,6 @@ INSERT INTO ubs (id_ubs, nome, id_endereco) VALUES
 (7453626,'ubs Crato',13);
 
 DELETE FROM vacina_ubs;
-ALTER TABLE vacina_ubs;
 
 INSERT INTO vacina_ubs (id_vacina,id_ubs,num_lote,quantidade_disponivel,validade)
 VALUES
@@ -163,7 +157,6 @@ VALUES
 (14,7453626,'FLU600',80,'2026-11-30');
 
 DELETE FROM pessoa;
-ALTER TABLE pessoa;
 
 INSERT INTO pessoa (nome_pessoa, id_ubs, estado_civil) VALUES
 ('Vinicius Andrade Silva',1234567,'Divorciado(a)'),
@@ -237,7 +230,6 @@ INSERT INTO pessoa (nome_pessoa, id_ubs, estado_civil) VALUES
 ('Patricia Fernandes Costa', 8765432, 'Solteiro(a)');
 
 DELETE FROM cidadao;
-ALTER TABLE cidadao;
 
 INSERT INTO cidadao
 (num_sus,data_nascimento,genero,naturalidade,ocupacao,id_endereco,id_pessoa)
@@ -292,7 +284,6 @@ VALUES
 (9000024,'1994-07-25','F','Crato','Vendedora',30,24);
 
 DELETE FROM documento;
-ALTER TABLE documento;
 
 INSERT INTO documento (tipo_documento, numero_documento, id_pessoa) VALUES
 ('CPF','487.354.827-46',1),
@@ -373,7 +364,6 @@ INSERT INTO documento (tipo_documento, numero_documento, id_pessoa) VALUES
 ('CERTIDAO_NASCIMENTO','CN-2025-000036',36);
 
 DELETE FROM dependente;
-ALTER TABLE dependente;
 
 INSERT INTO dependente (id_responsavel, id_dependente, parentesco)
 VALUES
@@ -398,7 +388,6 @@ VALUES
 (4,30,'Mãe');
 
 DELETE FROM cidadao_grupo;
-ALTER TABLE cidadao_grupo;
 
 INSERT INTO cidadao_grupo(num_sus,id_grupo)
 VALUES
@@ -416,7 +405,6 @@ VALUES
 (9500006,2);
 
 DELETE FROM email;
-ALTER TABLE email;
 
 INSERT INTO email (endereco_email, id_pessoa) VALUES
 ('vinicius.andrade@email.com', 1),
@@ -451,7 +439,6 @@ INSERT INTO email (endereco_email, id_ubs) VALUES
 ('crato@ubs.com', 7453626);
 
 DELETE FROM email;
-ALTER TABLE email;
 
 INSERT INTO telefone (num_telefone, id_pessoa) VALUES
 ('(88) 99000-0001', 1),
@@ -479,7 +466,6 @@ INSERT INTO telefone (num_telefone, id_pessoa) VALUES
 ('(88) 99000-0023', 23);
 
 DELETE FROM telefone;
-ALTER TABLE telefone;
 
 INSERT INTO telefone (num_telefone, id_ubs) VALUES
 ('(88) 3511-0001', 1234567),
@@ -489,7 +475,6 @@ INSERT INTO telefone (num_telefone, id_ubs) VALUES
 ('(88) 3512-0005', 7453626);
 
 DELETE FROM medico;
-ALTER TABLE medico;
 
 INSERT INTO medico (crm, especialidade, id_pessoa) VALUES
 (1001, 'Ginecologista', 37),
@@ -518,7 +503,6 @@ INSERT INTO medico (crm, especialidade, id_pessoa) VALUES
 (1020, 'Clinico Geral', 56);
 
 DELETE FROM enfermeiro;
-ALTER TABLE enfermeiro;
 
 INSERT INTO enfermeiro (cip, id_pessoa) VALUES
 ('ENF1001', 57),
