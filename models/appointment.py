@@ -3,7 +3,7 @@ from models.ubs import Ubs
 from models.cidadao import Cidadao
 from models.medico import Medico
 from models.exam import Exam
-from models.medication import Medication
+from .medication_appoi import Medication_appoi
 from models.hypothesis import Hypothesis
 from datetime import date
 
@@ -23,7 +23,7 @@ class Appointment:
         self.life_habits = life_habits
         self.hypothesis = [] 
         self.exam = [] 
-        self.medication = []
+        self.medication_appoi = []
 
     def add_hypothesis(self, hypothesis: Hypothesis):
         self.hypothesis.append(hypothesis)
@@ -32,18 +32,18 @@ class Appointment:
         for hypothesis in self.hypothesis:
             hypothesis.show_hypothesis_cid()
 
-    def add_exam(self, exam):
+    def add_exam(self, exam: Exam):
         self.exam.append(exam)
     
     def show_exams_names(self):
         for exam in self.exam:
             print(f"- {exam.name_exam} || {exam.type}")
     
-    def add_medication(self, medication):
-        self.medication.append(medication)
+    def add_medication(self, medication_appoi: Medication_appoi):
+        self.medication_appoi.append(medication_appoi)
 
     def show_medication(self):
-        for medication in self.medication:
+        for medication in self.medication_appoi:
             medication.details_medication()
 
     def reg_appointment(self):
@@ -66,11 +66,20 @@ class Appointment:
     #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
     def save_appoi_db(self):
         cursor.execute(
-            "INSERT INTO consulta (num_sus, crm, motivo, habitos_de_vida) VALUES (?, ?, ?, ?)",
-            (self.citizen.num_sus, self.doctor.crm, self.ubs.id_ubs, self.date, self.reason, self.life_habits)
+            "INSERT INTO consulta (num_sus, crm, data, motivo, habitos_de_vida) VALUES (?, ?, ?, ?, ?)",
+            (self.citizen.num_sus, self.doctor.crm, self.ubs.id_ubs, self.date.isoformat(), self.reason, self.life_habits)
         )
         
         self.id_appointment = cursor.lastrowid
+
+        for h in self.hypothesis:
+            h.save_hypothesis_db(self.id_appointment)
+
+        for e in self.exam:
+            e.save_exam_db(self.id_appointment)
+        
+        for m in self.medication_appoi:
+            m.save_medication_appoi_db(self.id_appointment)
 
     #CONSULTAS DO BANDO DE DADOS
     def search_all(self):

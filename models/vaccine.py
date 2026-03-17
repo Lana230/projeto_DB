@@ -1,5 +1,6 @@
 from .cidadao import Cidadao
 from .grupo_vulneravel import Grupo_vulneravel
+from .focus_priority import Focus_priority
 from enum import Enum
 
 from database.conexao import connection
@@ -28,15 +29,25 @@ class Vaccine:
         #se o cidadao for profissionais da seguranca, professores, gestantes ou perpura e pcd(Alta)
         #se o cidadao
 
-    #def add_focus_priority(type_vuln_group: Grupo_vulneravel, ocupation):
-        #self.add_focus_priority.append(type_vuln_group)
-        #self.add_focus_priority(ocupation)
-
-    def add_id(self, id_vaccine):
-        self.id_vaccine = id_vaccine
+    def add_focus_priority(self, focus_priority: Focus_priority):
+        self.focus_priority.append(focus_priority)
 
     def details_vaccine(self):
         print("Vacina: ", self.name)
         print("Dose: ", self.dose)
         print("Lote: ", self.lote)
 
+    #SALVANDO VACINA NO BANCO DE DADOS
+    def save_vaccine_db(self):
+        cursor.execute(
+            "INSERT INTO vacina(nome, previne, dose, lote, quant_disponivel, prioridade) VALUES (?, ?, ?, ?, ?, ?)",
+            (self.name, self.prevents, self.dose, self.lote, self.available_quan, self.priority)
+        )
+
+        self.id_vaccine = cursor.lastrowid
+
+        for fp in self.focus_priority:
+            fp.save_focus_priority_db(self.id_vaccine)
+
+    
+            
