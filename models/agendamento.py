@@ -18,6 +18,7 @@ class Agendamento:
     
     def __init__(self, cidadao: Cidadao, data_solicitacao, hora_agendamento, posicao_atual, prioridade_calculada = 0, motivo_prioridade = None, status = StatusAgendamento.PENDENTE):
         
+        self.id_agendamento = None
         self.cidadao = cidadao
         self.data_solicitacao = data_solicitacao
         self.hora_agendamento = hora_agendamento

@@ -2,6 +2,8 @@ from models.cidadao import Cidadao
 
 class Anamnese:
     def __init__(self, cidadao: Cidadao, data_anamnese, peso, altura, pressao_arterial):
+        
+        self.id_anamnese = None
         self.cidadao = cidadao
         self.data_anamnese = data_anamnese
         self.peso = peso

@@ -16,6 +16,7 @@ class Fila_atendimento:
     
     def __init__(self, ubs: Ubs, tipo_atendimento, data_fila, quantidade_maxima, medico: Medico, vacina: Vaccine):
         
+        self.id_fila = None
         self.ubs = ubs
         self.tipo_atendimento = tipo_atendimento
         self.data_fila = data_fila

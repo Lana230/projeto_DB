@@ -3,7 +3,7 @@ from models import *
 from database.conexao import connection
 
 class AnamneseRepository():
-    def salvar_anamnese(self, anamnese: Anamnese):
+    def salvar(self, anamnese: Anamnese):
         con = connection()
         cursor = con.cursor()
         
@@ -11,7 +11,7 @@ class AnamneseRepository():
             "INSERT INTO anamnese (num_sus, id_consulta, peso, altura, pressao_arterial) VALUES (?, ?, ?, ?, ?)", (anamnese.cidadao.num_sus, anamnese.appointment.id_appointment, anamnese.peso, anamnese.altura, anamnese.pressao_arterial)
         )
         
-        self.id_anamnese = cursor.lastrowid
+        anamnese.id_anamnese = cursor.lastrowid
         
         con.commit()
         con.close()
