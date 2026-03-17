@@ -1,41 +1,25 @@
-from models.cidadao import Cidadao
+from models.medico import Medico
+from models.vaccine import Vaccine
+from models.agendamento import Agendamento
 from models.ubs import Ubs
 from enum import Enum
 
 class Tipo_atendimento(Enum):
     CONSULTA = "Consulta"
     VACINA = "Vacina"
-    
-class StatusFila(Enum):
-    AGUARDANDO = 0
-    CHAMADO = 1
-    EM_ATENDIMENTO = 2
-    ATENDIDO = 3
-    NAO_COMPARECEU = 4
-    CANCELADO = 5
-    REMARCADO = 6
-    PRIORIDADE = 7
-    
-    #Aguardando - pessoa esta esperando na fila
-    #Chamado - a pessoa foi chamada
-    #Em atendimento - a pessoa esta sendo atendida no momento
-    #Atendido - atendimento finalizado
-    #Nao compareceu - pessoa foi chamada mas nao apareceu
-    #Cancelado - atendimento foi cancelado
-    #Remarcado - atendimento foi reagendado
-    #Prioridade - pessoa recebeu prioridade na fila
 
 class Fila_atendimento:
     
-    def __init__(self, cidadao: Cidadao, ubs: Ubs, tipo_atendimento, data_solicitacao, posicao_atual, status, prioridade_calculada, motivo_prioridade):
-        self.cidadao = cidadao
+    def __init__(self, ubs: Ubs, tipo_atendimento, data_fila, quantidade_maxima, medico: Medico, vacina: Vaccine):
+        
         self.ubs = ubs
         self.tipo_atendimento = tipo_atendimento
-        self.data_solicitacao = data_solicitacao
-        self.posicao_atual = posicao_atual
-        self.status = status
-        self.prioridade_calculada = prioridade_calculada
-        self.motivo_prioridade = motivo_prioridade
+        self.data_fila = data_fila
+        self.quantidade_maxima = quantidade_maxima
+        self.medico = medico
+        self.vacina = vacina
+        self.agendamentos = []
     
-    def adicionar_id(self, id_fila):
-        self.id_fila = id_fila
+    def adicionar_agendamento(self, agendamento: Agendamento):
+        self.agendamentos.append(agendamento)
+    
