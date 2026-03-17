@@ -66,7 +66,7 @@ class Appointment:
     #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
     def save_appoi_db(self):
         cursor.execute(
-            "INSERT INTO consulta (num_sus, crm, motivo, habitos_de_vida, hipoteses, exam, medicamento) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO consulta (num_sus, crm, motivo, habitos_de_vida) VALUES (?, ?, ?, ?)",
             (self.citizen.num_sus, self.doctor.crm, self.ubs.id_ubs, self.date, self.reason, self.life_habits)
         )
         

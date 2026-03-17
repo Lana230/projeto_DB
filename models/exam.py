@@ -57,8 +57,8 @@ class Exam:
     #SALVAR EXAMES DENTRO DO BANCO DE DADOS
     def save_exam_db(self, id_appointment):
         cursor.execute(
-            "INSERT INTO exame (id_consulta, id_cidadao, id_medico, nome_exame, tipo_exame, grau_urgencia, status_exame) VALUE (?, ?, ?, ?, ?, ?, ?)",
-            (id_appointment, self.citizen.num_sus, self.doctor.crm, self.name_exam, self.type, self.degree_urgency, self.status)
+            "INSERT INTO exame (id_consulta, nome_exame, tipo_exame, grau_urgencia, status_exame) VALUE (?, ?, ?, ?, ?)",
+            (id_appointment, self.name_exam, self.type, self.degree_urgency, self.status)
         )
 
         self.id_exam = cursor.lastrowid
