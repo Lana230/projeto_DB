@@ -4,7 +4,7 @@ CREATE TABLE agendamento(
     id_agendamento INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
     data_solicitacao TEXT,
-    status TEXT DEFAULT 'PENDENTE',
+    status TEXT DEFAULT 'Pendente',
     hora_agendamento TEXT,
     posicao_atual INTEGER,
     prioridade_calculada INTEGER DEFAULT 0,
