@@ -70,6 +70,7 @@ DROP TABLE dependente;
 CREATE TABLE dependente(
     id_responsavel INTEGER NOT NULL,
     id_dependente INTEGER NOT NULL,
+    parentesco TEXT; 
     PRIMARY KEY(id_responsavel,id_dependente),
     FOREIGN KEY (id_responsavel) REFERENCES pessoa(id_pessoa),
     FOREIGN KEY (id_dependente) REFERENCES pessoa(id_pessoa)
