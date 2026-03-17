@@ -11,9 +11,6 @@ class Vaccine_record:
         self.nurse = enfermeiro
         self.ubs = ubs
         self.data = data
-        
-    def add_id(self, id_vaccine_record):
-        self.id_vaccine_record = id_vaccine_record
 
     def record(self):
         print("\n--- Registro de Vacina ---")
@@ -24,3 +21,4 @@ class Vaccine_record:
         print(f"Enfermeiro: {self.nurse.name} || Cip: {self.nurse.cip}") 
         print("----------------\n")
         
+    
