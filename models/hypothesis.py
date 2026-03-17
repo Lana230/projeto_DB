@@ -15,6 +15,7 @@ class Hypothesis:
     def show_hypothesis_cid(self):
         print(f"{self.disease} || CID: {self.cid}")
 
+    #SALVAR HIPOTESES BANCO DE DADOS
     def save_hypothesis_db(self, id_appointment):
         cursor.execute(
             "INSERT INTO hipotese (id_consulta, doencan, cid) VALUE (?, ?, ?)",
