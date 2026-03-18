@@ -53,12 +53,3 @@ class Exam:
         if self.status == Status_exam.DONE:
             print("Data coleta:", self.data.strftime("%d/%m/%Y"))
             print("Resultado: ", self.result)
-    
-    #SALVAR EXAMES DENTRO DO BANCO DE DADOS
-    def save_exam_db(self, id_appointment):
-        cursor.execute(
-            "INSERT INTO exame (id_consulta, nome_exame, tipo_exame, grau_urgencia, status_exame) VALUE (?, ?, ?, ?, ?)",
-            (id_appointment, self.name_exam, self.type, self.degree_urgency, self.status)
-        )
-
-        self.id_exam = cursor.lastrowid

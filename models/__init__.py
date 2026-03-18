@@ -16,4 +16,6 @@ from .ubs import Ubs
 from .vaccine_record import Vaccine_record
 from .vaccine import Vaccine
 from .medication import Medication
+from .medication_ubs import Medication_ubs
+from .medication_appoi import Medication_appoi
 from .hypothesis import Hypothesis
