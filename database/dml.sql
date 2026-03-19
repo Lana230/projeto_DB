@@ -558,7 +558,7 @@ VALUES
 (9000022, 1017, 7453626, 'Exame preventivo', 'Ativa', '2026-03-13');
 
 
-INSERT INTO anamnese (num_sus, peso, altura, data_anaminese, presao_arterial) VALUES
+INSERT INTO anamnese (num_sus, peso, altura, data_anamnese, pressao_arterial) VALUES
 (9000001, 78.5, 1.72, '2026-03-10', 13.5),
 (9000002, 62.3, 1.60, '2026-03-11', 12.0),
 (9000003, 55.0, 1.58, '2026-03-12', 11.5),
@@ -588,6 +588,7 @@ INSERT INTO anamnese (num_sus, peso, altura, data_anaminese, presao_arterial) VA
 (9000020, 61.0, 1.62, '2026-03-11', 12.2),
 (9000021, 87.0, 1.79, '2026-03-12', 14.3),
 (9000022, 63.0, 1.64, '2026-03-13', 12.5);
+
 INSERT INTO fila (data_fila, id_ubs, tipo_atendimento, quantidade_maxima, id_vacina) VALUES
 ('2026-03-24', 1234567, 'vacina', 50, 14),
 ('2026-03-25', 1234567, 'vacina', 40, 1),

@@ -21,8 +21,8 @@ CREATE TABLE anamnese (
     num_sus INTEGER NOT NULL,
     peso REAL NOT NULL,
     altura REAL NOT NULL,
-    data_anaminese TEXT NOT NULL,
-    presao_arterial REAL NOT NULL,
+    data_anamnese TEXT NOT NULL,
+    pressao_arterial REAL NOT NULL,
     FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus)
 );
 
