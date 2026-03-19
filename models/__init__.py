@@ -21,5 +21,6 @@ from .medico import Medico
 from .pessoa import Pessoa
 from .telefone import Telefone
 from .ubs import Ubs
-from .vaccine_record import Vaccine_record
-from .vaccine import Vaccine, priority
+from .record_vaccine import Record_vaccine
+from .vaccine_ubs import Vaccine_ubs, priority
+from .vaccine import Vaccine

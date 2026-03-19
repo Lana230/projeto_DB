@@ -1,4 +1,5 @@
 from models import *
+from repositories import *
 from datetime import date
 
 addr1 = Address("63041-050", "Ceara", "Juazeiro", "triangulo", "Clotilde Noroes Mota", 235)
@@ -30,4 +31,13 @@ exam1.add_data(date.today())
 exam1.details_exam()
 
 print(Type_exam.EXAM_CARD.value)
+
+address_repo = Address_repository()
+ubs_repo = Ubs_repository()
+
+address_repo.save_address_db(addr1)
+
+ubs_repo.save_ubs_db(ubs1)
+
+
 

@@ -18,13 +18,13 @@ class Appointment_repository():
             con.commit()
 
             for h in appointment.hypothesis:
-                h.save_hypothesis_db(appointment, h)
+                h.save_hypothesis_db(cursor, appointment, h)
 
             for e in appointment.exam:
-                e.save_exam_db(appointment, e)
+                e.save_exam_db(cursor, appointment, e)
             
             for m in appointment.medication_appoi:
-                m.save_medication_appoi_db(appointment, m)
+                m.save_medication_appoi_db(cursor, appointment, m)
         
         except Exception as e:
             con.rollback() 

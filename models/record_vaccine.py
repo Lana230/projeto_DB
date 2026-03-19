@@ -1,13 +1,10 @@
-from models.cidadao import Cidadao
-from models.enfermeiro import Enfermeiro
-from models.vaccine import Vaccine
-from models.ubs import Ubs
+from models import *
 
-class Vaccine_record:
-    def __init__(self, cidadao: Cidadao, vaccine: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
+class Record_vaccine:
+    def __init__(self, cidadao: Cidadao, vaccine_ubs: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
         self.id_vaccine_record = None
         self.citizen = cidadao 
-        self.vaccine = vaccine
+        self.vaccine_ubs = vaccine_ubs
         self.nurse = enfermeiro
         self.ubs = ubs
         self.data = data

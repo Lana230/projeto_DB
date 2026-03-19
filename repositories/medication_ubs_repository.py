@@ -17,6 +17,10 @@ class Medication_ubs_repository():
             medi_ubs.id_medication_ubs = cursor.lastrowid
             con.commit()
 
+        except Exception as e:
+            con.rollback() 
+            print("Erro:", e)
+
         finally:
             con.close()
 

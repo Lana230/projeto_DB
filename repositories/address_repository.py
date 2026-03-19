@@ -17,6 +17,10 @@ class Address_repository():
             address.id_address = cursor.lastrowid
             con.commit()
         
+        except Exception as e:
+            con.rollback() 
+            print("Erro:", e)
+
         finally:
             con.close()
 

@@ -13,9 +13,7 @@ class Via_medication(Enum):
 class Medication_appoi():
     def __init__(self, medication: Medication, appointment: Appointment, dose, via : Via_medication, frequency_days, duraction_adm):
         self.id_medication_appoi = None
-        self.id_medication = medication.id_medication   
-        self.name_appoi_med = medication.name_medication
-        self.cat_appoi_med = medication.category_med
+        self.medication = medication 
         self.appointment = appointment
         self.dose = dose
         self.via = via

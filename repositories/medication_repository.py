@@ -16,6 +16,10 @@ class Medication_repository():
             medication.id_medication = cursor.lastrowid
             con.commit()
 
+        except Exception as e:
+            con.rollback() 
+            print("Erro:", e)
+
         finally:
             con.close()
 
