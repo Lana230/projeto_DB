@@ -3,6 +3,8 @@ from models.documento import Documento
 
 class Pessoa:
   def __init__(self, nome_pessoa, estado_civil, ubs: Ubs):
+    
+    self.id_pessoa = None
     self.nome_pessoa = nome_pessoa
     self.emails = []
     self.telefones = []

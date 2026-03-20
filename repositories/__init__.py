@@ -2,6 +2,8 @@ from .address_repository import Address_repository
 from .agendamento_repository import AgendamentoRepository
 from .anamnese_repository import AnamneseRepository
 from .appointment_repository import Appointment_repository
+from .cidadao_repository import CidadaoRepository
+from .pessoa_repository import PessoaRepository
 from .exam_repository import Exam_repository
 from .focus_priority_repository import Focus_priority_repository
 from .hypothesis_repository import Hypothesis_repository
