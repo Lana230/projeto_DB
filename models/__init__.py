@@ -9,7 +9,7 @@ from .dependente import Dependente
 from .documento import Documento, TipoDocumento
 from .email import Email, Tipo
 from .enfermeiro import Enfermeiro
-from .exam import Exam, Type_exam, Status_exam, Type_degree
+from .exam import Exam, Exam_Type, Status_exam, Type_degree
 from .fila_atendimento import Fila_atendimento, Tipo_atendimento
 from .focus_priority import Focus_priority
 from .grupo_vulneravel import Grupo_vulneravel, NomeGrupo

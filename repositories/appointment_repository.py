@@ -10,12 +10,11 @@ class Appointment_repository():
 
         try:
             cursor.execute(
-                "INSERT INTO consulta (num_sus, crm, id_ubs, data, motivo, habitos_de_vida) VALUES (?, ?, ?, ?, ?, ?)",
-                (appointment.citizen.num_sus, appointment.doctor.crm, appointment.ubs.id_ubs, appointment.date.isoformat(), appointment.reason, appointment.life_habits)
+                "INSERT INTO consulta (num_sus, crm, id_ubs, motivo, habitos_de_vida, data) VALUES (?, ?, ?, ?, ?, ?)",
+                (appointment.citizen.num_sus, appointment.doctor.crm, appointment.ubs.id_ubs, appointment.reason, appointment.life_habits, appointment.date.isoformat())
             )
             
             appointment.id_appointment = cursor.lastrowid
-            con.commit()
 
             for h in appointment.hypothesis:
                 h.save_hypothesis_db(cursor, appointment, h)
@@ -25,6 +24,8 @@ class Appointment_repository():
             
             for m in appointment.medication_appoi:
                 m.save_medication_appoi_db(cursor, appointment, m)
+
+            con.commit()
         
         except Exception as e:
             con.rollback() 

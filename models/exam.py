@@ -7,7 +7,7 @@ from database.conexao import connection
 con = connection()
 cursor = con.cursor()
 
-class Type_exam(Enum):
+class Exam_Type(Enum):
     EXAM_LAB = "Exames laboratoriais"
     EXAM_IMA = "Exames de imagem"
     EXAM_CARD = "Exames cardiológicos"
@@ -15,10 +15,7 @@ class Type_exam(Enum):
 
 class Status_exam(Enum):
     REQUESTED = "Solicitado"
-    SCHEDULED = "Agendado"
-    IN_PROGRESS = "Em andamento"
     DONE = "Realizado"
-    CANCELED = "Cancelado"
 
 class Type_degree(Enum):
     LOW = "Baixa"
@@ -26,13 +23,11 @@ class Type_degree(Enum):
     HIGH = "Alta"
 
 class Exam:
-    def __init__(self, appointment: Appointment, citizen: Cidadao, doctor: Medico, name_exam, type_exam: Type_exam, degree_urgency: Type_degree, status_exam: Status_exam):
+    def __init__(self, appointment: Appointment, name_exam, exam_type: Exam_Type, degree_urgency: Type_degree, status_exam: Status_exam):
         self.id_exam = None
-        self.citizen = citizen
-        self.doctor = doctor
         self.Appointment = appointment
         self.name_exam = name_exam
-        self.type = type_exam
+        self.type = exam_type
         self.status = status_exam
         self.degree_urgency = degree_urgency
 
@@ -47,9 +42,6 @@ class Exam:
         print("Grau de Urgencia: ", self.degree_urgency)
         print("Estado: ", self.status.value)
         
-        if self.status == Status_exam.SCHEDULED:
-            print("Data agendada:", self.data.strftime("%d/%m/%Y"))
-       
         if self.status == Status_exam.DONE:
             print("Data coleta:", self.data.strftime("%d/%m/%Y"))
             print("Resultado: ", self.result)

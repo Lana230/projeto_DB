@@ -24,7 +24,7 @@ class CidadaoRepository():
             INSERT INTO cidadao (
                 num_sus, data_nascimento, genero, 
                 naturalidade, ocupacao, id_endereco, 
-                id_pessoa
+                id_pessoaz
                 ) VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (
                 cidadao.num_sus, 
