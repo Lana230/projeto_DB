@@ -4,6 +4,9 @@ from .ubs_repository import Ubs_repository
 
 class PessoaRepository():
     
+    def __init__(self):
+        self.ubs_repo = Ubs_repository()
+    
     def salvar(self, pessoa: Pessoa):
         con = connection()
         cursor = con.cursor()
@@ -28,20 +31,20 @@ class PessoaRepository():
     def construir_objeto(self, rows):
         pessoas = []
         
-        ubs_repo = Ubs_repository()
-        
         for row in rows:
-            u = ubs_repo.search_per_id(row["id_ubs"])
+            if row is None:
+                continue
             
-            p = Pessoa(
+            ubs = self.ubs_repo.search_per_id(row["id_ubs"])
+            
+            pessoa = Pessoa(
                 nome_pessoa=row["nome_pessoa"],
                 estado_civil=row["estado_civil"],
-                ubs=u
+                ubs=ubs
             )
             
-            p.id_pessoa = row["id_pessoa"]
+            pessoa.id_pessoa = row["id_pessoa"]
             
-            
-            pessoas.append(p)
+            pessoas.append(pessoa)
         
         return pessoas

@@ -32,6 +32,9 @@ class Ubs_repository():
         ubs = []
         
         for row in rows:
+            if row is None:
+                continue
+            
             u = Ubs(
                 name=row["nome"],
                 address=None #chamar o repositorio de address
@@ -49,9 +52,13 @@ class Ubs_repository():
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
 
-        cursor.execute(
-            "SELECT u.id_ubs, u.nome, e.rua, e.bairro, e.numero, e.cidade, e.estado, e.cep FROM ubs u INNER JOIN endereco e ON u.id_endereco = e.id_endereco"
-        )
+        cursor.execute("""
+            SELECT 
+            u.id_ubs, u.nome, u.id_endereco 
+            e.rua, e.bairro, e.numero, 
+            e.cidade, e.estado, e.cep 
+            FROM ubs u INNER JOIN endereco e ON u.id_endereco = e.id_endereco
+        """)
         
         rows = cursor.fetchall()
         
@@ -94,20 +101,8 @@ class Ubs_repository():
     
     #NECESSARIO CORRRIGIR DEPOIS
     #retorna dados crus do banco de dados, um array com valores, em que cada valor vai está em um indice do array
-    def search_all_citizens(self, ubs: Ubs):
-        con = connection()
-        cursor = con.cursor()
-
-        cursor.execute(
-            "SELECT p.id_pessoa, p.nome_pessoa, p.estado_civil, c.num_sus, c.data_nascimento, c.genero, c.naturalidade, c.ocupacao FROM pessoa p INNER JOIN cidadao c ON p.id_pessoa = c.id_pessoa WHERE p.id_ubs = ?", (ubs.id_ubs,)
-        )
-        
-        citizens =  cursor.fetchall()
-        
-        con.close()
-        
-        return citizens
     
+    #colocar os metodos a seguir nos seus respectivos repositorios
     def search_all_doctors(self, ubs: Ubs):
         con = connection()
         cursor = con.cursor()

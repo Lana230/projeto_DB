@@ -1,5 +1,5 @@
-from models import *
-
+import sqlite3
+from models import Address
 from database.conexao import connection
 
 class Address_repository():
@@ -10,8 +10,8 @@ class Address_repository():
 
         try:
             cursor.execute(
-                "INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero) VALUES (?, ?, ?, ?, ?, ?)",
-                (address.cep, address.state, address.city, address.neigh, address.street, address.number)
+                "INSERT INTO endereco (rua, bairro, numero, cidade, estado, cep) VALUES (?, ?, ?, ?, ?, ?)",
+                (address.street, address.neigh, address.number, address.city, address.state, address.cep)
             )
 
             address.id_address = cursor.lastrowid
