@@ -185,9 +185,7 @@ DROP TABLE medicamento;
 
 CREATE TABLE medicamento(
     id_medicamento INTEGER PRIMARY KEY AUTOINCREMENT,
-    nome_medicamento TEXT NOT NULL UNIQUE,
-    
-    via TEXT NOT NULL
+    nome_medicamento TEXT NOT NULL UNIQUE   
 );
 
 DROP TABLE medicamento_consulta;
@@ -198,6 +196,7 @@ CREATE TABLE medicamento_consulta(
     frequencia INTEGER,
     duracao INTEGER,
     dose REAL NOT NULL,
+    via TEXT NOT NULL,
     PRIMARY KEY (id_medicamento, id_consulta),
     FOREIGN KEY (id_medicamento) REFERENCES medicamento(id_medicamento),
     FOREIGN KEY (id_consulta) REFERENCES consulta(id_consulta)
@@ -252,7 +251,7 @@ CREATE TABLE reg_vacina (
     FOREIGN KEY (id_vacina) REFERENCES vacina(id_vacina),
     FOREIGN KEY (cip) REFERENCES enfermeiro(cip),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs),
-    UNIQUE (num_sus, data_vacina)
+    UNIQUE (num_sus,id_vacina, data_vacina)
 );
 
 DROP TABLE telefone;
