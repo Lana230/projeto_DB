@@ -9,7 +9,9 @@ CREATE TABLE agendamento(
     posicao_atual INTEGER,
     prioridade_calculada INTEGER DEFAULT 0,
     motivo_prioridade TEXT,
-    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus)
+    id_fila INTEGER,
+    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus),
+    FOREIGN KEY (id_fila) REFERENCES fila(id_fila)
 );
 
 DROP TABLE anamnese;
@@ -17,12 +19,11 @@ DROP TABLE anamnese;
 CREATE TABLE anamnese (
     id_anamnese INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
-    id_consulta INTEGER NOT NULL,
     peso REAL NOT NULL,
     altura REAL NOT NULL,
-    presao_arterial REAL NOT NULL,
-    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus),
-    FOREIGN KEY (id_consulta) REFERENCES consulta(id_consulta)
+    data_anamnese TEXT NOT NULL,
+    pressao_arterial REAL NOT NULL,
+    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus)
 );
 
 DROP TABLE cidadao;
@@ -145,28 +146,19 @@ CREATE TABLE fila (
     data_fila TEXT NOT NULL,
     id_ubs INTEGER NOT NULL,
     tipo_atendimento TEXT NOT NULL,
-    quantidade_maxima INTEGER NOT NULL,
+    quantidade_maxima INTEGER NOT NULL CHECK (quantidade_maxima > 0),
     crm INTEGER,
     id_vacina INTEGER,
+    
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs),
     FOREIGN KEY (crm) REFERENCES medico(crm),
     FOREIGN KEY (id_vacina) REFERENCES vacina(id_vacina),
+
     CHECK (
         (crm IS NOT NULL AND id_vacina IS NULL) OR
         (id_vacina IS NOT NULL AND crm IS NULL)
     )
 
-);
-
-
-DROP TABLE fila_agendamento;
-
-CREATE TABLE fila_agendamento(
-    id_fila INTEGER NOT NULL,
-    id_agendamento INTEGER NOT NULL,
-    PRIMARY KEY (id_fila, id_agendamento),
-    FOREIGN KEY (id_fila) REFERENCES fila(id_fila),
-    FOREIGN KEY (id_agendamento) REFERENCES agendamento(id_agendamento)
 );
 
 DROP TABLE grupo_vulneravel;
