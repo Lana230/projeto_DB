@@ -16,10 +16,6 @@ class Cidadao(Pessoa):
     self.naturalidade = naturalidade
     self.ocupacao = ocupacao
     self.address = address
-    #deve adicionar listas para exames ligados ao cidadao? sim
-    #suas consultas? sim
-    #seus agendamentos? sim
-    #e seus medicamentos? estaria vinculado as consultas na qual passaram os medicamentos
 
   def exibir(self):
     super().exibir()

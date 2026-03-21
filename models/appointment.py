@@ -63,24 +63,6 @@ class Appointment:
         self.show_medication()
         print("----------------\n")
 
-    #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
-    def save_appoi_db(self):
-        cursor.execute(
-            "INSERT INTO consulta (num_sus, crm, data, motivo, habitos_de_vida) VALUES (?, ?, ?, ?, ?)",
-            (self.citizen.num_sus, self.doctor.crm, self.ubs.id_ubs, self.date.isoformat(), self.reason, self.life_habits)
-        )
-        
-        self.id_appointment = cursor.lastrowid
-
-        for h in self.hypothesis:
-            h.save_hypothesis_db(self.id_appointment)
-
-        for e in self.exam:
-            e.save_exam_db(self.id_appointment)
-        
-        for m in self.medication_appoi:
-            m.save_medication_appoi_db(self.id_appointment)
-
     #CONSULTAS DO BANDO DE DADOS
     def search_all(self):
         cursor.execute(

@@ -1,4 +1,5 @@
 from models import *
+from repositories import *
 from datetime import date
 
 addr1 = Address("63041-050", "Ceara", "Juazeiro", "triangulo", "Clotilde Noroes Mota", 235)
@@ -25,9 +26,18 @@ pessoa1.exibir()
 
 appointment1 = Appointment(pessoa1, None, ubs1, date.today(), "Consulta de rotina", "Paciente em bom estado de saúde")
 
-exam1 = Exam(appointment1, "Hemograma Completo", Type_exam.EXAM_LAB, "Baixa", Status_exam.SCHEDULED)
+exam1 = Exam(appointment1, "Hemograma Completo", Exam_Type.EXAM_LAB, "Baixa", Status_exam.SCHEDULED)
 exam1.add_data(date.today())
 exam1.details_exam()
 
-print(Type_exam.EXAM_CARD.value)
+print(Exam_Type.EXAM_CARD.value)
+
+address_repo = Address_repository()
+ubs_repo = Ubs_repository()
+
+address_repo.save_address_db(addr1)
+
+ubs_repo.save_ubs_db(ubs1)
+
+
 

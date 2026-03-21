@@ -21,11 +21,3 @@ class Address:
         print("Rua:", self.street)
         print("Número:", self.number)
         print("----------------\n")
-
-    def save_address_db(self):
-        cursor.execute(
-            "INSERT INTO endereco (cep, estado, cidade, bairro, rua, numero) VALUE (?, ?, ?, ?, ?, ?)",
-            (self.cep, self.state, self.city, self.neigh, self.street, self.number)
-        )
-
-        self.id_address = cursor.lastrowid

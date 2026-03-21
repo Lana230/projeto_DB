@@ -3,6 +3,8 @@ from models.documento import Documento
 
 class Pessoa:
   def __init__(self, nome_pessoa, estado_civil, ubs: Ubs):
+    
+    self.id_pessoa = None
     self.nome_pessoa = nome_pessoa
     self.emails = []
     self.telefones = []
@@ -22,7 +24,7 @@ class Pessoa:
       print(f"Email: {email}")
     print("---------------")
 
-  #O que é passado para este método não é um objeto do tipo Telefone -> (Int)
+  #O que é passado para este método não é um objeto do tipo Telefone -> (String)
   def adicionar_telefone(self, telefone):
     self.telefones.append(telefone)
 
