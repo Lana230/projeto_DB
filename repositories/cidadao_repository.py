@@ -24,7 +24,7 @@ class CidadaoRepository():
             INSERT INTO cidadao (
                 num_sus, data_nascimento, genero, 
                 naturalidade, ocupacao, id_endereco, 
-                id_pessoaz
+                id_pessoa
                 ) VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (
                 cidadao.num_sus, 
@@ -79,7 +79,7 @@ class CidadaoRepository():
                 p.id_pessoa, p.nome_pessoa, p.id_ubs, p.estado_civil, 
                 c.num_sus, c.data_nascimento, c.genero, 
                 c.naturalidade, c.ocupacao, c.id_endereco 
-                FROM pessoa p INNER JOIN cidadao c ON p.id_pessoa = c.id_pessoa WHERE p.id_ubs = ?
+            FROM pessoa p INNER JOIN cidadao c ON p.id_pessoa = c.id_pessoa WHERE p.id_ubs = ?
             """, (ubs.id_ubs,)
         )
         

@@ -54,9 +54,9 @@ class Ubs_repository():
 
         cursor.execute("""
             SELECT 
-            u.id_ubs, u.nome, u.id_endereco 
-            e.rua, e.bairro, e.numero, 
-            e.cidade, e.estado, e.cep 
+                u.id_ubs, u.nome, u.id_endereco 
+                e.rua, e.bairro, e.numero, 
+                e.cidade, e.estado, e.cep 
             FROM ubs u INNER JOIN endereco e ON u.id_endereco = e.id_endereco
         """)
         
@@ -98,35 +98,3 @@ class Ubs_repository():
             return None
         
         return self.build_object([row])[0]
-    
-    #NECESSARIO CORRRIGIR DEPOIS
-    #retorna dados crus do banco de dados, um array com valores, em que cada valor vai está em um indice do array
-    
-    #colocar os metodos a seguir nos seus respectivos repositorios
-    def search_all_doctors(self, ubs: Ubs):
-        con = connection()
-        cursor = con.cursor()
-
-        cursor.execute(
-            "SELECT p.id_pessoa, p.nome_pessoa, p.estado_civil, m.crm, m.especialidade FROM pessoa p INNER JOIN medico m ON p.id_pessoa = m.id_pessoa WHERE p.id_ubs = ?", (ubs.id_ubs,)
-        )
-        
-        doctors = cursor.fetchall()
-        
-        con.close()
-        
-        return doctors
-    
-    def search_all_nurses(self, ubs: Ubs):
-        con = connection()
-        cursor = con.cursor()
-
-        cursor.execute(
-            "SELECT p.id_pessoa, p.nome_pessoa, p.estado_civil, e.cip FROM pessoa p INNER JOIN enfermeiro e ON p.id_pessoa = e.id_pessoa WHERE p.id_ubs = ?", (ubs.id_ubs,)
-        )
-        
-        nurses = cursor.fetchall()
-        
-        con.close()
-        
-        return nurses
