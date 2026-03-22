@@ -768,3 +768,31 @@ INSERT INTO hipotese (id_consulta, doenca, cid) VALUES
 
 (23, 'Dor lombar', 'M54.5'),
 (24, 'Exame preventivo', 'Z01.4');
+
+INSERT INTO usuario_cidadao (id_cidadao, senha) VALUES
+(9000001, '123456'),
+(9000002, '123456'),
+(9000003, '123456'),
+(9000004, '123456');
+
+-- USUARIO ADMIN (UBS)
+INSERT INTO usuario_administrador (id_ubs, senha) VALUES
+(7654321, 'admin123'),
+(1234567, 'admin123'),
+(8765432, 'admin123'),
+(2749826, 'admin123'),
+(7453626, 'admin123');
+
+-- USUARIO MÉDICO
+INSERT INTO usuario_medico (id_medico, senha) VALUES
+(1001, 'med123'),
+(1002, 'med123'),
+(1003, 'med123'),
+(1004, 'med123');
+
+-- USUARIO ENFERMEIRO
+INSERT INTO usuario_enfermeiro (cip, senha) VALUES
+('ENF1001', 'enf123'),
+('ENF1002', 'enf123'),
+('ENF1003', 'enf123'),
+('ENF1004', 'enf123');
