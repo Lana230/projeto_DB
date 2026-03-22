@@ -315,3 +315,43 @@ CREATE TABLE vacina_ubs(
     FOREIGN KEY (id_vacina) REFERENCES vacina(id_vacina),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
+
+DROP TABLE usuario_cidadao;
+
+CREATE TABLE usuario_cidadao(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_cidadao INTEGER ,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (id_cidadao) REFERENCES cidadao(num_sus)
+    UNIQUE(id_cidadao)
+);
+
+DROP TABLE usuario_administrador;
+
+CREATE TABLE usuario_administrador(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_ubs INTEGER NOT NULL,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs),
+    UNIQUE(id_ubs)
+);
+
+DROP TABLE usuario_medico;
+
+CREATE TABLE usuario_medico(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_medico INTEGER NOT NULL,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (id_medico) REFERENCES medico(crm)
+    UNIQUE(id_medico)
+);
+
+DROP TABLE usuario_enfermeiro;
+
+CREATE TABLE usuario_enfermeiro(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    cip INTEGER NOT NULL,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (cip) REFERENCES enfermeiro(cip)
+    UNIQUE(cip)
+);
