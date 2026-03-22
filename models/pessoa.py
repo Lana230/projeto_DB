@@ -1,5 +1,12 @@
 from models.ubs import Ubs
 from models.documento import Documento
+from enum import Enum
+
+class EstadoCivil(Enum):
+  SOLTEIRO = "Solteiro(a)"
+  CASADO = "Casado(a)"
+  DIVORCIADO = "Divorciado(a)"
+  VIUVO = "Viúvo(a)"
 
 class Pessoa:
   def __init__(self, nome_pessoa, estado_civil, ubs: Ubs):
@@ -9,11 +16,9 @@ class Pessoa:
     self.emails = []
     self.telefones = []
     self.documentos = []
-    self.estado_civil = estado_civil
+    self.estado_civil = estado_civil if isinstance(estado_civil, EstadoCivil) else EstadoCivil(estado_civil)
     self.ubs = ubs
     
-  #Permanecer assim para não resultar em fluxo circular, já que nos respectivos arquivos de telefone e email já importam pessoa
-
   #O que é passado para este método não é um objeto do tipo Email -> (String)
   def adicionar_email(self, email):
     self.emails.append(email)
@@ -45,7 +50,7 @@ class Pessoa:
   def exibir(self):
     print("--- Pessoa: ---")
     print(f"Nome: {self.nome_pessoa}")
-    print(f"Estado Cívil: {self.estado_civil}")
+    print(f"Estado Cívil: {self.estado_civil.value}")
     print()
     
     self.exibir_documentos()

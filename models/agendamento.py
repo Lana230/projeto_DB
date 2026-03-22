@@ -32,11 +32,11 @@ class Agendamento:
     
     def exibir(self):
         print("---- Agendamento ---")
-        print(f"SUS {self.cidadao.sus}")
+        print(f"SUS {self.cidadao.num_sus}")
         print(f"Nome do paciente: {self.cidadao.nome_pessoa}")
         print(f"Data da solicitação: {self.data_solicitacao}")
         print(f"Hora do agendamento: {self.hora_agendamento}")
         print(f"Posição atual: {self.posicao_atual}")
         print(f"Motivo da prioridade: {self.motivo_prioridade}")
-        print(f"Status: {self.status}")
+        print(f"Status: {self.status.value}")
         print("---------------------\n")

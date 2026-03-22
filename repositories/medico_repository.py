@@ -75,3 +75,25 @@ class MedicoRepository:
         con.close()
         
         return self.construir_objeto(rows)
+    
+    def buscar_por_crm(self, crm):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("""
+            SELECT
+                p.id_pessoa, p.nome_pessoa, p.id_ubs, p.estado_civil,
+                m.crm, m.especialidade
+            FROM pessoa p INNER JOIN medico m ON p.id_pessoa = m.id_pessoa WHERE m.crm = ?
+            """, (crm,)
+        )
+        
+        row = cursor.fetchone()
+        
+        con.close()
+        
+        if row is None:
+            return None
+        
+        return self.construir_objeto([row])[0]

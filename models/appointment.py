@@ -11,6 +11,8 @@ from database.conexao import connection
 con = connection()
 cursor = con.cursor()
 
+'''Problema de fluxo circular entre exam e appointment'''
+
 #class
 class Appointment:
     def __init__(self, citizen: Cidadao, doctor: Medico, ubs: Ubs, date, reason, life_habits):
