@@ -11,14 +11,12 @@ class Tipo(Enum):
 class Email:
   def __init__(self, email, tipo, pessoa: Pessoa, ubs: Ubs):
     
+    self.id_email = None
     self.email = email
-    self.tipo = tipo
+    self.tipo = tipo if isinstance(tipo, Tipo) else Tipo(tipo)
     self.pessoa = pessoa
     self.ubs = ubs
 
     #alteração no tipo de valor esperado no atributo tipo
     #para médico, cidadão ou enfermeiro
     #para indicar a que tipo de pessoa pertence
-
-  def adicionar_id(self, id_email):
-    self.id_email = id_email

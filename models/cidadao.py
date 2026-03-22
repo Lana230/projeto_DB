@@ -1,4 +1,4 @@
-from models.pessoa import *
+from models.pessoa import Pessoa, Ubs
 from models.address import Address
 from enum import Enum
 
@@ -12,7 +12,7 @@ class Cidadao(Pessoa):
     
     self.num_sus = num_sus
     self.data_nascimento = data_nascimento
-    self.genero = genero
+    self.genero = genero if isinstance(genero, Genero) else Genero(genero)
     self.naturalidade = naturalidade
     self.ocupacao = ocupacao
     self.address = address
@@ -22,7 +22,7 @@ class Cidadao(Pessoa):
     
     print(f"SUS: {self.num_sus}")
     print(f"Data de Nascimento: {self.data_nascimento}")
-    print(f"Gênero: {self.genero}")
+    print(f"Gênero: {self.genero.value}")
     print(f"Naturalidade: {self.naturalidade}")
     print(f"Ocupação: {self.ocupacao}")
     

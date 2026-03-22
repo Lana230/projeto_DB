@@ -1,4 +1,4 @@
-from models.pessoa import *
+from models.pessoa import Pessoa, Ubs
 
 class Medico(Pessoa):
     def __init__(self, nome_pessoa, estado_civil, ubs: Ubs, crm, especialidade):

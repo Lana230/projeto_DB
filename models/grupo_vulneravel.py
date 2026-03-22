@@ -22,9 +22,8 @@ class NomeGrupo(Enum):
 class Grupo_vulneravel:
     
     def __init__(self, nome_grupo, peso_prioridade, descricao):
-        self.nome_grupo = nome_grupo
+        
+        self.id_grupo_vulneravel = None
+        self.nome_grupo = nome_grupo if isinstance(nome_grupo, NomeGrupo) else NomeGrupo(nome_grupo)
         self.peso_prioridade = peso_prioridade
         self.descricao = descricao
-        
-    def adicionar_id(self, id_grupo_vulneravel):
-        self.id_grupo_vulneravel = id_grupo_vulneravel

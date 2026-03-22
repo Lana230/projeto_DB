@@ -1,11 +1,5 @@
-from .cidadao import Cidadao
-from .medico import Medico
 from .appointment import Appointment
 from enum import Enum
-
-from database.conexao import connection
-con = connection()
-cursor = con.cursor()
 
 class Exam_Type(Enum):
     EXAM_LAB = "Exames laboratoriais"
