@@ -1,3 +1,4 @@
+import sqlite3
 from models import Pessoa
 from database.conexao import connection
 from .ubs_repository import Ubs_repository
@@ -48,3 +49,33 @@ class PessoaRepository():
             pessoas.append(pessoa)
         
         return pessoas
+    
+    def listar_todos(self):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("SELECT * FROM pessoa")
+        
+        rows = cursor.fetchall()
+        
+        con.close()
+        
+        return self.construir_objeto(rows)
+    
+    def buscar_por_id(self, id_pessoa):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("SELECT * FROM pessoa WHERE id_pessoa = ?", (id_pessoa,))
+        
+        row = cursor.fetchone()
+        
+        con.close()
+        
+        if row is None:
+            return None
+        
+        return self.construir_objeto([row])[0]
+        
