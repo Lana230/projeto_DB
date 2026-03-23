@@ -1,5 +1,5 @@
 from models import *
-
+from repositories import *
 from database.conexao import connection
 
 class Hypothesis_repository():
@@ -13,3 +13,13 @@ class Hypothesis_repository():
         hypothesis.id_hypothesis = cursor.lastrowid
         
         return hypothesis
+    
+    #CONSTRUTOR DE OBJETO
+    def build_object_hypo(self, rows):
+        hypothesis = []
+
+        for row in rows:
+            
+            hypot = Hypothesis(
+                    
+                    )

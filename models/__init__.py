@@ -4,7 +4,7 @@ from .address import Address
 from .agendamento import Agendamento, StatusAgendamento
 from .anamnese import Anamnese
 from .appointment import Appointment
-from .cidadao import Cidadao, Genero
+from .cidadao import Agendamento, Genero
 from .dependente import Dependente
 from .documento import Documento, TipoDocumento
 from .email import Email, Tipo

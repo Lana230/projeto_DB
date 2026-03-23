@@ -1,7 +1,7 @@
-from models import Cidadao, Vaccine, Enfermeiro, Ubs
+from models import Agendamento, Vaccine, Enfermeiro, Ubs
 
 class Record_vaccine:
-    def __init__(self, cidadao: Cidadao, vaccine_ubs: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
+    def __init__(self, cidadao: Agendamento, vaccine_ubs: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
         self.id_vaccine_record = None
         self.citizen = cidadao 
         self.vaccine_ubs = vaccine_ubs

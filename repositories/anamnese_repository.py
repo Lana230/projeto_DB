@@ -1,5 +1,5 @@
 import sqlite3
-from models import Anamnese, Cidadao
+from models import Anamnese, Agendamento
 from database.conexao import connection
 from .cidadao_repository import CidadaoRepository
 
@@ -69,7 +69,7 @@ class AnamneseRepository():
         
         return self.construir_objeto(rows)
     
-    def buscar_por_cidadao(self, cidadao: Cidadao):
+    def buscar_por_cidadao(self, cidadao: Agendamento):
         con = connection()
         con.row_factory = sqlite3.Row
         cursor = con.cursor()

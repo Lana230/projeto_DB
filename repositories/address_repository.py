@@ -64,4 +64,3 @@ class Address_repository():
             return None
         
         return self.build_object_address([row])[0]
-            

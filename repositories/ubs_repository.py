@@ -35,7 +35,7 @@ class Ubs_repository():
     
     #CONSTRUTOR DE OBJETO
     #cria uma lista (array) de objetos do tipo ubs e retorna
-    def build_object(self, rows):
+    def build_object_ubs(self, rows):
         ubs = []
         
         for row in rows:
@@ -44,7 +44,7 @@ class Ubs_repository():
             
             u = Ubs(
                 name=row["nome"],
-                address=None #chamar o repositorio de address
+                address= self.address_repo.build_object_address([row])[0]
             )
             
             u.id_ubs = row["id_ubs"]
@@ -71,7 +71,7 @@ class Ubs_repository():
         
         con.close()
         
-        return self.build_object(rows)
+        return self.build_object_ubs(rows)
     
     def search_per_id(self, id_ubs):
         con = connection()
@@ -86,7 +86,7 @@ class Ubs_repository():
         if row is None:
             return None
         
-        return self.build_object([row])[0]
+        return self.build_object_ubs([row])[0]
     
     def search_per_name(self, name):
         con = connection()
@@ -104,4 +104,4 @@ class Ubs_repository():
         if row is None:
             return None
         
-        return self.build_object([row])[0]
+        return self.build_object_ubs([row])[0]
