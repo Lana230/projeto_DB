@@ -1,8 +1,18 @@
 from models import *
+from repositories import *
 
 from database.conexao import connection
 
 class Appointment_repository():
+    def __init__(self):
+        self.citizen_repo = CidadaoRepository()
+        self.ubs_repo = Ubs_repository()
+        self.doctor_repo = MedicoRepository()
+        self.medication_appoi_repo = Medication_appoi_repository()
+        self.exam_repo = Exam_repository()
+
+
+
     #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
     def save_appoi_db(self, appointment: Appointment):
         con = connection()
@@ -35,3 +45,7 @@ class Appointment_repository():
             con.close()
 
         return appointment
+    
+    # def build_object_appoi(self, rows): 
+        # for row in rows:
+            

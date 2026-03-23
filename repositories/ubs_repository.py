@@ -1,14 +1,21 @@
 import sqlite3
-from models import Ubs
+from models import *
+from repositories import *
 from database.conexao import connection
 
 class Ubs_repository():  
+    def __init__(self):
+        self.address_repo = Address_repository()
+
     #SALVAR UBS NO BANCO DE DADOS
     def save_ubs_db(self, ubs: Ubs):
         con = connection()
         cursor = con.cursor()
         
         try:
+            if ubs.address and ubs.address.id_address is None:
+                ubs.address = self.address_repo.save_address_db(ubs.address)
+
             cursor.execute(
                 "INSERT INTO ubs (nome, id_endereco) VALUES (?, ?)",
                 (ubs.name, ubs.address.id_address)
