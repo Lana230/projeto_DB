@@ -50,6 +50,7 @@ class PessoaRepository():
         
         return pessoas
     
+    #Não recomendado ter este comando onde seleciona todas as pessoas no banco de dados (Mundo real)
     def listar_todos(self):
         con = connection()
         con.row_factory = sqlite3.Row
