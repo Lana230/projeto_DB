@@ -19,7 +19,7 @@ def input_enum(enum_class):
         else:
             print("Valor inválido, tenta de novo.")
 
-def Menu_appoi_doctor(citizen: Cidadao, doctor: Medico, ubs: Ubs):
+def Menu_appoi_doctor(citizen: Agendamento, doctor: Medico, ubs: Ubs):
     '''Se este método recebe objetos do tipo cidadao, medico e ubs, então não precisa novamente se utilizar dos repositórios no método para gerar um objeto de cidadao, medico e ubs'''
      
     citizen_repo = CidadaoRepository()
@@ -140,7 +140,7 @@ def Menu_appoi_doctor(citizen: Cidadao, doctor: Medico, ubs: Ubs):
                 print("saindo...")
                 break
 
-def menu_appoi_citizen(citizen: Cidadao, doctor: Medico, ubs: Ubs):
+def menu_appoi_citizen(citizen: Agendamento, doctor: Medico, ubs: Ubs):
     while True:
         print("--- Menu Consulta ---")
         print("1.Registro de consultas.")

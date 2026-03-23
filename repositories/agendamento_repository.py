@@ -1,5 +1,5 @@
 import sqlite3
-from models import Agendamento, StatusAgendamento, Fila_atendimento, Cidadao
+from models import Agendamento, StatusAgendamento, Fila_atendimento, Agendamento
 from database.conexao import connection
 from .cidadao_repository import CidadaoRepository
 
@@ -74,7 +74,7 @@ class AgendamentoRepository:
         
         return self.construir_objeto(rows)
     
-    def buscar_por_cidadao(self, cidadao: Cidadao):
+    def buscar_por_cidadao(self, cidadao: Agendamento):
         con = connection()
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
