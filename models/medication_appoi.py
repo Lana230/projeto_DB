@@ -25,8 +25,3 @@ class Medication_appoi():
         print(f"Dose: {self.dose} || Via: {self.via}")
         print("Frequencia por dia: ", self.frequency_days)
         print("Duracao: ", self.duraction_adm)
-    
-    
-
-
-    

@@ -16,13 +16,15 @@ CREATE TABLE agendamento(
 
 DROP TABLE anamnese;
 
+-- pensar em alterar o tipo de valor de pressao arterial para string
+-- porque normalmente a pressão arterial é assim: 12/80
 CREATE TABLE anamnese (
     id_anamnese INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
     peso REAL NOT NULL,
     altura REAL NOT NULL,
     data_anamnese TEXT NOT NULL,
-    pressao_arterial REAL NOT NULL,
+    pressao_arterial TEXT NOT NULL,
     FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus)
 );
 
@@ -56,7 +58,7 @@ DROP TABLE consulta;
 CREATE TABLE consulta (
     id_consulta INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
-    crm INTEGER NOT NULL,
+    crm TEXT NOT NULL,
     id_ubs INTEGER NOT NULL,
     motivo TEXT,
     habito_vida TEXT,
@@ -71,7 +73,7 @@ DROP TABLE dependente;
 CREATE TABLE dependente(
     id_responsavel INTEGER NOT NULL,
     id_dependente INTEGER NOT NULL,
-    parentesco TEXT; 
+    parentesco TEXT, 
     PRIMARY KEY(id_responsavel,id_dependente),
     FOREIGN KEY (id_responsavel) REFERENCES pessoa(id_pessoa),
     FOREIGN KEY (id_dependente) REFERENCES pessoa(id_pessoa)
@@ -147,7 +149,7 @@ CREATE TABLE fila (
     id_ubs INTEGER NOT NULL,
     tipo_atendimento TEXT NOT NULL,
     quantidade_maxima INTEGER NOT NULL CHECK (quantidade_maxima > 0),
-    crm INTEGER,
+    crm TEXT,
     id_vacina INTEGER,
     
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs),
@@ -218,7 +220,7 @@ CREATE TABLE medicamento_ubs(
 DROP TABLE medico;
 
 CREATE TABLE medico (
-    crm INTEGER PRIMARY KEY,
+    crm TEXT PRIMARY KEY,
     especialidade TEXT NOT NULL,
     id_pessoa INTEGER NOT NULL,
 
@@ -284,8 +286,9 @@ DROP TABLE vacina;
 
 CREATE TABLE vacina(
     id_vacina INTEGER PRIMARY KEY AUTOINCREMENT,
-    tipo TEXT NOT NULL UNIQUE,
-    previne TEXT NOT NULL
+    tipo TEXT NOT NULL,
+    previne TEXT NOT NULL,
+    UNIQUE(tipo)
 );
 
 DROP TABLE vacina_grupo;
@@ -302,7 +305,7 @@ CREATE TABLE vacina_grupo(
 DROP TABLE vacina_ubs;
 
 CREATE TABLE vacina_ubs(
-    id_medicamento_ubs INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_vacina_ubs INTEGER PRIMARY KEY AUTOINCREMENT,
     id_vacina INTEGER NOT NULL,
     id_ubs INTEGER NOT NULL,
     num_lote TEXT NOT NULL,
@@ -311,4 +314,44 @@ CREATE TABLE vacina_ubs(
     
     FOREIGN KEY (id_vacina) REFERENCES vacina(id_vacina),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
+);
+
+DROP TABLE usuario_cidadao;
+
+CREATE TABLE usuario_cidadao(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_cidadao INTEGER ,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (id_cidadao) REFERENCES cidadao(num_sus)
+    UNIQUE(id_cidadao)
+);
+
+DROP TABLE usuario_administrador;
+
+CREATE TABLE usuario_administrador(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_ubs INTEGER NOT NULL,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs),
+    UNIQUE(id_ubs)
+);
+
+DROP TABLE usuario_medico;
+
+CREATE TABLE usuario_medico(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_medico INTEGER NOT NULL,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (id_medico) REFERENCES medico(crm)
+    UNIQUE(id_medico)
+);
+
+DROP TABLE usuario_enfermeiro;
+
+CREATE TABLE usuario_enfermeiro(
+    id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
+    cip INTEGER NOT NULL,
+    senha TEXT NOT NULL,
+    FOREIGN KEY (cip) REFERENCES enfermeiro(cip)
+    UNIQUE(cip)
 );

@@ -63,7 +63,7 @@ try:
     VALUES (?, ?, ?)
     """
 
-    cursor.execute(inserir_pessoa, (7654321, 'Alana', 'Solteira'))
+    cursor.execute(inserir_pessoa, (765432, 'Alana Clara ', 'Solteira'))
 
     # ⚠️ MUITO IMPORTANTE
     con.commit()
@@ -89,3 +89,6 @@ finally:
     if con:
         con.close()
         print("\nConexão SQLite encerrada")
+
+
+

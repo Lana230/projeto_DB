@@ -1,7 +1,3 @@
-from database.conexao import connection
-con = connection()
-cursor = con.cursor()
-
 class Medication:
     def __init__(self, name_medication, category_med):
         self.id_medication = None

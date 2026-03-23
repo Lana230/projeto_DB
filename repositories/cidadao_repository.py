@@ -88,3 +88,24 @@ class CidadaoRepository():
         con.close()
         
         return self.costruir_objeto(rows)
+    
+    def buscar_por_sus(self, num_sus):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("""
+            SELECT
+                p.id_pessoa, p.nome_pessoa, p.id_ubs, p.estado_civil,
+                c.num_sus, c.data_nascimento, c.genero,
+                c.naturalidade, c.ocupacao, c.id_endereco
+            FROM pessoa p INNER JOIN cidadao c ON p.id_pessoa = c.id_pessoa WHERE c.num_sus = ?               
+            """, (num_sus,)
+        )
+        
+        row = cursor.fetchone()
+        
+        if row is None:
+            return None
+        
+        return self.costruir_objeto([row])[0]

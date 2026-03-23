@@ -1,10 +1,6 @@
 from models import *
 from repositories import *
 from datetime import datetime
-from datetime import date
-
-from database.conexao import conection
-from repositories import medico_repository
 
 def input_enum(enum_class):
     # monta dicionário (nome + valor)
@@ -23,13 +19,16 @@ def input_enum(enum_class):
         else:
             print("Valor inválido, tenta de novo.")
 
-def Menu_appoi_doctor(citizen: Cidadao, doctor: Medico, ubs: Ubs): 
-    citizen_repo = cidadao_repository()
-    doctor_repo = medico_repository()
-    ubs_repo = ubs_repository()
+def Menu_appoi_doctor(citizen: Cidadao, doctor: Medico, ubs: Ubs):
+    '''Se este método recebe objetos do tipo cidadao, medico e ubs, então não precisa novamente se utilizar dos repositórios no método para gerar um objeto de cidadao, medico e ubs'''
+     
+    citizen_repo = CidadaoRepository()
+    doctor_repo = MedicoRepository()
+    ubs_repo = Ubs_repository()
 
-    doctor = doctor_repo.search_per_crm(doctor.num_crm)
-    citizen = citizen_repo.search_per_sus(citizen.num_sus)
+    #Aqui é chamado os métodos dos repositórios que vai gerar um objeto
+    doctor = doctor_repo.buscar_por_crm(doctor.crm)
+    citizen = citizen_repo.buscar_por_sus(citizen.num_sus)
     ubs = ubs_repo.search_per_id(ubs.id_ubs)
     
     if not doctor:
@@ -71,6 +70,8 @@ def Menu_appoi_doctor(citizen: Cidadao, doctor: Medico, ubs: Ubs):
                         print(f"--- Consultas realizadas no dia: {data}")
 
             elif op == 2:
+                #Vai dá problema! O construtor espera valores, a não ser que você crie outro construtor que não passe nada
+                #mas vai ter que ver se o python permite ter mais de um construtor na classe
                 appointment = Appointment()
 
                 print("---- NOVA CONSULTA ----")

@@ -12,7 +12,7 @@ class Anamnese:
         
     def exibir(self):
         print("--- Anamnese ---")
-        print(f"Nome do paciente: {self.cidadao.nome}")
+        print(f"Nome do paciente: {self.cidadao.nome_pessoa}")
         print(f"Data: {self.data_anamnese}")
         print(f"Peso: {self.peso}")
         print(f"Altura: {self.altura}")

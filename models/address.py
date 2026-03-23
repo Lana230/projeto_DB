@@ -1,7 +1,3 @@
-from database.conexao import connection
-con = connection()
-cursor = con.cursor()
-
 class Address:
     def __init__(self, cep, state, city, neigh, street, number):
         self.id_address = None

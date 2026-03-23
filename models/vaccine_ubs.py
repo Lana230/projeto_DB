@@ -1,9 +1,5 @@
-from models import * 
+from models import Vaccine, Ubs, Focus_priority
 from enum import Enum
-
-from database.conexao import connection
-con = connection()
-cursor = con.cursor()
 
 class priority(Enum):
     VERY_HIGH = "Muito Alta"
@@ -34,8 +30,3 @@ class Vaccine_ubs:
         print("Vacina: ", self.name)
         print("Dose: ", self.dose)
         print("Lote: ", self.lote)
-
-   
-
-    
-            

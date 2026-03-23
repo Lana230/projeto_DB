@@ -9,16 +9,26 @@ class Tipo(Enum):
   UBS = "Ubs"
 
 class Email:
-  def __init__(self, email, tipo, pessoa: Pessoa, ubs: Ubs):
+  def __init__(self, email, pessoa: Pessoa=None, ubs: Ubs=None):
     
+    self.id_email = None
     self.email = email
-    self.tipo = tipo
     self.pessoa = pessoa
     self.ubs = ubs
+  
+  @classmethod
+  def criar_email(classe, email, tipo, pessoa: Pessoa=None, ubs: Ubs=None):
+    if not isinstance(tipo, Tipo):
+      try:
+        tipo = Tipo(tipo)
+      except ValueError:
+        raise ValueError("Tipo inválido")
+    
+    if tipo == Tipo.Ubs:
+      if ubs is None or pessoa is not None:
+        raise ValueError("Email de UBS deve ter apenas ubs")
+    else:
+      if pessoa is None or ubs is not None:
+        raise ValueError("Email de pessoa deve ter apenas pessoa")
 
-    #alteração no tipo de valor esperado no atributo tipo
-    #para médico, cidadão ou enfermeiro
-    #para indicar a que tipo de pessoa pertence
-
-  def adicionar_id(self, id_email):
-    self.id_email = id_email
+    return classe(email, pessoa, ubs)
