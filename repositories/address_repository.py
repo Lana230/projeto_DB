@@ -31,6 +31,8 @@ class Address_repository():
         addresss = []
 
         for row in rows:
+            if row is None:
+                continue
 
             address = Address(
                 cep = row["cep"],

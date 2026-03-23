@@ -1,4 +1,4 @@
-from models.cidadao import Agendamento
+from models.cidadao import Cidadao
 
 from enum import Enum
 
@@ -16,7 +16,7 @@ class StatusAgendamento(Enum):
 
 class Agendamento:
     
-    def __init__(self, cidadao: Agendamento, data_solicitacao,  hora_agendamento, posicao_atual=None, status=StatusAgendamento.PENDENTE, prioridade_calculada=0, motivo_prioridade=None):
+    def __init__(self, cidadao: Cidadao, data_solicitacao,  hora_agendamento, posicao_atual=None, status=StatusAgendamento.PENDENTE, prioridade_calculada=0, motivo_prioridade=None):
         
         self.id_agendamento = None
         self.cidadao = cidadao

@@ -53,9 +53,11 @@ class Appointment_repository():
         return appointment
     
     def build_object_appoi(self, rows): 
-         appointments = []
+        appointments = []
 
-         for row in rows:   
+        for row in rows:
+            if row is None:
+                continue   
 
             appois = Appointment(
                 scheduling =  self.agendamento_repo.buscar_por_id(row["id_agendamento"]),
@@ -67,3 +69,7 @@ class Appointment_repository():
             )
             
             appois.id_appointment = row["id_consulta"]
+            
+            appointments.append(appois)
+        
+        return appointments

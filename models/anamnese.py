@@ -1,7 +1,7 @@
-from models.cidadao import Agendamento
+from models.cidadao import Cidadao
 
 class Anamnese:
-    def __init__(self, cidadao: Agendamento, data_anamnese, peso, altura, pressao_arterial):
+    def __init__(self, cidadao: Cidadao, data_anamnese, peso, altura, pressao_arterial):
         
         self.id_anamnese = None
         self.cidadao = cidadao

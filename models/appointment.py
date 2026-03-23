@@ -1,6 +1,6 @@
 #importacion
 from models.ubs import Ubs
-from models.cidadao import Agendamento
+from models.agendamento import Agendamento
 from models.medico import Medico
 from models.exam import Exam
 from .medication_appoi import Medication_appoi

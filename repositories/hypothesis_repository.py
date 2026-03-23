@@ -19,6 +19,8 @@ class Hypothesis_repository():
         hypothesis = []
 
         for row in rows:
+            if row is None:
+                continue
             
             hypot = Hypothesis(
                     

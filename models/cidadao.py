@@ -6,7 +6,7 @@ class Genero(Enum):
   FEMININO = 'F'
   MASCULINO = 'M'
 
-class Agendamento(Pessoa):
+class Cidadao(Pessoa):
   def __init__(self, nome_pessoa, estado_civil, ubs: Ubs, num_sus, data_nascimento, genero, naturalidade, ocupacao, address: Address):
     super().__init__(nome_pessoa, estado_civil, ubs)
     

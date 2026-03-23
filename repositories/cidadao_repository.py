@@ -1,5 +1,5 @@
 import sqlite3
-from models import Agendamento, Ubs
+from models import Cidadao, Ubs
 from database.conexao import connection
 from .pessoa_repository import PessoaRepository
 from .ubs_repository import Ubs_repository
@@ -12,7 +12,7 @@ class CidadaoRepository():
         self.ubs_repo = Ubs_repository()
         self.address_repo = Address_repository()
     
-    def salvar(self, cidadao: Agendamento):
+    def salvar(self, cidadao: Cidadao):
         con = connection()
         cursor = con.cursor()
         
@@ -51,7 +51,7 @@ class CidadaoRepository():
             ubs = self.ubs_repo.search_per_id(row["id_ubs"])
             #address = self.address_repo.search_per_id(row["id_endereco"])
             
-            cidadao = Agendamento(
+            cidadao = Cidadao(
                 nome_pessoa=row["nome_pessoa"],
                 estado_civil=row["estado_civil"],
                 ubs=ubs,
