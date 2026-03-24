@@ -1,8 +1,13 @@
 from models import *
+from repositories import *
 
 from database.conexao import connection
 
 class Vaccine_ubs_repository():
+    def __init__(self):
+        self.vaccine_repo = Vaccine_repository()
+        self.ubs_repo = Ubs_repository()
+
     #SALVANDO VACINA NO BANCO DE DADOS
     def save_vaccine_ubs_db(self, vaccine_ubs: Vaccine_ubs):
         con = connection()
@@ -27,3 +32,23 @@ class Vaccine_ubs_repository():
             con.close()
 
         return vaccine_ubs
+    
+    def build_object_vaccine_ubs(self, rows):
+        ubs_vaccines = []
+
+        for row in rows:
+
+            ubs_vac = Vaccine_ubs(
+                vaccine = self.vaccine_repo.search_per_id(row["id_vacina"]),
+                ubs = self.ubs_repo.search_per_id(row["id_ubs"]),
+                dose = row["dose"],
+                lote = row["num_lote"],
+                available_quan = row["quantidade_disponivel"],
+                validity = row["validade"],
+            )
+
+            ubs_vac.id_vaccine_ubs = row["id_vacina_ubs"]
+
+            ubs_vaccines.append(ubs_vac)
+
+        return ubs_vaccines

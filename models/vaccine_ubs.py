@@ -8,7 +8,7 @@ class priority(Enum):
     LOW = "Baixa"
 
 class Vaccine_ubs:
-    def __init__(self, vaccine: Vaccine, ubs: Ubs, dose, lote, available_quan):
+    def __init__(self, vaccine: Vaccine, ubs: Ubs, dose, lote, available_quan, validity):
         self.id_vaccine_ubs = None
         self.vaccine = vaccine
         self.ubs = ubs
@@ -16,6 +16,7 @@ class Vaccine_ubs:
         self.dose =  dose
         self.lote = lote
         self.available_quan = available_quan
+        self.validity = validity
         self.focus_priority = []
     
     #def ver_priority(citizen: Cidadao):

@@ -1,8 +1,12 @@
 from models import *
+from repositories import *
 
 from database.conexao import connection
 
 class Exam_repository():
+    def __init__(self):
+        self.appoi_repo = Appointment_repository()
+
     #SALVAR EXAMES DENTRO DO BANCO DE DADOS
     def save_exam_db(self, cursor,appointment: Appointment, exam: Exam):
         cursor.execute(
@@ -14,3 +18,21 @@ class Exam_repository():
         
         return exam
     
+    def build_object_exam(self, rows):
+        exams = []
+
+        for row in rows:
+
+            exam = Exam(
+                appointment = self.appoi_repo.search_per_id(row["id_consulta"]),
+                name_exam = row["nome"],
+                exam_type = row["tipo"],
+                degree_urgency = row["grau_urgencia"],
+                status_exam = row["status"],
+            )
+
+            exam.id_exam = row["id_exame"]
+
+            exams.append(exam)
+
+        return exams   

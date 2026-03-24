@@ -1,5 +1,6 @@
 from models import *
 from repositories import *
+import sqlite3
 
 from database.conexao import connection
 
@@ -73,3 +74,21 @@ class Appointment_repository():
             appointments.append(appois)
         
         return appointments
+    
+    def search_per_id(self, id_appointment):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        cursor.execute(
+            "SELECT * FROM consulta WHERE id_consulta = ?",
+            (id_appointment,)
+        )
+        row = cursor.fetchone()
+
+        con.close()
+
+        if row is None:
+            return None
+
+        return self.build_object_appoi([row])[0]
