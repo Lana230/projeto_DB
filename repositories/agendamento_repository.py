@@ -1,8 +1,12 @@
 import sqlite3
-from models import Agendamento, StatusAgendamento, Fila_atendimento, Cidadao
+from models import Cidadao, StatusAgendamento, Fila_atendimento, Agendamento
 from database.conexao import connection
+from .cidadao_repository import CidadaoRepository
 
 class AgendamentoRepository:
+    
+    def __init__(self):
+        self.cidadao_repo = CidadaoRepository()
     
     def salvar(self, agendamento: Agendamento):
         con = connection()
@@ -39,8 +43,10 @@ class AgendamentoRepository:
             if row is None:
                 continue
             
+            cidadao = self.cidadao_repo.buscar_por_sus(row["num_sus"])
+            
             ag = Agendamento(
-                cidadao=None, #depois buscar no repositorio de cidadao
+                cidadao=cidadao,
                 data_solicitacao=row["data_solicitacao"],
                 hora_agendamento=row["hora_agendamento"],
                 posicao_atual=row["posicao_atual"],

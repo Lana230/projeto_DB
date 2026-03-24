@@ -7,6 +7,7 @@ class EstadoCivil(Enum):
   CASADO = "Casado(a)"
   DIVORCIADO = "Divorciado(a)"
   VIUVO = "Viúvo(a)"
+  UNIAO_ESTAVEL = "União estável"
 
 class Pessoa:
   def __init__(self, nome_pessoa, estado_civil, ubs: Ubs):

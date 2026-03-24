@@ -1,6 +1,6 @@
 #importacion
 from models.ubs import Ubs
-from models.cidadao import Cidadao
+from models.agendamento import Agendamento
 from models.medico import Medico
 from models.exam import Exam
 from .medication_appoi import Medication_appoi
@@ -15,12 +15,12 @@ cursor = con.cursor()
 
 #class
 class Appointment:
-    def __init__(self, citizen: Cidadao, doctor: Medico, ubs: Ubs, date, reason, life_habits):
+    def __init__(self, scheduling: Agendamento, doctor: Medico, ubs: Ubs, date, reason, life_habits):
         self.id_appointment = None
-        self.citizen = citizen
+        self.scheduling = scheduling
         self.doctor = doctor
         self.ubs = ubs
-        self.date = date
+        self.data = date
         self.reason = reason
         self.life_habits = life_habits
         self.hypothesis = [] 
@@ -53,7 +53,7 @@ class Appointment:
         print("UBS: ", self.ubs.name)
         print("Data: ", self.data.strftime("%d/%m/%Y"))
         print("\n--- Dados do Paciente ---")
-        self.citizen.exibir()
+        self.scheduling.exibir()
         print("\n--- Dados do Medico Responsavel ---")
         print(f"Medico: {self.doctor.name} || Numero do CRM: {self.doctor.crm}")
         print("Motivo: ", self.reason)

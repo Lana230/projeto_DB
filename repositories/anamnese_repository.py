@@ -1,8 +1,12 @@
 import sqlite3
 from models import Anamnese, Cidadao
 from database.conexao import connection
+from .cidadao_repository import CidadaoRepository
 
 class AnamneseRepository():
+    
+    def __init__(self):
+        self.cidadao_repo = CidadaoRepository()
     
     def salvar(self, anamnese: Anamnese):
         con = connection()
@@ -35,8 +39,10 @@ class AnamneseRepository():
             if row is None:
                 continue
             
+            cidadao = self.cidadao_repo.buscar_por_sus(row["num_sus"])
+            
             an = Anamnese(
-                cidadao=None, #depois buscar no repositorio de cidadao
+                cidadao=cidadao,
                 data_anamnese=row["data_anamnese"],
                 peso=row["peso"],
                 altura=row["altura"],

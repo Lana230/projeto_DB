@@ -1,14 +1,21 @@
 import sqlite3
-from models import Ubs
+from models import *
+from repositories import *
 from database.conexao import connection
 
 class Ubs_repository():  
+    def __init__(self):
+        self.address_repo = Address_repository()
+
     #SALVAR UBS NO BANCO DE DADOS
     def save_ubs_db(self, ubs: Ubs):
         con = connection()
         cursor = con.cursor()
         
         try:
+            if ubs.address and ubs.address.id_address is None:
+                ubs.address = self.address_repo.save_address_db(ubs.address)
+
             cursor.execute(
                 "INSERT INTO ubs (nome, id_endereco) VALUES (?, ?)",
                 (ubs.name, ubs.address.id_address)
@@ -28,7 +35,7 @@ class Ubs_repository():
     
     #CONSTRUTOR DE OBJETO
     #cria uma lista (array) de objetos do tipo ubs e retorna
-    def build_object(self, rows):
+    def build_object_ubs(self, rows):
         ubs = []
         
         for row in rows:
@@ -37,7 +44,7 @@ class Ubs_repository():
             
             u = Ubs(
                 name=row["nome"],
-                address=None #chamar o repositorio de address
+                address=None #self.address_repo.search_per_id(row["id_endereco"])
             )
             
             u.id_ubs = row["id_ubs"]
@@ -64,7 +71,7 @@ class Ubs_repository():
         
         con.close()
         
-        return self.build_object(rows)
+        return self.build_object_ubs(rows)
     
     def search_per_id(self, id_ubs):
         con = connection()
@@ -79,7 +86,7 @@ class Ubs_repository():
         if row is None:
             return None
         
-        return self.build_object([row])[0]
+        return self.build_object_ubs([row])[0]
     
     def search_per_name(self, name):
         con = connection()
@@ -97,4 +104,4 @@ class Ubs_repository():
         if row is None:
             return None
         
-        return self.build_object([row])[0]
+        return self.build_object_ubs([row])[0]
