@@ -66,3 +66,21 @@ class Address_repository():
             return None
         
         return self.build_object_address([row])[0]
+    
+    def search_per_id(self, id_address):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute(
+            "SELECT * FROM endereco WHERE id_endereco = ?", (id_address,)
+        )
+        
+        row = cursor.fetchone()
+        
+        con.close()
+        
+        if row is None:
+            return None
+        
+        return self.build_object_address([row])[0]

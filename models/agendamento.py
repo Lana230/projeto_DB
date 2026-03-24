@@ -40,3 +40,19 @@ class Agendamento:
         print(f"Motivo da prioridade: {self.motivo_prioridade}")
         print(f"Status: {self.status.value}")
         print("---------------------\n")
+    
+    @classmethod
+    def calcular_prioridade(cidadao: Cidadao):
+        grupos_vulneraveis = cidadao.grupos
+        
+        if not grupos_vulneraveis:
+            return 0
+        
+        prioridade_calculada = 0
+        pesos = []
+        
+        for grupo in grupos_vulneraveis:
+            pesos.append(grupo.peso_prioridade)
+        
+        prioridade_calculada = sum(pesos)
+        return prioridade_calculada

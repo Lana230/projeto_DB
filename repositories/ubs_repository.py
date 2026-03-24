@@ -44,7 +44,7 @@ class Ubs_repository():
             
             u = Ubs(
                 name=row["nome"],
-                address=None #self.address_repo.search_per_id(row["id_endereco"])
+                address=self.address_repo.search_per_id(row["id_endereco"])
             )
             
             u.id_ubs = row["id_ubs"]

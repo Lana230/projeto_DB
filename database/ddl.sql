@@ -14,12 +14,8 @@ CREATE TABLE agendamento(
     FOREIGN KEY (id_fila) REFERENCES fila(id_fila)
 );
 
-
-
 DROP TABLE anamnese;
 
--- pensar em alterar o tipo de valor de pressao arterial para string
--- porque normalmente a pressão arterial é assim: 12/80
 CREATE TABLE anamnese (
     id_anamnese INTEGER PRIMARY KEY AUTOINCREMENT,
     num_sus INTEGER NOT NULL,
@@ -69,7 +65,6 @@ CREATE TABLE consulta (
     FOREIGN KEY (crm) REFERENCES medico(crm),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
-
 
 DROP TABLE dependente;
 

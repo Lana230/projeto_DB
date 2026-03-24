@@ -1,5 +1,6 @@
 from models.pessoa import Pessoa, Ubs
 from models.address import Address
+from models.grupo_vulneravel import Grupo_vulneravel
 from enum import Enum
 
 class Genero(Enum):
@@ -16,6 +17,7 @@ class Cidadao(Pessoa):
     self.naturalidade = naturalidade
     self.ocupacao = ocupacao
     self.address = address
+    self.grupos = []
 
   def exibir(self):
     super().exibir()
@@ -27,3 +29,6 @@ class Cidadao(Pessoa):
     print(f"Ocupação: {self.ocupacao}")
     
     self.address.show_address()
+  
+  def adicionar_grupo(self, grupo: Grupo_vulneravel):
+    self.grupos.append(grupo)

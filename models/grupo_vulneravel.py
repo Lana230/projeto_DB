@@ -17,7 +17,6 @@ class NomeGrupo(Enum):
     HIV_IST = "Pessoas com HIV/IST"
     ADOLESCENTE = "Adolescentes"
     VITIMA_VIOLENCIA = "Vítimas de violência"
-    
 
 class Grupo_vulneravel:
     
@@ -27,3 +26,8 @@ class Grupo_vulneravel:
         self.nome_grupo = nome_grupo if isinstance(nome_grupo, NomeGrupo) else NomeGrupo(nome_grupo)
         self.peso_prioridade = peso_prioridade
         self.descricao = descricao
+    
+    def exibir(self):
+        print(f"Nome do grupo: {self.nome_grupo.value}")
+        print(f"Peso prioridade: {self.peso_prioridade}")
+        print(f"Descrição: {self.descricao}")

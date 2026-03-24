@@ -49,7 +49,7 @@ class CidadaoRepository():
                 continue
             
             ubs = self.ubs_repo.search_per_id(row["id_ubs"])
-            #address = self.address_repo.search_per_id(row["id_endereco"])
+            address = self.address_repo.search_per_id(row["id_endereco"])
             
             cidadao = Cidadao(
                 nome_pessoa=row["nome_pessoa"],
@@ -60,7 +60,7 @@ class CidadaoRepository():
                 genero=row["genero"],
                 naturaliddade=row["naturalidade"],
                 ocupacao=row["ocupacao"],
-                address=None #chamar o repositorio de endereco
+                address=address
             )
             
             cidadao.id_pessoa = row["id_pessoa"]
