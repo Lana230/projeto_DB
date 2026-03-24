@@ -14,6 +14,8 @@ CREATE TABLE agendamento(
     FOREIGN KEY (id_fila) REFERENCES fila(id_fila)
 );
 
+
+
 DROP TABLE anamnese;
 
 -- pensar em alterar o tipo de valor de pressao arterial para string
@@ -57,16 +59,17 @@ DROP TABLE consulta;
 
 CREATE TABLE consulta (
     id_consulta INTEGER PRIMARY KEY AUTOINCREMENT,
-    num_sus INTEGER NOT NULL,
+    id_agendamento INTEGER NOT NULL,
     crm TEXT NOT NULL,
     id_ubs INTEGER NOT NULL,
     motivo TEXT,
     habito_vida TEXT,
     data TEXT NOT NULL,
-    FOREIGN KEY (num_sus) REFERENCES cidadao(num_sus),
+    FOREIGN KEY (id_agendamento) REFERENCES agendamento(id_agendamento),
     FOREIGN KEY (crm) REFERENCES medico(crm),
     FOREIGN KEY (id_ubs) REFERENCES ubs(id_ubs)
 );
+
 
 DROP TABLE dependente;
 
