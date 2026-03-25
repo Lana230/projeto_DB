@@ -19,7 +19,7 @@ class PessoaRepository():
             """, (
                 pessoa.nome_pessoa,
                 pessoa.ubs.id_ubs,
-                pessoa.estado_civil
+                pessoa.estado_civil.value
             ))
         
         pessoa.id_pessoa = cursor.lastrowid

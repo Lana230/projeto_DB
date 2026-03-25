@@ -1,9 +1,10 @@
 import sqlite3
-from models import Cidadao, Ubs
+from models import Cidadao, Ubs, Grupo_vulneravel
 from database.conexao import connection
 from .pessoa_repository import PessoaRepository
 from .ubs_repository import Ubs_repository
 from .address_repository import Address_repository
+from .grupo_vulneravel_repository import Grupo_vulneravel_repository
 
 class CidadaoRepository():
     
@@ -11,6 +12,7 @@ class CidadaoRepository():
         self.pessoa_repo = PessoaRepository()
         self.ubs_repo = Ubs_repository()
         self.address_repo = Address_repository()
+        self.grupo_repo = Grupo_vulneravel_repository()
     
     def salvar(self, cidadao: Cidadao):
         con = connection()
@@ -29,7 +31,7 @@ class CidadaoRepository():
             """, (
                 cidadao.num_sus, 
                 cidadao.data_nascimento,
-                cidadao.genero,
+                cidadao.genero.value,
                 cidadao.naturalidade,
                 cidadao.ocupacao,
                 cidadao.address.id_address,
@@ -109,3 +111,49 @@ class CidadaoRepository():
             return None
         
         return self.costruir_objeto([row])[0]
+    
+    #Métodos associados a relação entre cidadão e grupo vulnerável (cidadao_grupo)
+    def listar_grupos(self, cidadao: Cidadao):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("SELECT id_grupo FROM cidadao_grupo WHERE num_sus = ?", (cidadao.num_sus,))
+        
+        id_grupos = cursor.fetchall()
+        
+        con.close()
+        
+        grupos = []
+        
+        for id_grupo in id_grupos:
+           if id_grupo is None:
+               continue
+        
+           grupo = self.grupo_repo.buscar_por_id(id_grupo)
+           grupos.append(grupo)
+        
+        return grupos
+    
+    def listar_cidadaos(self, grupo: Grupo_vulneravel):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("SELECT num_sus FROM cidadao_grupo WHERE id_grupo = ?", (grupo.id_grupo))
+        
+        numeros_sus = cursor.fetchall()
+        
+        con.close()
+        
+        cidadaos = []
+        
+        for num_sus in numeros_sus:
+            if num_sus is None:
+                continue
+            
+            cidadao = self.buscar_por_sus(num_sus)
+            
+            cidadaos.append(cidadao)
+        
+        return cidadaos
