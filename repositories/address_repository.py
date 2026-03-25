@@ -4,7 +4,7 @@ from database.conexao import connection
 
 class Address_repository():
     #SALVAR ENDERECO NO BANCO DE DADOS
-    def save_address_db(self, address: Address):
+    def save(self, address: Address):
         con = connection()
         cursor = con.cursor()
 
@@ -27,7 +27,7 @@ class Address_repository():
         return address
     
     #CRIAR UMA LISTA DE ENDERECOS NO BANCO DE DADOS
-    def build_object_address(self, rows):
+    def build_object(self, rows):
         addresss = []
 
         for row in rows:
@@ -65,7 +65,7 @@ class Address_repository():
         if row is None:
             return None
         
-        return self.build_object_address([row])[0]
+        return self.build_object([row])[0]
     
     def search_per_id(self, id_address):
         con = connection()
@@ -83,4 +83,4 @@ class Address_repository():
         if row is None:
             return None
         
-        return self.build_object_address([row])[0]
+        return self.build_object([row])[0]

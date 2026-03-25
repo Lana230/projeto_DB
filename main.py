@@ -35,9 +35,9 @@ print(Exam_Type.EXAM_CARD.value)
 address_repo = Address_repository()
 ubs_repo = Ubs_repository()
 
-address_repo.save_address_db(addr1)
+address_repo.save(addr1)
 
-ubs_repo.save_ubs_db(ubs1)
+ubs_repo.save(ubs1)
 
 
 

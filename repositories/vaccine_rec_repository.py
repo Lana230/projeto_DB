@@ -13,7 +13,7 @@ class Rec_vaccine_repository():
         self.nurse_repo = EnfermeiroRepository()
         self.ubs_repo = Ubs_repository()
 
-    def save_rec_vaccine_db(self, record_vaccine: Record_vaccine, ubs_vaccine: Vaccine_ubs):
+    def save(self, record_vaccine: Record_vaccine, ubs_vaccine: Vaccine_ubs):
         con = connection()
         cursor =  con.cursor()
 
@@ -34,15 +34,15 @@ class Rec_vaccine_repository():
         finally:
             con.close()
 
-    def build_object_reg_vac(self, rows):
+    def build_object(self, rows):
         rec_vaccines = []
 
         for row in rows:
 
             reg_vac = Record_vaccine(
                 citizen = self.citizen_repo.buscar_por_sus(row["num_sus"]),
-                vaccine_ubs = self.ubs_vac_repo.build_object_vaccine_ubs(row["id_vacina_ubs"]),
-                nurse = self.nurse_repo, #adicionar procurar por id enfermeiro
+                vaccine_ubs = self.ubs_vac_repo.build_object(row["id_vacina_ubs"]),
+                nurse = self.nurse_repo,
                 ubs = self.ubs_repo.search_per_id(row["id_ubs"]),
                 data = row["id_data"],
             )
@@ -70,6 +70,6 @@ class Rec_vaccine_repository():
         if rows is None:
             return None
 
-        return self.build_object_reg_vac(rows) 
+        return self.build_object(rows) 
     
     

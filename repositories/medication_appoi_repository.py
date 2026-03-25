@@ -1,3 +1,5 @@
+import sqlite3
+
 from models import *
 from repositories import *
 
@@ -9,7 +11,7 @@ class Medication_appoi_repository():
         self.appoi_repo = Appointment_repository()
 
     #SALVAR MEDICAMENTO_CONSULTA DENTRO DO BANCO DE DADOS
-    def save_medication_appoi_db(self, cursor, appointment: Appointment, medi_appoi: Medication_appoi):
+    def save(self, cursor, appointment: Appointment, medi_appoi: Medication_appoi):
         cursor.execute(
             "INSERT INTO medicamento_consulta (id_medicamento, id_consulta, frequencia_dias, duracao_adm, dose, via) VALUE (?, ?, ?, ?, ?, ?)",
             (medi_appoi.medication.id_medication, appointment.id_appointment, medi_appoi.frequency_days, medi_appoi.duraction_adm, medi_appoi.dose, medi_appoi.via)
@@ -17,7 +19,7 @@ class Medication_appoi_repository():
         
         return medi_appoi
     
-    def build_object_med_appoi(self, rows):
+    def build_object(self, rows):
         appointment_med = []
 
         for row in rows:
@@ -33,3 +35,21 @@ class Medication_appoi_repository():
             appointment_med.append(appoi_med)
 
         return appointment_med
+    
+    def search_per_id(self, id_medi_appoi):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        cursor.execute(
+            "SELECT * FROM medicamento_consulta WHERE id_medicamento_consulta = ?",
+            (id_medi_appoi,)
+        )
+        row = cursor.fetchone()
+
+        con.close()
+
+        if row is None:
+            return None
+
+        return self.build_object([row])[0]

@@ -6,7 +6,7 @@ from repositories import *
 from database.conexao import connection
 
 class Vaccine_repository():
-    def save_vaccine_db(self, vaccine: Vaccine):
+    def save(self, vaccine: Vaccine):
         con = connection()
         cursor = con.cursor()
 
@@ -28,7 +28,7 @@ class Vaccine_repository():
 
         return vaccine
     
-    def build_object_vaccine(self, rows):
+    def build_object(self, rows):
         vaccines = []
 
         for row in rows:
@@ -62,6 +62,6 @@ class Vaccine_repository():
         if row is None:
             return None
         
-        return self.build_object_vaccine([row])[0]
+        return self.build_object([row])[0]
     
     

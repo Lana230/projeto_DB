@@ -72,3 +72,5 @@ class EnfermeiroRepository:
         con.close()
         
         return self.construir_objeto(rows)
+    
+    #adicionar procurar por id pra colocar em registro de vacina

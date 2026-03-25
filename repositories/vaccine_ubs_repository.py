@@ -9,11 +9,14 @@ class Vaccine_ubs_repository():
         self.ubs_repo = Ubs_repository()
 
     #SALVANDO VACINA NO BANCO DE DADOS
-    def save_vaccine_ubs_db(self, vaccine_ubs: Vaccine_ubs):
+    def save(self, vaccine_ubs: Vaccine_ubs):
         con = connection()
         cursor = con.cursor()
         
-        try:        
+        try:
+            if vaccine_ubs.vaccine and vaccine_ubs.vaccine.id_vaccine is None:
+                vaccine_ubs = self.vaccine_repo.save(vaccine_ubs.vaccine)
+
             cursor.execute(
                 "INSERT INTO vacina_ubs(id_vaccine, id_ubs, dose, lote, quant_disponivel, prioridade) VALUES (?, ?, ?, ?, ?, ?)",
                 (vaccine_ubs.vaccine.id_vaccine, vaccine_ubs.ubs.id_ubs, vaccine_ubs.dose, vaccine_ubs.lote, vaccine_ubs.available_quan, vaccine_ubs.priority)
@@ -33,7 +36,7 @@ class Vaccine_ubs_repository():
 
         return vaccine_ubs
     
-    def build_object_vaccine_ubs(self, rows):
+    def build_object(self, rows):
         ubs_vaccines = []
 
         for row in rows:
@@ -52,3 +55,33 @@ class Vaccine_ubs_repository():
             ubs_vaccines.append(ubs_vac)
 
         return ubs_vaccines
+    
+    def search_all(self):
+        con = connection()
+        cursor = con.cursor()
+
+        try:
+            cursor.execute("SELECT * FROM vacina_ubs")
+            rows = cursor.fetchall()
+            return self.build_object(rows)
+
+        except Exception as e:
+            print("Erro:", e)
+        
+        finally:
+            con.close()
+
+    def search_per_id_vaccine(self, id_vaccine):
+        con = connection()
+        cursor = con.cursor()
+
+        try:
+            cursor.execute("SELECT * FROM vacina_ubs WHERE id_vaccine = ?", (id_vaccine,))
+            rows = cursor.fetchall()
+            return self.build_object(rows)
+
+        except Exception as e:
+            print("Erro:", e)
+        
+        finally:
+            con.close()

@@ -16,3 +16,4 @@ from .vaccine_rec_repository import Rec_vaccine_repository
 from .ubs_repository import Ubs_repository
 from .vaccine_repository import Vaccine_repository
 from .vaccine_ubs_repository import Vaccine_ubs_repository
+from .grupo_vulneravel_repository import Grupo_vulneravel_repository

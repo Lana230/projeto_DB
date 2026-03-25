@@ -1,5 +1,8 @@
+import sqlite3
+
 from models import *
 from repositories import *
+
 from database.conexao import connection
 
 class Hypothesis_repository():
@@ -7,7 +10,7 @@ class Hypothesis_repository():
         self.appoi_repo = Appointment_repository()
 
     #SALVAR HIPOTESES BANCO DE DADOS
-    def save_hypothesis_db(self, cursor, appointment: Appointment, hypothesis: Hypothesis):
+    def save(self, cursor, appointment: Appointment, hypothesis: Hypothesis):
         cursor.execute(
             "INSERT INTO hipotese (id_consulta, doenca, cid) VALUE (?, ?, ?)",
             (appointment.id_appointment, hypothesis.disease, hypothesis.cid)
@@ -18,7 +21,7 @@ class Hypothesis_repository():
         return hypothesis
     
     #CONSTRUTOR DE OBJETO
-    def build_object_hypo(self, rows):
+    def build_object(self, rows):
         hypothesis = []
 
         for row in rows:
@@ -36,3 +39,23 @@ class Hypothesis_repository():
             hypothesis.append(hypot)
         
         return hypothesis
+    
+    def search_per_id(self, id_hypothesis):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        cursor.execute(
+            "SELECT * FROM hipotese WHERE id_hipotese = ?",
+            (id_hypothesis,)
+        )
+        row = cursor.fetchone()
+
+        con.close()
+
+        if row is None:
+            return None
+
+        return self.build_object([row])[0]
+    
+

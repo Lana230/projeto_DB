@@ -22,10 +22,10 @@ doctor1.adicionar_documento(doc1)
 #Só vai dá certo após resolver o fluxo circular entre appointment e exam
 
 address_repo = Address_repository()
-address1 = address_repo.save_address_db(address1)
+address1 = address_repo.save(address1)
 
 ubs_repo = Ubs_repository()
-ubs1 = ubs_repo.save_ubs_db(ubs1)
+ubs1 = ubs_repo.save(ubs1)
 
 #faltará chamar o repositorio de email, telefone e documento
 

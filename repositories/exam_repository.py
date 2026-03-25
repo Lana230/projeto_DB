@@ -1,3 +1,5 @@
+import sqlite3
+
 from models import *
 from repositories import *
 
@@ -36,3 +38,21 @@ class Exam_repository():
             exams.append(exam)
 
         return exams   
+
+    def search_per_id(self, id_exam):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        cursor.execute(
+            "SELECT * FROM exame WHERE id_exame = ?",
+            (id_exam,)
+        )
+        row = cursor.fetchone()
+
+        con.close()
+
+        if row is None:
+            return None
+
+        return self.build_object_exam([row])[0]

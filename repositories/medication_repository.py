@@ -7,7 +7,7 @@ from database.conexao import connection
 
 class Medication_repository():
     #Salvar 
-    def save_medication_db(self, medication: Medication):
+    def save(self, medication: Medication):
         con = connection()
         cursor = con.cursor()
         
@@ -30,7 +30,7 @@ class Medication_repository():
         return medication
     
     #construir objeto
-    def build_object_medication(self, rows):
+    def build_object(self, rows):
         medications = []
 
         for row in rows:
@@ -62,6 +62,6 @@ class Medication_repository():
         if row is None:
             return None
         
-        return self.build_object_medication([row])[0]
+        return self.build_object([row])[0]
 
 

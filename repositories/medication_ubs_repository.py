@@ -9,13 +9,13 @@ class Medication_ubs_repository():
         self.ubs_repo = Ubs_repository()
 
     #SALVAR MEDICAMENTO UBS NO BANCO DE DADOS
-    def save_medication_ubs_db(self, medication: Medication, medi_ubs : Medication_ubs):
+    def save(self, medication: Medication, medi_ubs : Medication_ubs):
         con = connection()
         cursor = con.cursor()
 
         try:
             if medication and medication.id_medication is None:
-                medication = self.medi_repo.save_medication_db(medication)
+                medication = self.medi_repo.save(medication)
 
             cursor.execute(
                 "INSERT INTO medicamento_ubs(id_medicamento, id_ubs, num_lote, quantidade_disponivel, validade) VALUES (?, ?, ?, ?, ?)",
@@ -35,7 +35,7 @@ class Medication_ubs_repository():
         return medi_ubs
     
     #construir objeto
-    def build_object_med_ubs(self, rows):
+    def build_object(self, rows):
         medication_ubs = []
 
         for row in rows:

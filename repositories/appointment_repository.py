@@ -13,10 +13,8 @@ class Appointment_repository():
         self.exam_repo = Exam_repository()
         self.agendamento_repo = AgendamentoRepository()
 
-
-
     #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
-    def save_appoi_db(self, appointment: Appointment):
+    def save(self, appointment: Appointment):
         con = connection()
         cursor = con.cursor()
 
@@ -53,7 +51,7 @@ class Appointment_repository():
 
         return appointment
     
-    def build_object_appoi(self, rows): 
+    def build_object(self, rows): 
         appointments = []
 
         for row in rows:
@@ -91,4 +89,61 @@ class Appointment_repository():
         if row is None:
             return None
 
-        return self.build_object_appoi([row])[0]
+        return self.build_object([row])[0]
+    
+    def search_all(self, doctor_crm=None, id_ubs=None):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        query = "SELECT * FROM consulta"
+        params = []
+
+        if doctor_crm:
+            query += " WHERE id_medico = ?"
+            params.append(doctor_crm)
+
+        if id_ubs:
+            if doctor_crm:
+                query += " AND id_ubs = ?"
+            else:
+                query += " WHERE id_ubs = ?"
+            params.append(id_ubs)
+
+        cursor.execute(query, tuple(params))
+        rows = cursor.fetchall()
+
+        con.close()
+
+        return self.build_object(rows)
+    
+    def complete_appointment_info(self, appointment):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        query = """
+        SELECT 
+            C.id_consulta,
+            C.id_agendamento,
+            C.id_medico,
+            C.id_ubs,
+            C.motivo,
+            C.habitos_de_vida,
+            C.data
+        """
+        query += " FROM consulta C"
+        query += " LEFT JOIN hipotese H ON C.id_consulta = H.id_consulta"
+        query += " LEFT JOIN exame E ON C.id_consulta = E.id_consulta"      
+        query += " LEFT JOIN medicamento_appoi M ON C.id_consulta = M.id_consulta"
+        
+        query += " WHERE C.id_consulta = ?"
+
+        cursor.execute(query, (appointment.id_appointment,))
+        rows = cursor.fetchall()
+
+        con.close()
+
+        return self.build_object(rows)[0]
+
+            
