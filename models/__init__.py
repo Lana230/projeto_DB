@@ -18,9 +18,10 @@ from .medication_appoi import Medication_appoi, Via_medication
 from .medication_ubs import Medication_ubs
 from .medication import Medication
 from .medico import Medico
-from .pessoa import Pessoa
+from .pessoa import Pessoa, EstadoCivil
+from .record_vaccine import Record_vaccine
 from .telefone import Telefone
 from .ubs import Ubs
-from .record_vaccine import Record_vaccine
-from .vaccine_ubs import Vaccine_ubs, priority
+from .usuario import Usuario, TipoUsuario
+from .vaccine_ubs import Vaccine_ubs
 from .vaccine import Vaccine
