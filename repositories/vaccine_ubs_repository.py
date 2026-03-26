@@ -1,7 +1,10 @@
-from models import *
-from repositories import *
-
+import sqlite3
 from database.conexao import connection
+
+from models import Vaccine_ubs
+
+from .vaccine_repository import Vaccine_repository
+from .ubs_repository import Ubs_repository
 
 class Vaccine_ubs_repository():
     def __init__(self):
@@ -26,6 +29,8 @@ class Vaccine_ubs_repository():
 
             for fp in self.focus_priority:
                 fp.save_focus_priority_db(cursor, vaccine_ubs.id_vaccine_ubs)
+            
+            con.commit()
         
         except Exception as e:
             con.rollback() 
@@ -33,13 +38,14 @@ class Vaccine_ubs_repository():
         
         finally:
             con.close()
-
-        return vaccine_ubs
+            return vaccine_ubs
     
     def build_object(self, rows):
         ubs_vaccines = []
 
         for row in rows:
+            if row is None:
+                continue
 
             ubs_vac = Vaccine_ubs(
                 vaccine = self.vaccine_repo.search_per_id(row["id_vacina"]),
@@ -58,30 +64,52 @@ class Vaccine_ubs_repository():
     
     def search_all(self):
         con = connection()
+        con.row_factory = sqlite3.Row
         cursor = con.cursor()
 
         try:
             cursor.execute("SELECT * FROM vacina_ubs")
             rows = cursor.fetchall()
-            return self.build_object(rows)
 
         except Exception as e:
             print("Erro:", e)
         
         finally:
             con.close()
+            return self.build_object(rows)
 
     def search_per_id_vaccine(self, id_vaccine):
         con = connection()
+        con.row_factory = sqlite3.Row
         cursor = con.cursor()
 
         try:
-            cursor.execute("SELECT * FROM vacina_ubs WHERE id_vaccine = ?", (id_vaccine,))
+            cursor.execute("SELECT * FROM vacina_ubs WHERE id_vacina = ?", (id_vaccine,))
             rows = cursor.fetchall()
-            return self.build_object(rows)
 
         except Exception as e:
             print("Erro:", e)
         
         finally:
             con.close()
+            return self.build_object(rows)
+    
+    def search_per_vaccine_ubs(self, id_vaccine_ubs):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        try:
+            cursor.execute("SELECT * FROM vacina_ubs WHERE id_vacina_ubs = ?", (id_vaccine_ubs,))
+            row = cursor.fetchone()
+            
+        except Exception as e:
+            print("Erro:", e)
+        
+        finally:
+            con.close()
+
+            if row is None:
+                return None
+            
+            return self.build_object([row])[0]     

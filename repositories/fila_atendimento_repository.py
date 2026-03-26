@@ -1,4 +1,5 @@
 from models import Fila_atendimento
+
 from database.conexao import connection
 
 class FilaRepository:

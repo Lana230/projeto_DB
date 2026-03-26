@@ -1,4 +1,5 @@
 from models import Email
+
 from database.conexao import connection
 
 class EmailRepository:

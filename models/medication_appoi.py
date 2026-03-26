@@ -1,6 +1,10 @@
 from .medication import Medication
-from .appointment import Appointment
 from enum import Enum
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .appointment import Appointment
 
 class Via_medication(Enum):
     ORAL = "Oral"
@@ -11,7 +15,7 @@ class Via_medication(Enum):
     TOPICA = "Tópica"
 
 class Medication_appoi():
-    def __init__(self, medication: Medication, appointment: Appointment, dose, via : Via_medication, frequency_days, duraction_adm):
+    def __init__(self, medication: Medication, appointment: "Appointment", dose, via : Via_medication, frequency_days, duraction_adm):
         self.medication = medication 
         self.appointment = appointment
         self.dose = dose

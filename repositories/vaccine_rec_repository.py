@@ -1,9 +1,13 @@
 import sqlite3
-
-from models import *
-from repositories import *
-
 from database.conexao import connection
+
+from models import Record_vaccine
+
+from .vaccine_ubs_repository import Vaccine_ubs_repository
+from .cidadao_repository import CidadaoRepository
+from .medico_repository import MedicoRepository
+from .enfermeiro_repository import EnfermeiroRepository
+from .ubs_repository import Ubs_repository
 
 class Rec_vaccine_repository():
     def __init__(self):
@@ -13,7 +17,7 @@ class Rec_vaccine_repository():
         self.nurse_repo = EnfermeiroRepository()
         self.ubs_repo = Ubs_repository()
 
-    def save(self, record_vaccine: Record_vaccine, ubs_vaccine: Vaccine_ubs):
+    def save(self, record_vaccine: Record_vaccine):
         con = connection()
         cursor =  con.cursor()
 
@@ -33,18 +37,22 @@ class Rec_vaccine_repository():
 
         finally:
             con.close()
+        
+        return record_vaccine
 
     def build_object(self, rows):
         rec_vaccines = []
 
         for row in rows:
+            if row is None:
+                continue
 
             reg_vac = Record_vaccine(
                 citizen = self.citizen_repo.buscar_por_sus(row["num_sus"]),
-                vaccine_ubs = self.ubs_vac_repo.build_object(row["id_vacina_ubs"]),
-                nurse = self.nurse_repo,
+                vaccine_ubs = self.ubs_vac_repo.search_per_vaccine_ubs(row["id_vacina"]),
+                nurse = self.nurse_repo.buscar_por_cip(row["cip"]),
                 ubs = self.ubs_repo.search_per_id(row["id_ubs"]),
-                data = row["id_data"],
+                data = row["data_vacina"],
             )
 
             reg_vac.id_vaccine_record = row["id_reg_vacina"]
@@ -63,13 +71,11 @@ class Rec_vaccine_repository():
             (num_sus,)
         )
 
-        rows = cursor.fetchone()
+        row = cursor.fetchone()
 
         con.close()
 
-        if rows is None:
+        if row is None:
             return None
 
-        return self.build_object(rows) 
-    
-    
+        return self.build_object([row])[0] 

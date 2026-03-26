@@ -1,6 +1,7 @@
 import sqlite3
-from models import Grupo_vulneravel, NomeGrupo
 from database.conexao import connection
+
+from models import Grupo_vulneravel, NomeGrupo
 
 class Grupo_vulneravel_repository:
     

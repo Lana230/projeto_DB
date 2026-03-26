@@ -1,7 +1,13 @@
-from models import *
-from repositories import *
-import sqlite3
+from models import Appointment
 
+from .cidadao_repository import CidadaoRepository
+from .ubs_repository import Ubs_repository
+from .medico_repository import MedicoRepository
+from .medication_appoi_repository import Medication_appoi_repository
+from .exam_repository import Exam_repository
+from .agendamento_repository import AgendamentoRepository
+
+import sqlite3
 from database.conexao import connection
 
 class Appointment_repository():

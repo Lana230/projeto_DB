@@ -1,6 +1,10 @@
-from models import *
-from repositories import *
-from enum import Enum
+from .vaccine import Vaccine
+from .ubs import Ubs
+from .focus_priority import Focus_priority
+from .fila_atendimento import Fila_atendimento, TipoAtendimento
+
+from repositories.vaccine_ubs_repository import Vaccine_ubs_repository
+from repositories.cidadao_repository import CidadaoRepository
 
 class Vaccine_ubs:
     def __init__(self, vaccine: Vaccine, ubs: Ubs, dose, lote, available_quan, validity):

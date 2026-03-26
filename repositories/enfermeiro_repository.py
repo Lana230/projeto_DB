@@ -1,8 +1,10 @@
 import sqlite3
+from database.conexao import connection
+
 from models import Enfermeiro, Ubs
+
 from .ubs_repository import Ubs_repository
 from .pessoa_repository import PessoaRepository
-from database.conexao import connection
 
 class EnfermeiroRepository:
     
@@ -73,4 +75,24 @@ class EnfermeiroRepository:
         
         return self.construir_objeto(rows)
     
-    #adicionar procurar por id pra colocar em registro de vacina
+    def buscar_por_cip(self, cip):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        cursor.execute("""
+            SELECT 
+                p.id_pessoa, p.nome_pessoa, p.id_ubs, p.estado_civil, 
+                e.cip 
+            FROM pessoa p INNER JOIN enfermeiro e ON p.id_pessoa = e.id_pessoa WHERE e.cip = ?
+            """, (cip,)
+        )
+        
+        row = cursor.fetchone()
+        
+        con.close()
+        
+        if row is None:
+            return None
+        
+        return self.construir_objeto([row])[0]

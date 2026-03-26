@@ -1,4 +1,5 @@
 from models import Telefone
+
 from database.conexao import connection
 
 class TelefoneRepository:

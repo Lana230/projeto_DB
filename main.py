@@ -1,43 +1,91 @@
 from models import *
 from repositories import *
-from datetime import date
 
-addr1 = Address("63041-050", "Ceara", "Juazeiro", "triangulo", "Clotilde Noroes Mota", 235)
+def criar_usuario():
+    usuario_repo = Usuario_repository()
+    ubs_repo = Ubs_repository()
 
-ubs1 = Ubs("Triangulo", addr1)
+    print("\n--- CRIAR USUÁRIO ---")
 
-ubs1.details_Ubs()
+    nome_usuario = input("Nome de usuário: ")
+    email = input("Email: ")
+    senha = input("Senha: ")
+    nome_ubs = int(input("Nome da ubs: "))
+    
+    while True:
+        print("Tipo de usuário: ")
+        print(f"1 - {TipoUsuario.ADMINISTRADOR.value}")
+        print(f"2 - {TipoUsuario.CIDADAO.value}")
+        print(f"3 - {TipoUsuario.ENFERMEIRO.value}")
+        print(f"4 - {TipoUsuario.MEDICO.value}")
+        
+        opcao = input("Escolha uma opção: ")
+        opcao = int(opcao)
+        
+        if opcao == 1:
+            tipo = TipoUsuario.ADMINISTRADOR
+            break
+        elif opcao == 2:
+            tipo = TipoUsuario.CIDADAO
+            break
+        elif opcao == 3:
+            tipo = TipoUsuario.ENFERMEIRO
+            break
+        elif opcao == 4:
+            tipo = TipoUsuario.MEDICO
+            break
+        else:
+            print("Opção inválida!")
+    
+    ubs = ubs_repo.search_per_name(nome_ubs)
 
-pessoa1 = Pessoa(12345678900, 'Alana', ubs1)
+    usuario = Usuario(ubs, nome_usuario, email, senha, tipo)
 
-email1 = Email("alanaclara@gmail.com", Tipo.CIDADAO, 12345678900)
-email2 = Email("alana.silva@gmail.com", Tipo.MEDICO, 12345678900)
+    try:
+        usuario_repo.salvar(usuario)
+        print("Usuário criado com sucesso!")
+    except Exception as e:
+        print(f"Erro ao criar usuário: {e}")
+    
+def iniciar():
+    usuario_repo = Usuario_repository()
 
-pessoa1.adicionar_email(email1)
-pessoa1.adicionar_email(email2)
+    print("\n--- LOGIN ---")
 
-telefone1 = Telefone(11999999999, Tipo.CIDADAO, 12345678900)
-telefone2 = Telefone(88922222222, Tipo.MEDICO, 12345678900)
+    email = input("Email: ")
+    senha = input("Senha: ")
 
-pessoa1.adicionar_telefone(telefone1)
-pessoa1.adicionar_telefone(telefone2)
+    user = usuario_repo.buscar_por_login(email)
 
-pessoa1.exibir()
+    if user is None:
+        print("Usuário não encontrado.")
+        return
 
-appointment1 = Appointment(pessoa1, None, ubs1, date.today(), "Consulta de rotina", "Paciente em bom estado de saúde")
+    if user.senha != senha:
+        print("Senha incorreta.")
+        return
 
-exam1 = Exam(appointment1, "Hemograma Completo", Exam_Type.EXAM_LAB, "Baixa", Status_exam.SCHEDULED)
-exam1.add_data(date.today())
-exam1.details_exam()
+    print(f"Bem-vindo, {user.nome_usuario}!")
+    
+    # Aqui você pode redirecionar para outro menu
+    #menu_sistema(user)
 
-print(Exam_Type.EXAM_CARD.value)
-
-address_repo = Address_repository()
-ubs_repo = Ubs_repository()
-
-address_repo.save(addr1)
-
-ubs_repo.save(ubs1)
-
-
-
+def menu_principal():
+    while True:
+        print("\n===== SISTEMA UBS =====")
+        print("1 - Entrar")
+        print("2 - Criar usuário")
+        print("0 - Sair")
+        
+        opcao = input("Escolha uma opção: ")
+        opcao = int(opcao)
+        
+        if opcao == 1:
+            iniciar()
+        elif opcao == 2:
+            criar_usuario()
+        elif opcao == 0:
+            print("Saindo...")
+            break
+        else:
+            print("Opção inválida!")

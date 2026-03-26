@@ -1,9 +1,9 @@
 import sqlite3
-
-from models import *
-from repositories import *
-
 from database.conexao import connection
+
+from models import Appointment, Exam
+
+from .appointment_repository import Appointment_repository
 
 class Exam_repository():
     def __init__(self):
@@ -11,6 +11,9 @@ class Exam_repository():
 
     #SALVAR EXAMES DENTRO DO BANCO DE DADOS
     def save_exam_db(self, cursor,appointment: Appointment, exam: Exam):
+        con = connection()
+        cursor = con.cursor()
+        
         cursor.execute(
             "INSERT INTO exame (id_consulta, nome_exame, tipo_exame, grau_urgencia, status_exame) VALUE (?, ?, ?, ?, ?)",
             (appointment.id_appointment, exam.name_exam, exam.type, exam.degree_urgency, exam.status)
@@ -18,12 +21,17 @@ class Exam_repository():
 
         exam.id_exam = cursor.lastrowid
         
+        con.commit()
+        con.close()
+        
         return exam
     
     def build_object_exam(self, rows):
         exams = []
 
         for row in rows:
+            if row is None:
+                continue
 
             exam = Exam(
                 appointment = self.appoi_repo.search_per_id(row["id_consulta"]),

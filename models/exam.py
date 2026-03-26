@@ -1,5 +1,9 @@
-from .appointment import Appointment
 from enum import Enum
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .appointment import Appointment
 
 class Exam_Type(Enum):
     EXAM_LAB = "Exames laboratoriais"
@@ -17,7 +21,7 @@ class Type_degree(Enum):
     HIGH = "Alta"
 
 class Exam:
-    def __init__(self, appointment: Appointment, name_exam, exam_type: Exam_Type, degree_urgency: Type_degree, status_exam: Status_exam):
+    def __init__(self, appointment: "Appointment", name_exam, exam_type: Exam_Type, degree_urgency: Type_degree, status_exam: Status_exam):
         self.id_exam = None
         self.Appointment = appointment
         self.name_exam = name_exam
