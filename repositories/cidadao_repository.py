@@ -64,7 +64,7 @@ class CidadaoRepository():
                 num_sus=row["num_sus"],
                 data_nascimento=row["data_nascimento"],
                 genero=row["genero"],
-                naturaliddade=row["naturalidade"],
+                naturalidade=row["naturalidade"],
                 ocupacao=row["ocupacao"],
                 address=address
             )
@@ -111,10 +111,32 @@ class CidadaoRepository():
         
         row = cursor.fetchone()
         
+        con.close()
+        
         if row is None:
             return None
         
         return self.costruir_objeto([row])[0]
+    
+    def buscar_por_nome(self, nome):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+        
+        cursor.execute("""
+            SELECT
+                p.id_pessoa, p.nome_pessoa, p.id_ubs, p.estado_civil,
+                c.num_sus, c.data_nascimento, c.genero,
+                c.naturalidade, c.ocupacao, c.id_endereco
+            FROM pessoa p INNER JOIN cidadao c ON p.id_pessoa = c.id_pessoa WHERE p.nome_pessoa LIKE ?               
+            """, ((f"{nome}%"),)
+        )
+        
+        rows = cursor.fetchall()
+        
+        con.close()
+        
+        return self.costruir_objeto(rows)
     
     #Métodos associados a relação entre cidadão e grupo vulnerável (cidadao_grupo)
     def listar_grupos(self, cidadao: Cidadao):

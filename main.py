@@ -2,6 +2,8 @@ from models.usuario import Usuario, TipoUsuario
 from repositories.usuario_repository import Usuario_repository
 from repositories.ubs_repository import Ubs_repository
 
+from menus.menu_sistema import menu
+
 def criar_usuario():
     usuario_repo = Usuario_repository()
     ubs_repo = Ubs_repository()
@@ -67,8 +69,7 @@ def iniciar():
 
     print(f"Bem-vindo, {user.nome_usuario}!")
     
-    # Aqui você pode redirecionar para outro menu
-    #menu_sistema(user)
+    menu(user)
 
 def menu_principal():
     while True:

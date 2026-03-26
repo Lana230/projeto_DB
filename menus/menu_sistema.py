@@ -1,0 +1,177 @@
+from models.usuario import Usuario, TipoUsuario
+from models.pessoa import EstadoCivil
+from models.email import Tipo
+from models.cidadao import Cidadao, Genero
+from models.address import Address
+
+from repositories.cidadao_repository import CidadaoRepository
+from repositories.ubs_repository import Ubs_repository
+from repositories.address_repository import Address_repository
+
+
+def cadastrar_pessoa(tipo: Tipo):
+    ubs_repo = Ubs_repository()
+    cidadao_repo = CidadaoRepository()
+    address_repo = Address_repository()
+    
+    nome_pessoa = input("Digite o nome da pessoa: ")
+    nome_ubs = input("Digite o nome da UBS na qual está vinculado: ")
+    
+    while True:
+        print(f"1 - {EstadoCivil.SOLTEIRO.value}")
+        print(f"2 - {EstadoCivil.CASADO.value}")
+        print(f"3 - {EstadoCivil.DIVORCIADO.value}")
+        print(f"4 - {EstadoCivil.VIUVO.value}")
+        print(f"5 - {EstadoCivil.UNIAO_ESTAVEL.value}")
+        
+        opcao = int(input("Escolha uma opcao: "))
+        
+        if opcao == 1:
+            estado_civil = EstadoCivil.SOLTEIRO
+            break
+        elif opcao == 2:
+            estado_civil = EstadoCivil.CASADO
+            break
+        elif opcao == 3:
+            estado_civil = EstadoCivil.DIVORCIADO
+            break
+        elif opcao == 4:
+            estado_civil = EstadoCivil.VIUVO
+            break
+        elif opcao == 5:
+            estado_civil = EstadoCivil.UNIAO_ESTAVEL
+            break
+        else:
+            print("Opção inválida!")
+    
+    
+    ubs = ubs_repo.search_per_name(nome_ubs)
+    
+    if tipo == TipoUsuario.CIDADAO:
+        num_sus = int(input("Digite o número do SUS: "))
+        data_nascimento = input("Digite a sua data de nascimento (YYYY-MM-DD): ")
+        
+        while True:
+            print(f"1 - {Genero.FEMININO.value}")
+            print(f"2 - {Genero.MASCULINO.value}")
+            
+            opcao = int(input())
+            
+            if opcao == 1:
+                genero = Genero.FEMININO
+                break
+            elif opcao == 2:
+                genero = Genero.MASCULINO
+                break
+            else:
+                print("Opção inválida!")
+        
+        naturalidade = input("Digite a sua naturalidade: ")
+        ocupacao = input("Digite a sua ocupação: ")
+                
+        address = cadastrar_endereco()
+        address = address_repo.save(address)
+        
+        cidadao = Cidadao(nome_pessoa, estado_civil, ubs, num_sus, data_nascimento, genero, naturalidade, ocupacao, address)
+        
+        cidadao = cidadao_repo.salvar(cidadao)
+        return cidadao
+
+def cadastrar_endereco():
+    rua = input("Digite o nome da rua: ")
+    bairro = input("Digite o nome do bairro: ")
+    numero = input("Digite o número da sua residência: ")
+    cidade = input("Digite a cidade onde vive: ")
+    estado = input("Digite o estado onde vive: ")
+    cep = input("Digite o seu CEP: ")
+    
+    address = Address(cep, estado, cidade, bairro, rua, numero)
+    
+    return address
+
+def menu(user: Usuario):
+    cidadao_repo = CidadaoRepository()
+    ubs_repo = Ubs_repository()
+    
+    if user.tipo == TipoUsuario.ADMINISTRADOR:
+        while True:
+            print("1 - Opçôes de pessoas")
+            print("0 - Deslogar")
+            opcao = int(input("Escolha uma opção: "))
+            
+            if opcao == 1:
+                while True:
+                    print("1 - Cidadãos")
+                    print("2 - Enfermeiros")
+                    print("3 - Médicos")
+                    print("0 - Voltar")
+                    
+                    opcao1 = int(input("Escolha uma opção: "))
+                    
+                    if opcao1 == 1:
+                        while True:
+                            print("1 - Listar todos por ubs")
+                            print("2 - Listar por número do SUS")
+                            print("3 - Listar por nome")
+                            print("4 -Cadastrar um novo cidadão")
+                            print("0 - Voltar")
+
+                            opcao2 = int(input("Escolha uma opcao: "))
+                            
+                            if opcao2 == 1:
+                                nome_ubs = input("Digite o nome da ubs: ")
+                                ubs = ubs_repo.search_per_name(nome_ubs)
+                                
+                                if ubs is None:
+                                    print("Nome da UBS não existe!")
+                                else:
+                                    cidadaos = cidadao_repo.listar_todos_por_ubs(ubs)
+                                
+                                    for cidadao in cidadaos:
+                                        cidadao.exibir()
+                                
+                            elif opcao2 == 2:
+                                num_sus = int(input("Digite o número do SUS: "))
+                                
+                                cidadao = cidadao_repo.buscar_por_sus(num_sus)
+                                
+                                if cidadao is None:
+                                    print("Número do SUS informado não existe!")
+                                else:
+                                    cidadao.exibir()
+                                
+                            elif opcao2 == 3:
+                                nome_pessoa = input("Digite o primeiro nome ou nome completo do cidadão: ")
+                                
+                                cidadaos = cidadao_repo.buscar_por_nome(nome_pessoa)
+                                
+                                if cidadaos == []:
+                                    print("Nenhum cidadão com este nome foi encontrado!")
+                                else:
+                                    for cidadao in cidadaos:
+                                        cidadao.exibir()
+                            elif opcao2 == 4:
+                                cidadao = cadastrar_pessoa(TipoUsuario.CIDADAO)
+                                
+                                cidadao.exibir()
+                            
+                            elif opcao2 == 0:
+                                print("Voltando...")
+                                break
+                            
+                            
+                    elif opcao1 == 0:
+                        print("Voltando ...")
+                        break
+                    else:
+                        print("Opção inválida!")
+            elif opcao == 0:
+                print("Saindo...")
+                break
+        
+    elif user.tipo == TipoUsuario.CIDADAO:
+        print()
+    elif user.tipo == TipoUsuario.ENFERMEIRO:
+        print()
+    elif user.tipo == TipoUsuario.MEDICO:
+        print()
