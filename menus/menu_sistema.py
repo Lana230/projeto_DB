@@ -141,6 +141,7 @@ def menu(user: Usuario):
     if user.tipo == TipoUsuario.ADMINISTRADOR:
         while True:
             print("1 - Opções de pessoas")
+            print("2 - Opções de Consulta")
             print("0 - Deslogar")
             opcao = int(input("Escolha uma opção: "))
             
@@ -263,6 +264,14 @@ def menu(user: Usuario):
                     else:
                         print("Opção inválida!")
                         limpa_telinha()
+                        
+            elif opcao == 2:
+                from menus.menu_appointment import Class_menu_appointment
+                
+                menu_appointment = Class_menu_appointment()
+            
+                menu_appointment.fill_out_appointment()
+            
             elif opcao == 0:
                 print("Saindo...")
                 limpa_telinha()

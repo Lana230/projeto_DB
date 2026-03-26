@@ -47,7 +47,7 @@ class Class_menu_appointment:
     def fill_out_appointment(self):
         while True:
             print("---- NOVA CONSULTA ----")
-            num_sus = input("Digite o numero do SUS do paciente: ")
+            num_sus = int(input("Digite o numero do SUS do paciente: "))
             citizen = self.cidadao_repo.buscar_por_sus(num_sus)
             if not citizen:
                 print("Cidadao não encontrado no banco de dados. Tente novamente.")
