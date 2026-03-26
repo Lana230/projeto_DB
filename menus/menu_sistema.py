@@ -134,6 +134,7 @@ def cadastrar_endereco():
 def menu(user: Usuario):
     cidadao_repo = CidadaoRepository()
     enfermeiro_repo = EnfermeiroRepository()
+    medico_repo = MedicoRepository()
     ubs_repo = Ubs_repository()
     
     limpa_telinha()
@@ -141,7 +142,6 @@ def menu(user: Usuario):
     if user.tipo == TipoUsuario.ADMINISTRADOR:
         while True:
             print("1 - Opções de pessoas")
-            print("2 - Opções de Consulta")
             print("0 - Deslogar")
             opcao = int(input("Escolha uma opção: "))
             
@@ -255,7 +255,48 @@ def menu(user: Usuario):
                                 print("Opção inválida!")
                     
                     elif opcao1 == 3:
-                        print()
+                        limpa_telinha()
+                        
+                        while True:
+                            print("1 - Listar todos por ubs")
+                            print("2 - Listar por número do CRM")
+                            print("3 - Cadastrar um novo médico")
+                            print("0 - Voltar")
+                            
+                            opcao2 = int(input("Escolha uma opção: "))
+                            
+                            if opcao2 == 1:
+                                nome_ubs = input("Digite o nome da ubs: ")
+                                ubs = ubs_repo.search_per_name(nome_ubs)
+                                
+                                if ubs is None:
+                                    print("Nome da UBS não existe!")
+                                else:
+                                    medicos = medico_repo.listar_medicos_por_ubs(ubs)
+                                
+                                    for medico in medicos:
+                                        medico.exibir()
+                            
+                            elif opcao2 == 2:
+                                crm = input("Digite o seu CRM: ")
+                                
+                                medico = medico_repo.buscar_por_crm(crm)
+                                
+                                if medico is None:
+                                    print("CRM informado não existe!")
+                                else:
+                                    medico.exibir()
+                            elif opcao2 == 3:
+                                medico = cadastrar_pessoa(Tipo.MEDICO)
+                                
+                                medico.exibir()
+                            elif opcao2 == 0:
+                                print("Voltando...")
+                                limpa_telinha()
+                                break
+                            else:
+                                print("Opção inválida!")
+                                limpa_telinha()
                             
                     elif opcao1 == 0:
                         print("Voltando...")
@@ -264,13 +305,6 @@ def menu(user: Usuario):
                     else:
                         print("Opção inválida!")
                         limpa_telinha()
-                        
-            elif opcao == 2:
-                from menus.menu_appointment import Class_menu_appointment
-                
-                menu_appointment = Class_menu_appointment()
-            
-                menu_appointment.fill_out_appointment()
             
             elif opcao == 0:
                 print("Saindo...")
