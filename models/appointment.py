@@ -5,7 +5,11 @@ from models.medico import Medico
 from models.exam import Exam
 from .medication_appoi import Medication_appoi
 from models.hypothesis import Hypothesis
+from models.fila_atendimento import Fila_atendimento, TipoAtendimento, StatusAgendamento
+from repositories.ubs_repository import Ubs_repository
+from repositories.agendamento_repository import AgendamentoRepository
 from datetime import date
+
 
 from database.conexao import connection
 con = connection()
@@ -48,6 +52,18 @@ class Appointment:
         for medication in self.medication_appoi:
             medication.details_medication()
 
+    def schedule_an_appointment(self, service_line: Fila_atendimento):
+        if service_line.tipo_atendimento != TipoAtendimento.CONSULTA:
+            raise ValueError("A linha de atendimento deve ser do tipo consulta para agendar uma consulta")
+
+        if (self.doctor.crm != service_line.doctor.crm) and (self.ubs.id_ubs != service_line.ubs.id_ubs):
+            raise ValueError("O médico da consulta deve ser o mesmo da linha de atendimento e a UBS da consulta deve ser a mesma da linha de atendimento")
+        
+        for scheduling in service_line.agendamentos:
+            if scheduling.id_agendamento == self.scheduling.id_agendamento:
+                AgendamentoRepository().atualizar_status(scheduling, StatusAgendamento.CONCLUIDO)
+                break
+
     def reg_appointment(self):
         print("\n--- Informacoes Gerais ---")
         print("UBS: ", self.ubs.name)
@@ -65,27 +81,3 @@ class Appointment:
         self.show_medication()
         print("----------------\n")
 
-    #CONSULTAS DO BANDO DE DADOS
-    def search_all(self):
-        cursor.execute(
-            "SELECT * FROM consulta WHERE crm = ?",
-            (self.doctor.crm,)
-        )
-
-        return cursor.fetchall()
-    
-    def search_per_data(self, data: date):
-        cursor.execute(
-            "SELECT * FROM consulta WHERE data = ?",
-            (data.isoformat(),)
-        )
-
-        return cursor.fetchall()
-
-    def search_per_citizen(self, sus_pacient):
-        cursor.execute(
-            "SELECT * FROM consulta WHERE sus = ?",
-            (sus_pacient,)
-        )
-
-        return cursor.fetchall()

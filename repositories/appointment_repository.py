@@ -1,3 +1,5 @@
+from datetime import date
+
 from models import *
 from repositories import *
 import sqlite3
@@ -91,7 +93,7 @@ class Appointment_repository():
 
         return self.build_object([row])[0]
     
-    def search_all(self, doctor_crm=None, id_ubs=None):
+    def search_all(self, doctor_crm=None, id_ubs=None, data = None, scheduling=None):
         con = connection()
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
@@ -110,6 +112,20 @@ class Appointment_repository():
                 query += " WHERE id_ubs = ?"
             params.append(id_ubs)
 
+        if data:
+            if doctor_crm or id_ubs:
+                query += " AND data = ?"
+            else:
+                query += " WHERE data = ?"
+            params.append(data.isoformat())
+
+        if scheduling and scheduling.cidadao and scheduling.cidadao.num_sus:
+            if doctor_crm or id_ubs or data:
+                query += " AND id_agendamento IN (SELECT id_agendamento FROM agendamento WHERE num_sus = ?)"
+            else:
+                query += " WHERE id_agendamento IN (SELECT id_agendamento FROM agendamento WHERE num_sus = ?)"
+            params.append(scheduling.cidadao.num_sus)
+
         cursor.execute(query, tuple(params))
         rows = cursor.fetchall()
 
@@ -117,7 +133,7 @@ class Appointment_repository():
 
         return self.build_object(rows)
     
-    def complete_appointment_info(self, appointment):
+    def appointment_info(self, appointment):
         con = connection()
         con.row_factory = sqlite3.Row
         cursor = con.cursor()
@@ -145,5 +161,3 @@ class Appointment_repository():
         con.close()
 
         return self.build_object(rows)[0]
-
-            

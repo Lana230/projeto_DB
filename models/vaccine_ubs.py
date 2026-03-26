@@ -1,6 +1,10 @@
+import sqlite3
+
 from models import *
 from repositories import *
-from enum import Enum
+
+from database.conexao import connection
+
 
 class Vaccine_ubs:
     def __init__(self, vaccine: Vaccine, ubs: Ubs, dose, lote, available_quan, validity):
@@ -37,7 +41,30 @@ class Vaccine_ubs:
                 if group in grupos_cidadao:
                     scheduling.prioridade_calculada += group.peso_prioridade
                     scheduling.motivo_prioridade += f"Pertence ao grupo vulnerável: {group.nome_grupo}"
+
+    def decrease_batch(self, service_line: Fila_atendimento):
+        if service_line.tipo_atendimento != TipoAtendimento.VACINA:
+            raise ValueError("A linha de atendimento deve ser do tipo vacina para diminuir o lote")
+        
+        for scheduling in service_line.agendamentos:
+            if not (scheduling.vaccine and service_line.vaccine.id_vaccine):
+                continue
+
+            vac_ubs = Vaccine_ubs_repository().search_per_vaccine_id(service_line.vaccine.id_vaccine)
+
+            if vac_ubs and vac_ubs.available_quan > 0:
+                vac_ubs.available_quan -= 1
                 
+                Vaccine_ubs_repository().update_available_quan(vac_ubs)
+                
+                scheduling.status = StatusAgendamento.CONFIRMADO
+                scheduling_repo = AgendamentoRepository()
+                scheduling_repo.atualizar_status(scheduling)
+            else:
+                raise ValueError(f"Vacina {scheduling.vaccine.name} indisponível no momento")
+        
+
+                    
     def details_vaccine(self):
         print("Vacina: ", self.name)
         print("Dose: ", self.dose)

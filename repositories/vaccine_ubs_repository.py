@@ -1,3 +1,5 @@
+import sqlite3
+
 from models import *
 from repositories import *
 
@@ -81,6 +83,42 @@ class Vaccine_ubs_repository():
             return self.build_object(rows)
 
         except Exception as e:
+            print("Erro:", e)
+        
+        finally:
+            con.close()
+
+    def search_per_ubs(self, id_ubs):
+        con = connection()
+        con.row_factory = sqlite3.Row
+        cursor = con.cursor()
+
+        cursor.execute(
+            "SELECT * FROM vacina_ubs WHERE id_ubs = ?",
+            (id_ubs,)
+        )
+        rows = cursor.fetchall()
+
+        con.close()
+
+        if rows is None:
+            return None
+
+        return self.build_object(rows) 
+    
+    def update_available_quan(self, vaccine_ubs: Vaccine_ubs):
+        con = connection()
+        cursor = con.cursor()
+
+        try:
+            cursor.execute(
+                "UPDATE vacina_ubs SET quant_disponivel = ? WHERE id_vacina_ubs = ?",
+                (vaccine_ubs.available_quan, vaccine_ubs.id_vaccine_ubs)
+            )
+            con.commit()
+
+        except Exception as e:
+            con.rollback()
             print("Erro:", e)
         
         finally:

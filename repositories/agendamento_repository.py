@@ -112,3 +112,20 @@ class AgendamentoRepository:
             return None
         
         return self.construir_objeto([row])[0]
+    
+    def atualizar_status(self, agendamento: Agendamento):
+        con = connection()
+        cursor = con.cursor()
+        
+        try:
+            cursor.execute("UPDATE agendamento SET status = ? WHERE id_agendamento = ?", 
+                            (agendamento.status.value, agendamento.id_agendamento)
+                )
+                
+            con.commit()
+            
+        except Exception as e:
+            con.rollback()
+            print("Erro:", e)
+        finally:
+            con.close()
