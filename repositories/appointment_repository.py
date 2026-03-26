@@ -1,5 +1,4 @@
-from models import Appointment
-
+from models.appointment import Appointment
 
 from .cidadao_repository import CidadaoRepository
 from .ubs_repository import Ubs_repository

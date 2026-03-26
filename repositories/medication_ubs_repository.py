@@ -1,4 +1,5 @@
-from models import Medication, Medication_ubs
+from models.medication import Medication
+from models.medication_ubs import Medication_ubs
 
 from .medication_repository import Medication_repository
 from .ubs_repository import Ubs_repository

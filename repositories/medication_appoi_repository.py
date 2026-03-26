@@ -1,7 +1,8 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Appointment, Medication_appoi
+from models.appointment import Appointment
+from models.medication_appoi import Medication_appoi
 
 from .medication_repository import Medication_repository
 from .appointment_repository import Appointment_repository

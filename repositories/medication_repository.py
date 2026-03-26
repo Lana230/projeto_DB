@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Medication
+from models.medication import Medication
 
 class Medication_repository():
     #Salvar 

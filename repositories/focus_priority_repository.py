@@ -1,4 +1,4 @@
-from models import Focus_priority
+from models.focus_priority import Focus_priority
 
 from .vaccine_repository import Vaccine_repository
 from .grupo_vulneravel_repository import Grupo_vulneravel_repository

@@ -1,4 +1,4 @@
-from models import Fila_atendimento
+from models.fila_atendimento import Fila_atendimento
 
 from database.conexao import connection
 

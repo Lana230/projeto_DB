@@ -1,7 +1,9 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Cidadao, Ubs, Grupo_vulneravel
+from models.cidadao import Cidadao
+from models.ubs import Ubs
+from models.grupo_vulneravel import Grupo_vulneravel
 
 from .pessoa_repository import PessoaRepository
 from .ubs_repository import Ubs_repository

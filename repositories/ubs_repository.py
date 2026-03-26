@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Ubs
+from models.ubs import Ubs
 
 from .address_repository import Address_repository
 

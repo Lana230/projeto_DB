@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Record_vaccine
+from models.record_vaccine import Record_vaccine
 
 from .vaccine_ubs_repository import Vaccine_ubs_repository
 from .cidadao_repository import CidadaoRepository

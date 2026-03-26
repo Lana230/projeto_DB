@@ -2,7 +2,7 @@ import sqlite3
 
 from database.conexao import connection
 
-from models import Vaccine_ubs
+from models.vaccine_ubs import Vaccine_ubs
 
 from .vaccine_repository import Vaccine_repository
 from .ubs_repository import Ubs_repository

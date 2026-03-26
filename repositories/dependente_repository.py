@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Dependente
+from models.dependente import Dependente
 
 from .pessoa_repository import PessoaRepository
 

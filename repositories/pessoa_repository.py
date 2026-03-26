@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Pessoa
+from models.pessoa import Pessoa
 
 from .ubs_repository import Ubs_repository
 

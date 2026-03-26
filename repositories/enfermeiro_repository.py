@@ -1,7 +1,8 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Enfermeiro, Ubs
+from models.enfermeiro import Enfermeiro
+from models.ubs import Ubs
 
 from .ubs_repository import Ubs_repository
 from .pessoa_repository import PessoaRepository

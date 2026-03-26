@@ -1,4 +1,4 @@
-from models import Documento, TipoDocumento
+from models.documento import Documento, TipoDocumento
 
 from database.conexao import connection
 

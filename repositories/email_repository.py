@@ -1,4 +1,4 @@
-from models import Email
+from models.email import Email
 
 from database.conexao import connection
 

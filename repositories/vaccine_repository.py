@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Vaccine
+from models.vaccine import Vaccine
 
 class Vaccine_repository():
     def save(self, vaccine: Vaccine):

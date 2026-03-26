@@ -1,7 +1,7 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Usuario, TipoUsuario
+from models.usuario import Usuario, TipoUsuario
 
 from .ubs_repository import Ubs_repository
 

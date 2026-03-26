@@ -1,7 +1,8 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Appointment, Hypothesis
+from models.appointment import Appointment
+from models.hypothesis import Hypothesis
 
 from .appointment_repository import Appointment_repository
 

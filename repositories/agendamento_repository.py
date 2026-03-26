@@ -2,8 +2,8 @@ import sqlite3
 from database.conexao import connection
 
 from models.cidadao import Cidadao
-from models.fila_atendimento import Fila_atendimento, StatusAgendamento
-from models.agendamento import Agendamento
+from models.fila_atendimento import Fila_atendimento
+from models.agendamento import Agendamento, StatusAgendamento
 
 from .cidadao_repository import CidadaoRepository
 

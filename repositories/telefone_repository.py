@@ -1,4 +1,4 @@
-from models import Telefone
+from models.telefone import Telefone
 
 from database.conexao import connection
 
