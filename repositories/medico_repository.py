@@ -1,6 +1,8 @@
 import sqlite3
-from models import Medico, Ubs
 from database.conexao import connection
+
+from models import Medico, Ubs
+
 from .ubs_repository import Ubs_repository
 from .pessoa_repository import PessoaRepository
 

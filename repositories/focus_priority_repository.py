@@ -1,5 +1,7 @@
-from models import *
-from repositories import *
+from models import Focus_priority
+
+from .vaccine_repository import Vaccine_repository
+from .grupo_vulneravel_repository import Grupo_vulneravel_repository
 
 from database.conexao import connection
 
@@ -9,12 +11,18 @@ class Focus_priority_repository():
         self.vunl_grup = Grupo_vulneravel_repository()
 
     def save(self, cursor, id_vaccine_ubs, focus_priority: Focus_priority):
+        con = connection()
+        cursor = con.cursor()
+        
         cursor.execute(
             "INSER INTO vacina_grupo(id_vacina_ubs, id_grupo) VALUES (?, ?)",
             (id_vaccine_ubs, focus_priority.type_vuln_group.id_grupo)
         )
 
         focus_priority.id_focus_pririty = cursor.lastrowid
+        
+        con.commit()
+        con.close()
 
         return focus_priority
 
@@ -22,6 +30,8 @@ class Focus_priority_repository():
         focus_prioritys = []
 
         for row in rows:
+            if row is None:
+                continue
 
             focus_pri = Focus_priority(
                 vaccine = self.vaccine_repo.search_per_id(row["id_vacina"]),
@@ -31,5 +41,3 @@ class Focus_priority_repository():
             focus_prioritys.append(focus_pri)
         
         return focus_prioritys
-    
-    

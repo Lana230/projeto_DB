@@ -1,4 +1,5 @@
 from models import Documento, TipoDocumento
+
 from database.conexao import connection
 
 class DocumentoRepository:

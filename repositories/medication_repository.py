@@ -1,9 +1,7 @@
 import sqlite3
-
-from models import *
-from repositories import *
-
 from database.conexao import connection
+
+from models import Medication
 
 class Medication_repository():
     #Salvar 
@@ -34,6 +32,8 @@ class Medication_repository():
         medications = []
 
         for row in rows:
+            if row is None:
+                continue
 
             medication = Medication(
                 name_medication = row["nome_medicamento"],
@@ -63,5 +63,3 @@ class Medication_repository():
             return None
         
         return self.build_object([row])[0]
-
-

@@ -1,9 +1,9 @@
 import sqlite3
-
-from models import *
-from repositories import *
-
 from database.conexao import connection
+
+from models import Appointment, Hypothesis
+
+from .appointment_repository import Appointment_repository
 
 class Hypothesis_repository():
     def __init__(self):
@@ -11,12 +11,18 @@ class Hypothesis_repository():
 
     #SALVAR HIPOTESES BANCO DE DADOS
     def save(self, cursor, appointment: Appointment, hypothesis: Hypothesis):
+        con = connection()
+        cursor = con.cursor()
+        
         cursor.execute(
             "INSERT INTO hipotese (id_consulta, doenca, cid) VALUE (?, ?, ?)",
             (appointment.id_appointment, hypothesis.disease, hypothesis.cid)
         )
 
         hypothesis.id_hypothesis = cursor.lastrowid
+        
+        con.commit()
+        con.close()
         
         return hypothesis
     
@@ -57,5 +63,3 @@ class Hypothesis_repository():
             return None
 
         return self.build_object([row])[0]
-    
-

@@ -1,5 +1,7 @@
-from models import *
-from repositories import *
+from models import Medication, Medication_ubs
+
+from .medication_repository import Medication_repository
+from .ubs_repository import Ubs_repository
 
 from database.conexao import connection
 
@@ -39,6 +41,8 @@ class Medication_ubs_repository():
         medication_ubs = []
 
         for row in rows:
+            if row is None:
+                continue
 
             med_ubs = Medication_ubs(
                 medication = self.medi_repo.search_per_id(row["id_medicamento"]),

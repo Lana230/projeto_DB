@@ -1,7 +1,9 @@
 import sqlite3
-from models import *
-from repositories import *
 from database.conexao import connection
+
+from models import Ubs
+
+from .address_repository import Address_repository
 
 class Ubs_repository():  
     def __init__(self):

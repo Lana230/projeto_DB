@@ -1,6 +1,8 @@
 import sqlite3
-from models import Anamnese, Cidadao
 from database.conexao import connection
+
+from models import Anamnese, Cidadao
+
 from .cidadao_repository import CidadaoRepository
 
 class AnamneseRepository():

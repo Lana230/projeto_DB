@@ -2,22 +2,15 @@
 from models.ubs import Ubs
 from models.agendamento import Agendamento
 from models.medico import Medico
-from models.exam import Exam
-from .medication_appoi import Medication_appoi
-from models.hypothesis import Hypothesis
-from models.fila_atendimento import Fila_atendimento, TipoAtendimento, StatusAgendamento
-from repositories.ubs_repository import Ubs_repository
-from repositories.agendamento_repository import AgendamentoRepository
-from datetime import date
+
+from typing import TYPE_CHECKING
 
 
-from database.conexao import connection
-con = connection()
-cursor = con.cursor()
+if TYPE_CHECKING:
+    from .exam import Exam
+    from .medication_appoi import Medication_appoi
+    from models.hypothesis import Hypothesis
 
-'''Problema de fluxo circular entre exam e appointment'''
-
-#class
 class Appointment:
     def __init__(self, scheduling: Agendamento, doctor: Medico, ubs: Ubs, date, reason, life_habits):
         self.id_appointment = None
@@ -31,21 +24,21 @@ class Appointment:
         self.exam = [] 
         self.medication_appoi = []
 
-    def add_hypothesis(self, hypothesis: Hypothesis):
+    def add_hypothesis(self, hypothesis: "Hypothesis"):
         self.hypothesis.append(hypothesis)
     
     def show_hypothesis(self):
         for hypothesis in self.hypothesis:
             hypothesis.show_hypothesis_cid()
 
-    def add_exam(self, exam: Exam):
+    def add_exam(self, exam: "Exam"):
         self.exam.append(exam)
     
     def show_exams_names(self):
         for exam in self.exam:
             print(f"- {exam.name_exam} || {exam.type}")
     
-    def add_medication(self, medication_appoi: Medication_appoi):
+    def add_medication(self, medication_appoi: "Medication_appoi"):
         self.medication_appoi.append(medication_appoi)
 
     def show_medication(self):

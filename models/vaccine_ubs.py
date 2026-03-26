@@ -1,9 +1,12 @@
-import sqlite3
+from .vaccine import Vaccine
+from .ubs import Ubs
+from .focus_priority import Focus_priority
+from .fila_atendimento import Fila_atendimento, TipoAtendimento
+from .agendamento import Agendamento, StatusAgendamento
 
-from models import *
-from repositories import *
-
-from database.conexao import connection
+from repositories.vaccine_ubs_repository import Vaccine_ubs_repository
+from repositories.cidadao_repository import CidadaoRepository
+from repositories.agendamento_repository import AgendamentoRepository
 
 
 class Vaccine_ubs:

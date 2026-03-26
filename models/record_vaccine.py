@@ -1,4 +1,7 @@
-from models import Cidadao, Vaccine, Enfermeiro, Ubs
+from models.cidadao import Cidadao
+from models.vaccine import Vaccine
+from models.enfermeiro import Enfermeiro
+from models.ubs import Ubs
 
 class Record_vaccine:
     def __init__(self, citizen: Cidadao, vaccine_ubs: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):

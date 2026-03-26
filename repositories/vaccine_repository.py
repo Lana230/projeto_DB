@@ -1,9 +1,7 @@
 import sqlite3
-
-from models import *
-from repositories import * 
-
 from database.conexao import connection
+
+from models import Vaccine
 
 class Vaccine_repository():
     def save(self, vaccine: Vaccine):
@@ -32,6 +30,8 @@ class Vaccine_repository():
         vaccines = []
 
         for row in rows:
+            if row is None:
+                continue
 
             vaccine = Vaccine(
                 type_vaccine = row["tipo"],
@@ -63,5 +63,3 @@ class Vaccine_repository():
             return None
         
         return self.build_object([row])[0]
-    
-    
