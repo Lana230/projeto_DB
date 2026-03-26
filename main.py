@@ -50,7 +50,7 @@ def criar_usuario():
         else:
             print("Opção inválida!")
     
-        ubs = ubs_repo.search_per_name(nome_ubs)
+    ubs = ubs_repo.search_per_name(nome_ubs)
 
     usuario = Usuario(ubs, nome_usuario, email, senha, tipo)
 
@@ -95,6 +95,7 @@ def menu_principal():
         
         if opcao == 1:
             iniciar()
+            break
         elif opcao == 2:
             criar_usuario()
         elif opcao == 0:
