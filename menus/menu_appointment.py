@@ -8,11 +8,11 @@ from models.exam import Exam, Exam_Type, Status_exam, Type_degree
 from models.medication_appoi import Medication_appoi, Via_medication
 
 from repositories.agendamento_repository import AgendamentoRepository
-from repositories.appointment_repository import AppointmentRepository
+from repositories.appointment_repository import Appointment_repository
 from repositories.cidadao_repository import CidadaoRepository
 from repositories.ubs_repository import Ubs_repository
 from repositories.medico_repository import MedicoRepository
-from repositories.medication_repository import medication_repository
+from repositories.medication_repository import Medication_repository
 from repositories.medication_appoi_repository import Medication_appoi_repository
 
 from datetime import datetime
@@ -37,11 +37,11 @@ def input_enum(enum_class):
 class Class_menu_appointment:
     def __init__(self):
         self.agendamento_repo = AgendamentoRepository()
-        self.appointment_repo = AppointmentRepository()
+        self.appointment_repo = Appointment_repository()
         self.cidadao_repo = CidadaoRepository()
         self.ubs_repo = Ubs_repository()
         self.doctor_repo = MedicoRepository()
-        self.medication_repo = medication_repository()
+        self.medication_repo = Medication_repository()
         self.medication_appoi_repo = Medication_appoi_repository()
 
     def fill_out_appointment(self):

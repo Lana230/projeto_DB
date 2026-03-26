@@ -1,5 +1,14 @@
-from models import Address, Ubs, Medico, Email, Telefone, Documento, TipoDocumento, Tipo
-from repositories import *
+from models.address import Address
+from models.ubs import Ubs
+from models.medico import Medico
+from models.email import Email, Tipo
+from models.telefone import Telefone
+from models.documento import Documento, TipoDocumento
+
+from repositories.address_repository import Address_repository
+from repositories.ubs_repository import Ubs_repository
+from repositories.medico_repository import MedicoRepository
+
 from menus.menu_appointment import Menu_appoi_doctor
 from datetime import date
 

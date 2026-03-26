@@ -1,5 +1,6 @@
-from models import *
-from repositories import *
+from models.usuario import Usuario, TipoUsuario
+from repositories.usuario_repository import Usuario_repository
+from repositories.ubs_repository import Ubs_repository
 
 def criar_usuario():
     usuario_repo = Usuario_repository()
@@ -10,7 +11,7 @@ def criar_usuario():
     nome_usuario = input("Nome de usuário: ")
     email = input("Email: ")
     senha = input("Senha: ")
-    nome_ubs = int(input("Nome da ubs: "))
+    nome_ubs = input("Nome da ubs: ")
     
     while True:
         print("Tipo de usuário: ")
@@ -19,8 +20,7 @@ def criar_usuario():
         print(f"3 - {TipoUsuario.ENFERMEIRO.value}")
         print(f"4 - {TipoUsuario.MEDICO.value}")
         
-        opcao = input("Escolha uma opção: ")
-        opcao = int(opcao)
+        opcao = int(input("Escolha uma opção: "))
         
         if opcao == 1:
             tipo = TipoUsuario.ADMINISTRADOR
@@ -77,8 +77,7 @@ def menu_principal():
         print("2 - Criar usuário")
         print("0 - Sair")
         
-        opcao = input("Escolha uma opção: ")
-        opcao = int(opcao)
+        opcao = int(input("Escolha uma opção: "))
         
         if opcao == 1:
             iniciar()
@@ -89,3 +88,5 @@ def menu_principal():
             break
         else:
             print("Opção inválida!")
+
+menu_principal()

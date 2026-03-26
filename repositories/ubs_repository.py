@@ -96,7 +96,7 @@ class Ubs_repository():
         cursor = con.cursor()
 
         cursor.execute(
-            "SELECT * FROM ubs WHERE nome = ?", (name,)
+            "SELECT * FROM ubs WHERE nome LIKE ?", (f"%{name}%",) 
         )
         
         row =  cursor.fetchone()
