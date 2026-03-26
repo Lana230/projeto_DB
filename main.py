@@ -101,13 +101,15 @@ def menu_principal():
         
         if opcao == 1:
             iniciar()
-            break
+        
         elif opcao == 2:
             criar_usuario()
+        
         elif opcao == 0:
             print("Saindo...")
             limpa_telinha()
             break
+        
         else:
             print("Opção inválida!")
             limpa_telinha()
