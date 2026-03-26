@@ -4,8 +4,6 @@ from models import Appointment
 from .cidadao_repository import CidadaoRepository
 from .ubs_repository import Ubs_repository
 from .medico_repository import MedicoRepository
-from .medication_appoi_repository import Medication_appoi_repository
-from .exam_repository import Exam_repository
 from .agendamento_repository import AgendamentoRepository
 
 import sqlite3
@@ -16,8 +14,6 @@ class Appointment_repository():
         self.citizen_repo = CidadaoRepository()
         self.ubs_repo = Ubs_repository()
         self.doctor_repo = MedicoRepository()
-        self.medication_appoi_repo = Medication_appoi_repository()
-        self.exam_repo = Exam_repository()
         self.agendamento_repo = AgendamentoRepository()
 
     #SALVAR CONSULTA DENTRO DO BANCO DE DADOS
@@ -164,5 +160,5 @@ class Appointment_repository():
         rows = cursor.fetchall()
 
         con.close()
-
+        
         return self.build_object(rows)[0]

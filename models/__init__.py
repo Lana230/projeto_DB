@@ -1,5 +1,3 @@
-#Centralizar todas as importações de todas as classes do projeto, para facilitar a importação em outros arquivos. Assim, ao invés de importar cada classe individualmente, podemos importar todas as classes de uma vez só, utilizando apenas "from models import *".
-
 from .address import Address
 from .agendamento import Agendamento, StatusAgendamento
 from .anamnese import Anamnese

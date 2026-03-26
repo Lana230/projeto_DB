@@ -1,7 +1,8 @@
 import sqlite3
 from database.conexao import connection
 
-from models import Anamnese, Cidadao
+from models.anamnese import Anamnese
+from models.cidadao import Cidadao
 
 from .cidadao_repository import CidadaoRepository
 

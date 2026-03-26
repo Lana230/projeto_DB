@@ -1,6 +1,7 @@
 import sqlite3
-from models import Address
 from database.conexao import connection
+
+from models.address import Address
 
 class Address_repository():
     #SALVAR ENDERECO NO BANCO DE DADOS
