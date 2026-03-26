@@ -2,9 +2,12 @@
 from models.ubs import Ubs
 from models.agendamento import Agendamento
 from models.medico import Medico
+from models.fila_atendimento import Fila_atendimento, TipoAtendimento
+from models.agendamento import Agendamento, StatusAgendamento
+
+from repositories.agendamento_repository import AgendamentoRepository
 
 from typing import TYPE_CHECKING
-
 
 if TYPE_CHECKING:
     from .exam import Exam
