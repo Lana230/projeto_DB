@@ -49,9 +49,6 @@ def criar_usuario():
         else:
             print("Opção inválida!")
     
-<<<<<<< HEAD
-    ubs = ubs_repo.search_per_name(nome_ubs)
-=======
     while True:
         nome_ubs = input("Nome da ubs: ")
         ubs = ubs_repo.search_per_name(nome_ubs)
@@ -60,7 +57,6 @@ def criar_usuario():
             print("Nome da UBS não existe")
         else:
             break
->>>>>>> 01f06d92039848260c8fee250b0455c9729a1fd3
 
     usuario = Usuario(ubs, nome_usuario, email, senha, tipo)
 
