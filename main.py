@@ -1,12 +1,23 @@
+import os
+
 from models.usuario import Usuario, TipoUsuario
 from repositories.usuario_repository import Usuario_repository
 from repositories.ubs_repository import Ubs_repository
 
 from menus.menu_sistema import menu
 
+def limpa_telinha():
+    try:
+        os.system('cls' if os.name == 'nt' else 'clear')
+    except Exception as e:
+        print("Erro:", e) 
+        print("\033c", end = "")
+
 def criar_usuario():
     usuario_repo = Usuario_repository()
     ubs_repo = Ubs_repository()
+    
+    limpa_telinha()
 
     print("\n--- CRIAR USUÁRIO ---")
 
@@ -51,6 +62,8 @@ def criar_usuario():
     
 def iniciar():
     usuario_repo = Usuario_repository()
+    
+    limpa_telinha()
 
     print("\n--- LOGIN ---")
 
@@ -86,8 +99,10 @@ def menu_principal():
             criar_usuario()
         elif opcao == 0:
             print("Saindo...")
+            limpa_telinha()
             break
         else:
             print("Opção inválida!")
+            limpa_telinha()
 
 menu_principal()

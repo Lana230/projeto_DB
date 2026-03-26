@@ -1,21 +1,32 @@
+import os
+
 from models.usuario import Usuario, TipoUsuario
 from models.pessoa import EstadoCivil
 from models.email import Tipo
 from models.cidadao import Cidadao, Genero
+from models.enfermeiro import Enfermeiro
+from models.medico import Medico
 from models.address import Address
 
 from repositories.cidadao_repository import CidadaoRepository
+from repositories.enfermeiro_repository import EnfermeiroRepository
+from repositories.medico_repository import MedicoRepository
 from repositories.ubs_repository import Ubs_repository
 from repositories.address_repository import Address_repository
 
+def limpa_telinha():
+    try:
+        os.system('cls' if os.name == 'nt' else 'clear')
+    except Exception as e:
+        print("Erro:", e) 
+        print("\033c", end = "")
 
 def cadastrar_pessoa(tipo: Tipo):
     ubs_repo = Ubs_repository()
-    cidadao_repo = CidadaoRepository()
-    address_repo = Address_repository()
+    
+    limpa_telinha()
     
     nome_pessoa = input("Digite o nome da pessoa: ")
-    nome_ubs = input("Digite o nome da UBS na qual está vinculado: ")
     
     while True:
         print(f"1 - {EstadoCivil.SOLTEIRO.value}")
@@ -44,10 +55,19 @@ def cadastrar_pessoa(tipo: Tipo):
         else:
             print("Opção inválida!")
     
+    while True:
+        nome_ubs = input("Digite o nome da UBS na qual está vinculado: ")
+        ubs = ubs_repo.search_per_name(nome_ubs)
+        
+        if ubs is None:
+            print("Nome da UBS não existe!")
+        else:
+            break
     
-    ubs = ubs_repo.search_per_name(nome_ubs)
-    
-    if tipo == TipoUsuario.CIDADAO:
+    if tipo == Tipo.CIDADAO:
+        cidadao_repo = CidadaoRepository()
+        address_repo = Address_repository()
+        
         num_sus = int(input("Digite o número do SUS: "))
         data_nascimento = input("Digite a sua data de nascimento (YYYY-MM-DD): ")
         
@@ -77,6 +97,28 @@ def cadastrar_pessoa(tipo: Tipo):
         cidadao = cidadao_repo.salvar(cidadao)
         return cidadao
 
+    elif tipo == Tipo.ENFERMEIRO:
+        enfermeiro_repo = EnfermeiroRepository()
+        
+        cip = input("Digite o seu CIP: ")
+        
+        enfermeiro = Enfermeiro(nome_pessoa, estado_civil, ubs, cip)
+        
+        enfermeiro = enfermeiro_repo.salvar(enfermeiro)
+        return enfermeiro
+
+    elif tipo == Tipo.MEDICO:
+        medico_repo = MedicoRepository()
+        
+        crm = input("Digite o seu CRM: ")
+        
+        especialidade = input("Digite a sua especialidade: ")
+        
+        medico = Medico(nome_pessoa, estado_civil, ubs, crm, especialidade)
+        
+        medico = medico_repo.salvar(medico)
+        return medico
+
 def cadastrar_endereco():
     rua = input("Digite o nome da rua: ")
     bairro = input("Digite o nome do bairro: ")
@@ -91,15 +133,20 @@ def cadastrar_endereco():
 
 def menu(user: Usuario):
     cidadao_repo = CidadaoRepository()
+    enfermeiro_repo = EnfermeiroRepository()
     ubs_repo = Ubs_repository()
+    
+    limpa_telinha()
     
     if user.tipo == TipoUsuario.ADMINISTRADOR:
         while True:
-            print("1 - Opçôes de pessoas")
+            print("1 - Opções de pessoas")
             print("0 - Deslogar")
             opcao = int(input("Escolha uma opção: "))
             
             if opcao == 1:
+                limpa_telinha()
+                
                 while True:
                     print("1 - Cidadãos")
                     print("2 - Enfermeiros")
@@ -109,11 +156,13 @@ def menu(user: Usuario):
                     opcao1 = int(input("Escolha uma opção: "))
                     
                     if opcao1 == 1:
+                        limpa_telinha()
+                        
                         while True:
                             print("1 - Listar todos por ubs")
                             print("2 - Listar por número do SUS")
                             print("3 - Listar por nome")
-                            print("4 -Cadastrar um novo cidadão")
+                            print("4 - Cadastrar um novo cidadão")
                             print("0 - Voltar")
 
                             opcao2 = int(input("Escolha uma opcao: "))
@@ -151,22 +200,72 @@ def menu(user: Usuario):
                                     for cidadao in cidadaos:
                                         cidadao.exibir()
                             elif opcao2 == 4:
-                                cidadao = cadastrar_pessoa(TipoUsuario.CIDADAO)
+                                cidadao = cadastrar_pessoa(Tipo.CIDADAO)
                                 
                                 cidadao.exibir()
                             
                             elif opcao2 == 0:
                                 print("Voltando...")
+                                limpa_telinha()
                                 break
+                    
+                    elif opcao1 == 2:
+                        limpa_telinha()
+                        
+                        while True:
+                            print("1 - Listar todos por ubs")
+                            print("2 - Listar por número do CIP")
+                            print("3 - Cadastrar um novo enfermeiro")
+                            print("0 - Voltar")
                             
+                            opcao2 = int(input("Escolha uma opcao: "))
+                            
+                            if opcao2 == 1:
+                                nome_ubs = input("Digite o nome da ubs: ")
+                                ubs = ubs_repo.search_per_name(nome_ubs)
+                                
+                                if ubs is None:
+                                    print("Nome da UBS não existe!")
+                                else:
+                                    enfermeiros = enfermeiro_repo.listar_enfermeiros_por_ubs(ubs)
+                                
+                                    for enfermeiro in enfermeiros:
+                                        enfermeiro.exibir()
+                            
+                            elif opcao2 == 2:
+                                cip = input("Digite o seu CIP: ")
+                                
+                                enfermeiro = enfermeiro_repo.buscar_por_cip(cip)
+                                
+                                if enfermeiro is None:
+                                    print("CIP informado não existe!")
+                                else:
+                                    enfermeiro.exibir()
+                            
+                            elif opcao2 == 3:
+                                enfermeiro = cadastrar_pessoa(Tipo.ENFERMEIRO)
+                                
+                                enfermeiro.exibir()
+                            elif opcao2 == 0:
+                                print("Voltando...")
+                                limpa_telinha()
+                                break
+                            else:
+                                print("Opção inválida!")
+                    
+                    elif opcao1 == 3:
+                        print()
                             
                     elif opcao1 == 0:
-                        print("Voltando ...")
+                        print("Voltando...")
+                        limpa_telinha()
                         break
                     else:
                         print("Opção inválida!")
+                        limpa_telinha()
             elif opcao == 0:
                 print("Saindo...")
+                limpa_telinha()
                 break
         
     elif user.tipo == TipoUsuario.CIDADAO:
