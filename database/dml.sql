@@ -3,25 +3,26 @@ DELETE FROM reg_vacina;
 DELETE FROM medicamento_consulta;
 DELETE FROM exame;
 DELETE FROM hipotese;
-DELETE FROM agendamento;
 DELETE FROM anamnese;
 DELETE FROM consulta;
+DELETE FROM agendamento;
 DELETE FROM fila;
 DELETE FROM cidadao_grupo;
+DELETE FROM grupo_vulneravel;
 DELETE FROM dependente;
 DELETE FROM documento;
 DELETE FROM email;
 DELETE FROM telefone;
-DELETE FROM cidadao;
-DELETE FROM medico;
-DELETE FROM enfermeiro;
 DELETE FROM medicamento_ubs;
 DELETE FROM vacina_ubs;
 DELETE FROM vacina_grupo;
 DELETE FROM medicamento;
 DELETE FROM vacina;
-DELETE FROM grupo_vulneravel;
+DELETE FROM cidadao;
+DELETE FROM medico;
+DELETE FROM enfermeiro;
 DELETE FROM pessoa;
+DELETE FROM usuario;
 DELETE FROM ubs;
 DELETE FROM endereco;
 
@@ -527,6 +528,9 @@ INSERT INTO fila (data_fila, id_ubs, tipo_atendimento, quantidade_maxima, crm) V
 ('2026-03-23', 7453626, 'consulta', 20, '1015-CE');
 
 
+
+
+
 INSERT INTO agendamento 
 (num_sus, data_solicitacao, status, hora_agendamento, posicao_atual, prioridade_calculada, motivo_prioridade, id_fila)
 VALUES
@@ -547,12 +551,15 @@ VALUES
 (9500006, '2026-04-01', 'Pendente', '09:50', 12, 5, 'Crianças', 2);
 
 
+
+
 INSERT INTO consulta (id_agendamento, crm, id_ubs, motivo, habito_vida, data)
 VALUES
 (1, '1004-CE', 1234567, 'Dor nas costas', 'Não informado', '2026-04-02'),
 (2, '1004-CE', 1234567, 'Consulta de rotina', 'Não informado', '2026-04-02'),
 (3, '1004-CE', 1234567, 'Dor de cabeça', 'Não informado', '2026-04-02'),
 (4, '1004-CE', 1234567, 'Exame preventivo', 'Não informado', '2026-04-02');
+
 
 
 
@@ -565,6 +572,8 @@ VALUES
 (4, 'Papanicolau', 'preventivo', 1, 'Solicitado'),
 (1, 'Ressonância magnética', 'imagem', 5, 'Solicitado'),
 (3, 'Exame de sangue', 'laboratorial', 3, 'Solicitado');
+
+
 
 INSERT INTO hipotese (id_hipotese, id_consulta, doenca, cid)
 VALUES
