@@ -1,6 +1,10 @@
-from models.pessoa import Pessoa
 from models.ubs import Ubs
 from enum import Enum
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  from models.pessoa import Pessoa
 
 class Tipo(Enum):
   CIDADAO = "Cidadão"
@@ -9,7 +13,7 @@ class Tipo(Enum):
   UBS = "Ubs"
 
 class Email:
-  def __init__(self, email, pessoa: Pessoa=None, ubs: Ubs=None):
+  def __init__(self, email, pessoa: "Pessoa"=None, ubs: Ubs=None):
     
     self.id_email = None
     self.email = email
@@ -17,7 +21,7 @@ class Email:
     self.ubs = ubs
   
   @classmethod
-  def criar_email(classe, email, tipo, pessoa: Pessoa=None, ubs: Ubs=None):
+  def criar_email(classe, email, tipo, pessoa: "Pessoa"=None, ubs: Ubs=None):
     if not isinstance(tipo, Tipo):
       try:
         tipo = Tipo(tipo)

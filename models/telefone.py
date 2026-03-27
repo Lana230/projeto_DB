@@ -1,7 +1,10 @@
-from models.email import Tipo, Pessoa, Ubs
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  from models.email import Tipo, Pessoa, Ubs
 
 class Telefone:
-  def __init__(self, num_telefone, pessoa: Pessoa, ubs: Ubs):
+  def __init__(self, num_telefone, pessoa: "Pessoa", ubs: "Ubs"):
     
     self.id_telefone = None
     self.num_telefone = num_telefone
@@ -9,8 +12,8 @@ class Telefone:
     self.ubs = ubs
 
   @classmethod
-  def criar_telefone(classe, num_telefone, tipo, pessoa: Pessoa, ubs: Ubs):
-    if not isinstance(tipo, Tipo):
+  def criar_telefone(classe, num_telefone, tipo, pessoa: Pessoa, ubs: "Ubs"):
+    if not isinstance(tipo, "Tipo"):
       try:
         tipo = Tipo(tipo)
       except ValueError:

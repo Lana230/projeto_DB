@@ -13,6 +13,7 @@ from repositories.enfermeiro_repository import EnfermeiroRepository
 from repositories.medico_repository import MedicoRepository
 from repositories.ubs_repository import Ubs_repository
 from repositories.address_repository import Address_repository
+from menus.menu_appointment import Class_menu_appointment
 
 def limpa_telinha():
     try:
@@ -136,6 +137,7 @@ def menu(user: Usuario):
     enfermeiro_repo = EnfermeiroRepository()
     medico_repo = MedicoRepository()
     ubs_repo = Ubs_repository()
+    menu_appointment = Class_menu_appointment()
     
     limpa_telinha()
     
@@ -312,8 +314,51 @@ def menu(user: Usuario):
                 break
         
     elif user.tipo == TipoUsuario.CIDADAO:
-        print()
+        while True:
+            print("\n===== MENU CIDADÃO =====")
+            print("1 - Minhas Consultas")
+            print("0 - Deslogar")
+            opcao = int(input("Escolha uma opção: "))
+
+            if opcao == 1:
+                menu_appointment.menu_appoi_citizen(user)
+            elif opcao == 0:
+                print("Deslogando...")
+                limpa_telinha()
+                break
+            else:
+                print("Opção inválida!")
+                limpa_telinha()
     elif user.tipo == TipoUsuario.ENFERMEIRO:
-        print()
+        while True:
+            print("\n===== MENU ENFERMEIRO =====")
+            print("1 - Gerenciar Agendamentos")
+            print("0 - Deslogar")
+            opcao = int(input("Escolha uma opção: "))
+
+            if opcao == 1:
+                # TODO: Implementar a lógica para gerenciar agendamentos do enfermeiro
+                print("Funcionalidade de gerenciar agendamentos para enfermeiros ainda não implementada.")
+            elif opcao == 0:
+                print("Deslogando...")
+                limpa_telinha()
+                break
+            else:
+                print("Opção inválida!")
+                limpa_telinha()
     elif user.tipo == TipoUsuario.MEDICO:
-        print()
+        while True:
+            print("\n===== MENU MÉDICO =====")
+            print("1 - Gerenciar Consultas")
+            print("0 - Deslogar")
+            opcao = int(input("Escolha uma opção: "))
+
+            if opcao == 1:
+                menu_appointment.Menu_appoi_doctor(user)
+            elif opcao == 0:
+                print("Deslogando...")
+                limpa_telinha()
+                break
+            else:
+                print("Opção inválida!")
+                limpa_telinha()

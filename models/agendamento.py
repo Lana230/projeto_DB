@@ -42,7 +42,7 @@ class Agendamento:
         print("---------------------\n")
     
     @classmethod
-    def calcular_prioridade(cidadao: Cidadao):
+    def calcular_prioridade(cls, cidadao: Cidadao):
         grupos_vulneraveis = cidadao.grupos
         
         if not grupos_vulneraveis:

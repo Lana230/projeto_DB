@@ -2,6 +2,12 @@ from models.ubs import Ubs
 from models.documento import Documento
 from enum import Enum
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+  from models.email import Email
+  from models.telefone import Telefone
+
 class EstadoCivil(Enum):
   SOLTEIRO = "Solteiro(a)"
   CASADO = "Casado(a)"
@@ -20,24 +26,22 @@ class Pessoa:
     self.estado_civil = estado_civil if isinstance(estado_civil, EstadoCivil) else EstadoCivil(estado_civil)
     self.ubs = ubs
     
-  #O que é passado para este método não é um objeto do tipo Email -> (String)
-  def adicionar_email(self, email):
+  def adicionar_email(self, email: "Email"):
     self.emails.append(email)
   
   def exibir_emails(self):
     print("--- Emails ---")
     for email in self.emails:
-      print(f"Email: {email}")
+      print(f"Email: {email.email}")
     print("---------------")
 
-  #O que é passado para este método não é um objeto do tipo Telefone -> (String)
-  def adicionar_telefone(self, telefone):
+  def adicionar_telefone(self, telefone: "Telefone"):
     self.telefones.append(telefone)
 
   def exibir_telefones(self):
     print("--- Telefones ---")
     for telefone in self.telefones:
-      print(f"Telefone: {telefone}")
+      print(f"Telefone: {telefone.num_telefone}")
     print("----------------")
     
   def adicionar_documento(self, documento: Documento):

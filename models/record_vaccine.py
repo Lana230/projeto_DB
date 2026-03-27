@@ -4,10 +4,10 @@ from models.enfermeiro import Enfermeiro
 from models.ubs import Ubs
 
 class Record_vaccine:
-    def __init__(self, citizen: Cidadao, vaccine_ubs: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
+    def __init__(self, citizen: Cidadao, vaccine: Vaccine, enfermeiro: Enfermeiro, ubs: Ubs, data):
         self.id_vaccine_record = None
         self.citizen = citizen 
-        self.vaccine_ubs = vaccine_ubs
+        self.vaccine = vaccine
         self.nurse = enfermeiro
         self.ubs = ubs
         self.data = data
