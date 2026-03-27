@@ -527,116 +527,51 @@ INSERT INTO fila (data_fila, id_ubs, tipo_atendimento, quantidade_maxima, crm) V
 ('2026-03-23', 7453626, 'consulta', 20, '1015-CE');
 
 
-
-
--- Depende de cidadao + medico + ubs
-INSERT INTO consulta (num_sus, crm, id_ubs, motivo, habito_vida, data) 
+INSERT INTO agendamento 
+(num_sus, data_solicitacao, status, hora_agendamento, posicao_atual, prioridade_calculada, motivo_prioridade, id_fila)
 VALUES
--- UBS Romeirão
-(9000001, '1004-CE', 1234567, 'Dor nas costas', 'Sedentário', '2026-03-10'),
-(9000002, '1001-CE', 1234567, 'Consulta de rotina', 'Ativa', '2026-03-11'),
-(9000003, '1004-CE', 1234567, 'Dor de cabeça', 'Sono irregular', '2026-03-12'),
-(9000004, '1001-CE', 1234567, 'Exame preventivo', 'Ativa', '2026-03-13'),
+-- Recém-Nascidos
+(9700006, '2026-04-01', 'Pendente', '08:00', 1, 5, 'Recem-Nascidos', 2),
+(9500001, '2026-04-01', 'Pendente', '08:10', 2, 5, 'Recem-Nascidos', 2),
+(9500002, '2026-04-01', 'Pendente', '08:20', 3, 5, 'Recem-Nascidos', 2),
 
--- crianças / recém-nascidos
-(9500001, '1002-CE', 1234567, 'Primeira consulta', 'Recém-nascido', '2026-03-02'),
-(9500003, '1002-CE', 1234567, 'Acompanhamento escolar', 'Ativa', '2026-03-05'),
+-- Crianças
+(9700004, '2026-04-01', 'Pendente', '08:30', 4, 5, 'Crianças', 2),
+(9700001, '2026-04-01', 'Pendente', '08:40', 5, 5, 'Crianças', 2),
+(9700002, '2026-04-01', 'Pendente', '08:50', 6, 5, 'Crianças', 2),
+(9700003, '2026-04-01', 'Pendente', '09:00', 7, 5, 'Crianças', 2),
+(9700005, '2026-04-01', 'Pendente', '09:10', 8, 5, 'Crianças', 2),
+(9500003, '2026-04-01', 'Pendente', '09:20', 9, 5, 'Crianças', 2),
+(9500004, '2026-04-01', 'Pendente', '09:30', 10, 5, 'Crianças', 2),
+(9500005, '2026-04-01', 'Pendente', '09:40', 11, 5, 'Crianças', 2),
+(9500006, '2026-04-01', 'Pendente', '09:50', 12, 5, 'Crianças', 2);
 
--- UBS Barbalha
-(9000005, '1010-CE', 2749826, 'Pressão alta', 'Sedentário', '2026-03-10'),
-(9000006, '1005-CE', 2749826, 'Consulta ginecológica', 'Ativa', '2026-03-11'),
-(9000007, '1006-CE', 2749826, 'Ansiedade', 'Estressada', '2026-03-12'),
-(9000008, '1006-CE', 2749826, 'Dor abdominal', 'Alimentação irregular', '2026-03-13'),
 
--- crianças
-(9700001, '1007-CE', 2749826, 'Febre', 'Ativo', '2026-03-09'),
-(9700002, '1007-CE', 2749826, 'Vacinação', 'Saudável', '2026-03-08'),
-
--- UBS Centro Juazeiro
-(9000009, '1011-CE', 7654321, 'Dor no peito', 'Tabagista', '2026-03-10'),
-(9000010, '1009-CE', 7654321, 'Consulta de rotina', 'Ativa', '2026-03-11'),
-(9000011, '1012-CE', 7654321, 'Estresse', 'Sedentária', '2026-03-12'),
-(9000012, '1012-CE', 7654321, 'Gripe', 'Ativo', '2026-03-13'),
-
--- UBS Triângulo
-(9000014, '1014-CE', 8765432, 'Consulta ginecológica', 'Ativa', '2026-03-10'),
-(9000015, '1015-CE', 8765432, 'Dor muscular', 'Trabalho pesado', '2026-03-11'),
-(9000016, '1016-CE', 8765432, 'Dor de garganta', 'Ativa', '2026-03-12'),
-(9000017, '1016-CE', 8765432, 'Cansaço', 'Sedentário', '2026-03-13'),
-
--- UBS Crato
-(9000019, '1019-CE', 7453626, 'Dor na coluna', 'Trabalho rural', '2026-03-10'),
-(9000020, '1017-CE', 7453626, 'Consulta ginecológica', 'Ativa', '2026-03-11'),
-(9000021, '1019-CE', 7453626, 'Pressão alta', 'Sedentário', '2026-03-12'),
-(9000022, '1017-CE', 7453626, 'Exame preventivo', 'Ativa', '2026-03-13');
-
+INSERT INTO consulta (id_agendamento, crm, id_ubs, motivo, habito_vida, data)
+VALUES
+(1, '1004-CE', 1234567, 'Dor nas costas', 'Não informado', '2026-04-02'),
+(2, '1004-CE', 1234567, 'Consulta de rotina', 'Não informado', '2026-04-02'),
+(3, '1004-CE', 1234567, 'Dor de cabeça', 'Não informado', '2026-04-02'),
+(4, '1004-CE', 1234567, 'Exame preventivo', 'Não informado', '2026-04-02');
 
 
 
 -- Depende de consulta
-INSERT INTO exame (id_consulta, nome, tipo, grau_urgencia, status) VALUES
+INSERT INTO exame (id_consulta, nome, tipo, grau_urgencia, status)
+VALUES
+(1, 'Raio-X de coluna', 'imagem', 3, 'Solicitado'),
+(2, 'Hemograma completo', 'laboratorial', 2, 'Solicitado'),
+(3, 'Tomografia craniana', 'imagem', 4, 'Solicitado'),
+(4, 'Papanicolau', 'preventivo', 1, 'Solicitado'),
+(1, 'Ressonância magnética', 'imagem', 5, 'Solicitado'),
+(3, 'Exame de sangue', 'laboratorial', 3, 'Solicitado');
 
-(1, 'Raio-X Coluna', 'Exames de imagem', 'Média', 'Solicitado'),
-(2, 'Hemograma Completo', 'Exames laboratoriais', 'Baixa', 'Realizado'),
-(3, 'Tomografia Craniana', 'Exames de imagem', 'Alta', 'Solicitado'),
-(4, 'Papanicolau', 'Exames preventivos', 'Baixa', 'Realizado'),
-
-(5, 'Teste do Pezinho', 'Exames laboratoriais', 'Alta', 'Realizado'),
-(6, 'Avaliação Auditiva', 'Exames laboratoriais', 'Média', 'Solicitado'),
-
-(7, 'Eletrocardiograma', 'Exames cardiológicos', 'Alta', 'Solicitado'),
-(8, 'Ultrassom Pélvico', 'Exames de imagem', 'Média', 'Realizado'),
-(9, 'Avaliação Psicológica', 'Exames laboratoriais', 'Média', 'Solicitado'),
-(10, 'Ultrassom Abdominal', 'Exames de imagem', 'Alta', 'Solicitado'),
-
-(11, 'Hemograma Infantil', 'Exames laboratoriais', 'Média', 'Realizado'),
-(12, 'Carteira de Vacinação', 'Exames preventivos', 'Baixa', 'Realizado'),
-
-(13, 'Eletrocardiograma', 'Exames cardiológicos', 'Alta', 'Solicitado'),
-(14, 'Check-up Geral', 'Exames preventivos', 'Baixa', 'Realizado'),
-(15, 'Teste de Estresse', 'Exames cardiológicos', 'Média', 'Solicitado'),
-(16, 'Teste de Influenza', 'Exames laboratoriais', 'Média', 'Realizado'),
-
-(18, 'Ultrassom Pélvico', 'Exames de imagem', 'Média', 'Solicitado'),
-(19, 'Raio-X Músculo', 'Exames de imagem', 'Média', 'Realizado'),
-(20, 'Exame de Garganta', 'Exames laboratoriais', 'Baixa', 'Solicitado'),
-(21, 'Exame de Fadiga', 'Exames laboratoriais', 'Média', 'Solicitado'),
-
-(23, 'Raio-X Coluna', 'Exames de imagem', 'Alta', 'Solicitado'),
-(24, 'Papanicolau', 'Exames preventivos', 'Baixa', 'Realizado');
-
-
-INSERT INTO hipotese (id_consulta, doenca, cid) VALUES
-
-(1, 'Lombalgia', 'M54.5'),
-(2, 'Consulta de rotina', 'Z00.0'),
-(3, 'Cefaleia', 'R51'),
-(4, 'Exame preventivo', 'Z01.4'),
-
-(5, 'Acompanhamento neonatal', 'Z00.1'),
-(6, 'Avaliação escolar', 'Z55.9'),
-
-(7, 'Hipertensão essencial', 'I10'),
-(8, 'Consulta ginecológica', 'Z01.4'),
-(9, 'Transtorno de ansiedade', 'F41.9'),
-(10, 'Dor abdominal', 'R10.4'),
-
-(11, 'Febre não especificada', 'R50.9'),
-(12, 'Imunização', 'Z23'),
-
-(13, 'Dor torácica', 'R07.4'),
-(14, 'Consulta geral', 'Z00.0'),
-(15, 'Estresse', 'F43.9'),
-(16, 'Gripe', 'J11'),
-
-(18, 'Consulta ginecológica', 'Z01.4'),
-(19, 'Dor muscular', 'M79.1'),
-(20, 'Faringite', 'J02.9'),
-(21, 'Fadiga', 'R53'),
-
-(23, 'Dor lombar', 'M54.5'),
-(24, 'Exame preventivo', 'Z01.4');
-
+INSERT INTO hipotese (id_hipotese, id_consulta, doenca, cid)
+VALUES
+(1, 1, 'Hipertensão', 'I10'),
+(2, 2, 'Consulta de rotina', 'Z00'),
+(3, 3, 'Cefaleia', 'R51'),
+(4, 4, 'Infecção respiratória', 'J06');
 
 
 
@@ -652,23 +587,20 @@ INSERT INTO medicamento (nome_medicamento) VALUES
 
 
 -- Depende de medicamento + consulta
-INSERT INTO medicamento_consulta (id_medicamento, id_consulta, frequencia, duracao, dose, via) 
+INSERT INTO medicamento_consulta 
+(id_medicamento, id_consulta, frequencia, duracao, dose, via)
 VALUES
+-- Consulta 1
+(1, 1, 8, 5, 500, 'oral'),   
+(2, 1, 12, 3, 400, 'oral'),  
 
-(2, 1, 3, 7, 400, 'Oral'),
-(5, 2, 1, 30, 50, 'Oral'),
-(1, 3, 3, 5, 500, 'Oral'),
-(3, 5, 2, 3, 10, 'Oral'),
-(5, 7, 1, 60, 50, 'Oral'),
-(1, 9, 2, 10, 500, 'Oral'),
-(3, 10, 3, 5, 20, 'Oral'),
-(3, 11, 3, 3, 15, 'Oral'),
-(2, 13, 2, 7, 400, 'Oral'),
-(1, 15, 2, 10, 500, 'Oral'),
-(1, 16, 3, 5, 500, 'Oral'),
-(2, 18, 3, 7, 400, 'Oral'),
-(4, 19, 2, 7, 500, 'Oral'),
-(5, 23, 1, 90, 50, 'Oral');
+-- Consulta 2
+(5, 2, 24, 30, 50, 'oral'),  
+
+-- Consulta 3
+(3, 3, 6, 3, 500, 'oral'),   
+-- Consulta 4
+(4, 4, 8, 7, 500, 'oral');   
 
 
 
