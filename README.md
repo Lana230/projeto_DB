@@ -58,11 +58,12 @@ O projeto segue uma arquitetura modular, com as seguintes pastas principais:
 
 2.  **Crie o banco de dados:**
 
-    O script `ddl.sql` na pasta `database/` contém a definição do esquema do banco de dados. Você pode executá-lo manualmente ou usar um script Python para criar o banco de dados. Certifique-se de que o arquivo `database.db` seja criado na raiz do projeto ou que o caminho no `conexao.py` esteja correto.
+   O script `ddl.sql` na pasta `database/` contém a definição do esquema do banco de dados. Você pode executá-lo manualmente ou usar um script Python para criar o banco de dados. Certifique-se de que o arquivo `ubs_teste.db` seja criado na pasta de `database/` ou que o caminho no `conexao.py` esteja correto.
 
     ```bash
-    sqlite3 database.db < database/ddl.sql
+    sqlite3 ubs_teste.db < database/ddl.sql
     ```
+**Observação: caso o `ubs_teste.db` não esteja presente na pasta `database/`.**
 
 ### Execução
 
